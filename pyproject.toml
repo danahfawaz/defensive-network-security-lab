@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ciscoaudit"
+version = "0.1.0"
+description = "Cisco IOS configuration security auditor and offline ACL policy validator for the Enterprise Network Security & Configuration Auditing Lab"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+keywords = ["cisco", "ios", "network-security", "configuration-audit", "acl", "packet-tracer"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: System :: Networking",
+    "Topic :: Security",
+    "Intended Audience :: Education",
+]
+# The auditor itself is standard-library only. PyYAML is used by the policy
+# validator (scenario files) and by the optional waivers file.
+dependencies = ["PyYAML>=6.0"]
+
+[project.scripts]
+ciscoaudit = "ciscoaudit.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

@@ -1,0 +1,41 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+build/
+dist/
+.pytest_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# --- Local, never-commit material ---
+# Rendered, ready-to-paste configs contain the lab passwords you chose.
+/build/
+lab-secrets.local.json
+*.local.json
+*.local.yaml
+.env
+private/
+
+# --- Packet Tracer files ---
+# .pkt/.pka/.pkz files embed local data (recent-file paths that include the Windows
+# user name, and the CLI command history). Inspect/sanitise before publishing and
+# force-add (git add -f) only deliberately.
+*.pkt
+*.pka
+*.pkz
+
+# --- University / personal documents ---
+*.docx
+*.doc
+*.pdf
+*.pptx
+
+# --- OS / editor noise ---
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
