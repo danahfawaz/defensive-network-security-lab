@@ -15,3 +15,40 @@ ORIGINAL_LAB = ROOT / "configs" / "original-lab"
 def cfg(text: str, name: str = "test") -> DeviceConfig:
     """Parse an inline configuration (dedented) for a test."""
     return parse_config(textwrap.dedent(text).lstrip("\n"), path=f"<{name}>", name=name)
+
+
+# --------------------------------------------------------------------------
+# Rule-test helpers
+# --------------------------------------------------------------------------
+import unittest  # noqa: E402
+
+from ciscoaudit.audit import audit_configs, select_rules  # noqa: E402
+from ciscoaudit.model import Finding  # noqa: E402
+
+
+def router(body: str, name: str = "dut") -> DeviceConfig:
+    """A configuration the parser classifies as a router (model hint in the header)."""
+    return cfg("! Cisco 1841, IOS 12.4\n" + textwrap.dedent(body), name)
+
+
+def switch(body: str, name: str = "dut") -> DeviceConfig:
+    """A configuration the parser classifies as a switch."""
+    return cfg("! Cisco 2960-24TT, IOS 15.0\n" + textwrap.dedent(body), name)
+
+
+def run_rule(rule_id: str, config: DeviceConfig) -> list[Finding]:
+    return audit_configs([config], rules=select_rules([rule_id]), strict=True).findings
+
+
+class RuleCase(unittest.TestCase):
+    """Base class: ``fires`` / ``quiet`` assertions for one rule on one configuration."""
+
+    def fires(self, rule_id: str, config: DeviceConfig, count: int = 1) -> list[Finding]:
+        found = run_rule(rule_id, config)
+        self.assertEqual(len(found), count, f"{rule_id} should produce {count} finding(s), got "
+                         f"{[(f.obj, f.detail) for f in found]}")
+        return found
+
+    def quiet(self, rule_id: str, config: DeviceConfig) -> None:
+        found = run_rule(rule_id, config)
+        self.assertEqual(found, [], f"{rule_id} should be silent, got {[(f.obj, f.detail) for f in found]}")

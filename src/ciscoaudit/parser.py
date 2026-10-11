@@ -24,7 +24,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Iterator
 
-from .model import Evidence
+from .model import Evidence, redact
 
 
 class ConfigError(Exception):
@@ -67,7 +67,7 @@ class ConfigLine:
         return self.parent.text if self.parent is not None else None
 
     def evidence(self) -> Evidence:
-        return Evidence(self.no, self.text, self.context)
+        return Evidence(self.no, redact(self.text, self.context), redact(self.context) if self.context else None)
 
     # -- children ------------------------------------------------------------
     def children_starting(self, *prefix: str) -> list["ConfigLine"]:

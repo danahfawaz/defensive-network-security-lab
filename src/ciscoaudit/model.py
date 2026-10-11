@@ -41,7 +41,7 @@ class Evidence:
     context: str | None = None  # the parent command, e.g. "line vty 0 4"
 
     def to_dict(self) -> dict[str, Any]:
-        data: dict[str, Any] = {"line": self.line, "text": redact(self.text)}
+        data: dict[str, Any] = {"line": self.line, "text": redact(self.text, self.context)}
         if self.context:
             data["context"] = redact(self.context)
         return data
@@ -97,35 +97,50 @@ class Finding:
 # --------------------------------------------------------------------------
 # Secret redaction. Reports are meant to be committed and shared, so a finding
 # must never echo a password, a hash, a key or a non-default SNMP community.
+# Evidence is redacted when it is created (ConfigLine.evidence), not only when a
+# report is written, so no output format can forget to do it.
 # --------------------------------------------------------------------------
 _REDACTED = "<redacted>"
 _WELL_KNOWN_SNMP = {"public", "private"}
+_TYPE = r"(?:\d\s+)?"  # optional single-digit encryption type
 
 _SECRET_RES = [
-    # enable password/secret [level N] [type] VALUE, line "password [type] VALUE", username ... secret/password [type] VALUE
+    # enable password|secret [level N] [type] VALUE ; "password [type] VALUE" ; "secret [type] VALUE"
     re.compile(
-        r"(?P<pre>\b(?:enable\s+(?:password|secret)(?:\s+level\s+\d+)?|password|secret)\s+(?:\d\s+)?)(?P<val>\S+)",
+        r"(?P<pre>\b(?:enable\s+(?:password|secret)(?:\s+level\s+\d+)?|password|secret)\s+" + _TYPE + r")(?P<val>\S+)",
         re.IGNORECASE,
     ),
-    re.compile(r"(?P<pre>\bmessage-digest-key\s+\d+\s+md5\s+(?:\d\s+)?)(?P<val>\S+)", re.IGNORECASE),
-    re.compile(r"(?P<pre>\bauthentication-key\s+(?:\d\s+)?)(?P<val>\S+)", re.IGNORECASE),
-    re.compile(r"(?P<pre>\bkey-string\s+(?:\d\s+)?)(?P<val>\S+)", re.IGNORECASE),
+    re.compile(r"(?P<pre>\bmessage-digest-key\s+\d+\s+md5\s+" + _TYPE + r")(?P<val>\S+)", re.IGNORECASE),
+    re.compile(r"(?P<pre>\bntp\s+authentication-key\s+\d+\s+md5\s+" + _TYPE + r")(?P<val>\S+)", re.IGNORECASE),
+    re.compile(r"(?P<pre>\b(?<!ntp )authentication-key\s+" + _TYPE + r")(?P<val>\S+)", re.IGNORECASE),
+    re.compile(r"(?P<pre>\bkey-string\s+" + _TYPE + r")(?P<val>\S+)", re.IGNORECASE),
+    re.compile(r"(?P<pre>\b(?:tacacs|radius)-server\s+(?:host\s+\S+\s+)?key\s+" + _TYPE + r")(?P<val>\S+)", re.IGNORECASE),
+    re.compile(r"(?P<pre>\bcrypto\s+isakmp\s+key\s+" + _TYPE + r")(?P<val>\S+)", re.IGNORECASE),
+    re.compile(r"(?P<pre>\bpre-shared-key\s+(?:local\s+|remote\s+)?" + _TYPE + r")(?P<val>\S+)", re.IGNORECASE),
     re.compile(
-        r"(?P<pre>\b(?:tacacs|radius)-server\s+(?:host\s+\S+\s+)?key\s+(?:\d\s+)?)(?P<val>\S+)",
+        r"(?P<pre>\bsnmp-server\s+host\s+\S+\s+(?:(?:informs|traps)\s+)?(?:version\s+\S+\s+)?)(?P<val>\S+)",
         re.IGNORECASE,
     ),
 ]
 _SNMP_RE = re.compile(r"(?P<pre>\bsnmp-server\s+community\s+)(?P<val>\S+)", re.IGNORECASE)
+_BLOCK_KEY_RE = re.compile(r"^(?P<pre>key\s+" + _TYPE + r")(?P<val>(?!\d+$)\S+)", re.IGNORECASE)
+_KEY_BLOCKS = ("radius server", "tacacs server", "aaa group server")
 
 
-def redact(text: str) -> str:
-    """Return ``text`` with credential values replaced by ``<redacted>``."""
+def redact(text: str, context: str | None = None) -> str:
+    """Return ``text`` with credential values replaced by ``<redacted>``.
+
+    ``context`` is the parent command (``radius server X``), needed for bare ``key``
+    lines whose meaning depends on the block they sit in.
+    """
 
     def _mask(match: "re.Match[str]") -> str:
         return match.group("pre") + _REDACTED
 
     for pattern in _SECRET_RES:
         text = pattern.sub(_mask, text)
+    if context and context.lower().startswith(_KEY_BLOCKS):
+        text = _BLOCK_KEY_RE.sub(_mask, text)
 
     def _snmp(match: "re.Match[str]") -> str:
         value = match.group("val")
