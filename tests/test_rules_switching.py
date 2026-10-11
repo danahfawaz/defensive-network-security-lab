@@ -91,3 +91,32 @@ class Layer2(RuleCase):
         self.fires("L2-010", switch("vtp mode client\n"))
         self.quiet("L2-010", switch("vtp mode transparent\n"))
         self.quiet("L2-010", switch("vtp mode off\n"))
+
+    # -- DHCP snooping / Dynamic ARP Inspection -------------------------------------------------
+    def test_l2_011_dhcp_snooping(self):
+        self.fires("L2-011", switch("hostname S1\n"))
+        self.fires("L2-011", switch("no ip dhcp snooping\n"))
+        self.fires("L2-011", switch("ip dhcp snooping\n"))  # enabled, but for no VLAN: inspects nothing
+        self.quiet("L2-011", switch("ip dhcp snooping\nip dhcp snooping vlan 10,30-32\n"))
+
+    def test_l2_011_option82_command_does_not_disable_snooping(self):
+        # 'no ip dhcp snooping information option' starts with the words of 'ip dhcp snooping' but is a different command
+        self.quiet("L2-011", switch("ip dhcp snooping\nip dhcp snooping vlan 30\nno ip dhcp snooping information option\n"))
+
+    def test_l2_011_not_applied_to_routers(self):
+        self.quiet("L2-011", router("hostname R1\n"))
+
+    def test_l2_012_arp_inspection(self):
+        self.fires("L2-012", switch("hostname S1\n"))
+        self.quiet("L2-012", switch("ip dhcp snooping vlan 30\nip arp inspection vlan 30\n"))
+        self.quiet("L2-012", switch("ip dhcp snooping vlan 10-40\nip arp inspection vlan 10,30\n"))
+
+    def test_l2_012_inspection_without_bindings_is_flagged_low(self):
+        (f,) = self.fires("L2-012", switch("ip dhcp snooping vlan 30\nip arp inspection vlan 30,99\n"))
+        self.assertEqual(f.severity.label, "low")
+        self.assertIn("99", f.detail)
+        self.quiet("L2-012", switch("ip dhcp snooping vlan 30\nip arp inspection vlan 30,99\n"
+                                    "ip arp inspection filter STATIC-HOSTS vlan 99\n"))
+
+    def test_l2_012_logging_keyword_is_not_a_vlan(self):
+        self.quiet("L2-012", switch("ip dhcp snooping vlan 30\nip arp inspection vlan 30 logging acl-match matchlog\n"))

@@ -28,8 +28,8 @@ class AuditCommand(unittest.TestCase):
     def test_text_report_and_exit_codes(self):
         code, out, _ = run_cli("audit", str(ORIGINAL_LAB))
         self.assertEqual(code, EXIT_OK)
-        self.assertIn("7 device(s), 50 rules", out)
-        self.assertIn("open: 0 critical, 18 high, 59 medium, 67 low, 0 info", out)
+        self.assertIn("7 device(s), 52 rules", out)
+        self.assertIn("open: 0 critical, 18 high, 65 medium, 67 low, 0 info", out)
 
     def test_fail_on_threshold(self):
         self.assertEqual(run_cli("audit", str(ORIGINAL_LAB), "--fail-on", "high")[0], EXIT_FINDINGS)
@@ -98,7 +98,7 @@ class CompareAndRules(unittest.TestCase):
         self.assertEqual(code, EXIT_OK)
         self.assertIn("MGMT-001", out)
         code, out, _ = run_cli("rules", "-f", "json", "--category", "layer 2")
-        self.assertEqual({r["id"] for r in json.loads(out)}, {f"L2-{n:03d}" for n in range(1, 11)})
+        self.assertEqual({r["id"] for r in json.loads(out)}, {f"L2-{n:03d}" for n in range(1, 13)})
         self.assertEqual(run_cli("rules", "--category", "nonsense")[0], EXIT_ERROR)
 
     def test_python_dash_m_entry_point(self):

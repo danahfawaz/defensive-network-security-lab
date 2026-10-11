@@ -163,8 +163,23 @@ class Compare(unittest.TestCase):
     def test_without_mapping_renamed_devices_do_not_match(self):
         before, after = self.reports()
         diff = comparison.compare(before, after)
-        self.assertEqual(diff["summary"]["resolved"], 2)  # A-1 and A-2 "disappeared" with R1
+        # A-1 and A-2 disappeared together with R1. That is not remediation: they are reported as "left scope".
+        self.assertEqual((diff["summary"]["resolved"], diff["summary"]["left_scope"]), (0, 2))
         self.assertEqual(diff["unmatched_before"], ["R1"])
+        row = next(d for d in diff["devices"] if d["before"] == "R1")
+        self.assertEqual((row["after"], row["open_after"]), (None, None))
+        self.assertIn("not in the new audit scope", comparison.to_markdown(diff))
+        self.assertIn("left scope 2", comparison.to_text(diff))
+
+    def test_findings_on_devices_without_a_counterpart_are_not_remediation(self):
+        before = {"schema_version": "1.0", "devices": [{"name": "R1"}, {"name": "R2"}],
+                  "findings": [finding("A-1", "R1"), finding("A-1", "R2"), finding("A-2", "R2")]}
+        after = {"schema_version": "1.0", "devices": [{"name": "R1"}], "findings": []}
+        diff = comparison.compare(before, after)
+        s = diff["summary"]
+        self.assertEqual((s["resolved"], s["left_scope"], s["persisting"], s["accepted_risk"]), (1, 2, 0, 0))
+        self.assertEqual(s["resolved"] + s["left_scope"] + s["persisting"] + s["accepted_risk"],
+                         sum(s["open_before"].values()))
 
     def test_waiving_is_never_counted_as_resolving(self):
         before = {"schema_version": "1.0", "devices": [{"name": "R1"}], "findings": [finding("A-1", "R1")]}

@@ -34,7 +34,7 @@ class RuleSelection(unittest.TestCase):
         self.assertEqual([r.id for r in select_rules(["auth-*"])], ["AUTH-001", "AUTH-002", "AUTH-003", "AUTH-004"])
         chosen = select_rules(["L2-*"], ["L2-010", "l2-009"])
         self.assertNotIn("L2-010", [r.id for r in chosen])
-        self.assertEqual(len(chosen), 8)
+        self.assertEqual(len(chosen), 10)
         self.assertEqual(len(select_rules(None, ["AUTH-*"])), len(all_rules()) - 4)
 
     def test_unknown_pattern_is_an_error_not_a_silent_no_op(self):
@@ -185,7 +185,7 @@ class Golden(unittest.TestCase):
         result = audit_files([ORIGINAL_LAB], strict=True)
         self.assertEqual(len(result.devices), 7)
         self.assertEqual(result.warnings, [])
-        self.assertEqual(result.count_by_severity(), {"critical": 0, "high": 18, "medium": 59, "low": 67, "info": 0})
+        self.assertEqual(result.count_by_severity(), {"critical": 0, "high": 18, "medium": 65, "low": 67, "info": 0})
         high = sorted({(f.device, f.rule_id) for f in result.findings if f.severity == Severity.HIGH})
         self.assertEqual(len(high), 18)
         self.assertEqual({rule for _d, rule in high}, {"CRED-001", "MGMT-001", "RTE-001"})

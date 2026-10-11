@@ -310,3 +310,108 @@ def vtp_not_transparent(cfg: DeviceConfig):
         if line.words[2:3] in (("transparent",), ("off",)):
             return
     yield Hit(obj="global", detail="No 'vtp mode transparent' or 'vtp mode off' (the default is server mode).")
+
+
+# ---------------------------------------------------------------------------
+# DHCP snooping and Dynamic ARP Inspection
+# ---------------------------------------------------------------------------
+
+
+def _vlan_ids(text: str) -> set[int]:
+    """``'10,20,30-32'`` -> ``{10, 20, 30, 31, 32}``; anything unparsable is ignored."""
+    ids: set[int] = set()
+    for part in text.replace(" ", ",").split(","):
+        lo, dash, hi = part.strip().partition("-")
+        if lo.isdigit() and (not dash or hi.isdigit()):
+            first, last = int(lo), int(hi) if dash else int(lo)
+            if first <= last <= 4094:
+                ids.update(range(first, last + 1))
+    return ids
+
+
+def _global_exact(cfg: DeviceConfig, *words: str) -> tuple[bool | None, ConfigLine | None]:
+    """State of the global command that is exactly ``words`` (no sub-keywords).
+
+    ``cfg.state`` matches on a prefix, so ``no ip dhcp snooping information option`` would be read as
+    the negation of ``ip dhcp snooping``; this helper compares whole commands instead.
+    """
+    state, hit = None, None
+    for line in cfg.lines:
+        if line.words == words:
+            state, hit = True, line
+        elif line.words == ("no",) + words:
+            state, hit = False, line
+    return state, hit
+
+
+def _vlan_scope(cfg: DeviceConfig, *prefix: str) -> tuple[set[int], list[ConfigLine]]:
+    """VLAN ids named by every ``<prefix> <list>`` command, plus the lines that name them."""
+    lines = [l for l in cfg.top(*prefix) if len(l.words) > len(prefix)]
+    ids: set[int] = set()
+    for line in lines:
+        ids |= _vlan_ids(line.rest(*prefix).split(" logging")[0])
+    return ids, lines
+
+
+@rule(
+    id="L2-011",
+    title="DHCP snooping is not enabled",
+    severity=Severity.MEDIUM,
+    category="Layer 2",
+    risk=(
+        "Any port can answer DHCP requests. A rogue DHCP server hands clients its own default gateway or DNS server "
+        "(a man-in-the-middle position) or exhausts the address pool (denial of service), and the switch has no "
+        "binding table that ties each IP address to a port - which Dynamic ARP Inspection also needs."
+    ),
+    remediation=(
+        "'ip dhcp snooping' and 'ip dhcp snooping vlan <ids>'; mark only the uplink toward the real DHCP server with "
+        "'ip dhcp snooping trust'; rate-limit client ports with 'ip dhcp snooping limit rate 15'."
+    ),
+    references=(attack("T1557", "Adversary-in-the-Middle"), REF_CISCO_HARDEN, REF_NSA_NIG),
+    applies_to=("switch",),
+)
+def dhcp_snooping_off(cfg: DeviceConfig):
+    state, line = _global_exact(cfg, "ip", "dhcp", "snooping")
+    if not state:
+        yield Hit(obj="global", detail="'ip dhcp snooping' is not enabled" + (" (explicitly disabled)." if line else "."),
+                  evidence=[line] if line else [])
+        return
+    vlans, _lines = _vlan_scope(cfg, "ip", "dhcp", "snooping", "vlan")
+    if not vlans:
+        yield Hit(obj="global", detail="DHCP snooping is enabled globally but no VLAN is selected "
+                  "('ip dhcp snooping vlan ...'), so it inspects nothing.", evidence=[line])
+
+
+@rule(
+    id="L2-012",
+    title="Dynamic ARP Inspection is not enabled",
+    severity=Severity.MEDIUM,
+    category="Layer 2",
+    risk=(
+        "Without Dynamic ARP Inspection any host can poison its neighbours' ARP caches (ARP spoofing) and sit between "
+        "them and their gateway, reading or altering traffic that never leaves the VLAN, which no router ACL can see."
+    ),
+    remediation=(
+        "'ip arp inspection vlan <ids>' on VLANs whose hosts get their addresses through DHCP snooping; trust only "
+        "uplinks ('ip arp inspection trust'); use ARP ACLs for statically addressed hosts."
+    ),
+    references=(attack("T1557.002", "Adversary-in-the-Middle: ARP Cache Poisoning"), REF_CISCO_HARDEN, REF_NSA_NIG),
+    applies_to=("switch",),
+)
+def dai_off(cfg: DeviceConfig):
+    dai, dai_lines = _vlan_scope(cfg, "ip", "arp", "inspection", "vlan")
+    if not dai:
+        yield Hit(obj="global", detail="'ip arp inspection vlan' is not configured.")
+        return
+    snooped, _ = _vlan_scope(cfg, "ip", "dhcp", "snooping", "vlan")
+    has_filter = bool(cfg.top("ip", "arp", "inspection", "filter"))
+    orphan = sorted(dai - snooped) if not has_filter else []
+    if orphan:
+        shown = ",".join(str(v) for v in orphan[:10]) + ("..." if len(orphan) > 10 else "")
+        yield Hit(
+            obj="global",
+            detail=(f"ARP inspection covers VLAN(s) {shown} that DHCP snooping does not, and no ARP ACL "
+                    "('ip arp inspection filter') exists: hosts there have no binding, so their ARP replies are dropped."),
+            evidence=dai_lines,
+            severity=Severity.LOW,
+        )

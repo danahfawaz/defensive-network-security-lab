@@ -2,8 +2,14 @@
 
 Findings are matched on ``(rule, device, object)``.  Devices are matched by name, or
 through an explicit mapping when the "after" network renamed them (for example the
-original lab's ``Router2`` became ``HQ-EDGE``).  A finding that moved from open to
-accepted-risk counts as *accepted*, never as *resolved*: the weakness is still there.
+original lab's ``Router1`` became ``FW-EDGE``).  Two kinds of change are deliberately
+*not* counted as remediation:
+
+* a finding that moved from open to accepted-risk counts as *accepted*: the weakness is
+  still there, it is just documented;
+* a finding on a device that has no counterpart in the "after" audit (decommissioned, or
+  outside the new audit scope) counts as *left scope*: switching a device off removes its
+  findings from the report, not the weakness from the network.
 """
 
 from __future__ import annotations
@@ -56,13 +62,16 @@ def compare(before: dict, after: dict, device_map: dict[str, str] | None = None)
     a_open = {key(f, False): f for f in after["findings"] if f["status"] == "open"}
     a_accepted = {key(f, False): f for f in after["findings"] if f["status"] == "accepted-risk"}
 
-    resolved = [b_open[k] for k in b_open if k not in a_open and k not in a_accepted]
+    before_devices = [d["name"] for d in before["devices"]]
+    after_devices = [d["name"] for d in after["devices"]]
+    after_set = set(after_devices)
+
+    left_scope = [b_open[k] for k in b_open if k[1] not in after_set]
+    resolved = [b_open[k] for k in b_open if k[1] in after_set and k not in a_open and k not in a_accepted]
     accepted = [(b_open[k], a_accepted[k]) for k in b_open if k in a_accepted and k not in a_open]
     persisting = [(b_open[k], a_open[k]) for k in b_open if k in a_open]
     new = [a_open[k] for k in a_open if k not in b_open]
 
-    before_devices = [d["name"] for d in before["devices"]]
-    after_devices = [d["name"] for d in after["devices"]]
     mapped_before = {device_map.get(n, n): n for n in before_devices}
     unmatched_before = [n for m, n in mapped_before.items() if m not in after_devices]
     unmatched_after = [n for n in after_devices if n not in mapped_before]
@@ -95,8 +104,9 @@ def compare(before: dict, after: dict, device_map: dict[str, str] | None = None)
 
     b_dev, a_dev = per_device(before, device_map), per_device(after, None)
     device_rows = [
-        {"before": n, "after": device_map.get(n, n), "open_before": b_dev.get(device_map.get(n, n), 0),
-         "open_after": a_dev.get(device_map.get(n, n), 0)}
+        {"before": n, "after": device_map.get(n, n) if device_map.get(n, n) in after_set else None,
+         "open_before": b_dev.get(device_map.get(n, n), 0),
+         "open_after": a_dev.get(device_map.get(n, n), 0) if device_map.get(n, n) in after_set else None}
         for n in before_devices
     ]
 
@@ -108,6 +118,7 @@ def compare(before: dict, after: dict, device_map: dict[str, str] | None = None)
             "resolved": len(resolved),
             "accepted_risk": len(accepted),
             "persisting": len(persisting),
+            "left_scope": len(left_scope),
             "new": len(new),
         },
         "rules": rule_rows,
@@ -144,7 +155,10 @@ def to_markdown(diff: dict, *, before_label: str = "Before", after_label: str = 
     tb, ta = sum(s["open_before"].values()), sum(s["open_after"].values())
     out += [f"| **Total** | **{tb}** | **{ta}** | **{ta - tb:+d}** | **{sum(s['accepted_after'].values())}** |", "",
             f"Of the {tb} findings open before: **{s['resolved']} resolved**, **{s['accepted_risk']} accepted as risk** "
-            f"(documented waiver), **{s['persisting']} still open**. **{s['new']} new** finding(s) appeared.", ""]
+            f"(documented waiver), **{s['persisting']} still open**"
+            + (f", and **{s['left_scope']} belonged to devices that are not in the new audit scope** (decommissioned "
+               f"or out of scope - not counted as remediation)" if s["left_scope"] else "")
+            + f". **{s['new']} new** finding(s) appeared.", ""]
     out += ["## By rule", "", f"| Rule | Severity | Title | Devices {before_label} | Devices {after_label} | Accepted |",
             "|---|---|---|---:|---:|---:|"]
     for r in diff["rules"]:
@@ -152,7 +166,9 @@ def to_markdown(diff: dict, *, before_label: str = "Before", after_label: str = 
                    f"{r['devices_accepted']} |")
     out += ["", "## By device", "", f"| {before_label} device | {after_label} device | Open before | Open after |", "|---|---|---:|---:|"]
     for d in diff["devices"]:
-        out.append(f"| {d['before']} | {d['after']} | {d['open_before']} | {d['open_after']} |")
+        after_cell = d["after"] if d["after"] is not None else "(not in new scope)"
+        open_after = d["open_after"] if d["open_after"] is not None else "-"
+        out.append(f"| {d['before']} | {after_cell} | {d['open_before']} | {open_after} |")
     if diff["unmatched_before"] or diff["unmatched_after"]:
         out += ["", f"Unmatched devices - only before: {', '.join(diff['unmatched_before']) or 'none'}; "
                     f"only after: {', '.join(diff['unmatched_after']) or 'none'}."]
@@ -171,7 +187,8 @@ def to_text(diff: dict) -> str:
     s = diff["summary"]
     tb, ta = sum(s["open_before"].values()), sum(s["open_after"].values())
     lines = [f"open findings: {tb} -> {ta}",
-             f"resolved {s['resolved']}, accepted-risk {s['accepted_risk']}, still open {s['persisting']}, new {s['new']}"]
+             f"resolved {s['resolved']}, accepted-risk {s['accepted_risk']}, still open {s['persisting']}, "
+             f"left scope {s['left_scope']}, new {s['new']}"]
     for label in _ORDER:
         lines.append(f"  {label:8} {s['open_before'][label]:4} -> {s['open_after'][label]:4}")
     if diff["new_findings"]:
