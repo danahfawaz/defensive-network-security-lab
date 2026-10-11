@@ -73,6 +73,12 @@ def _build_parser() -> argparse.ArgumentParser:
     c.add_argument("--before-label", default="Before")
     c.add_argument("--after-label", default="After")
 
+    d = sub.add_parser("design-check", help="check that the device configurations implement topology/topology.yaml")
+    d.add_argument("--topology", default="topology/topology.yaml")
+    d.add_argument("--state", choices=["baseline", "hardened", "all"], default="all")
+    d.add_argument("-f", "--format", choices=["text", "json"], default="text")
+    d.add_argument("-o", "--output")
+
     r = sub.add_parser("rules", help="list the audit rules")
     r.add_argument("-f", "--format", choices=["text", "markdown", "json"], default="text")
     r.add_argument("--category")
@@ -118,6 +124,34 @@ def _cmd_compare(args: argparse.Namespace) -> int:
     return EXIT_OK
 
 
+def _cmd_design_check(args: argparse.Namespace) -> int:
+    from .policy.design import CHECKS, check_design
+    from .policy.topology import STATES, TopologyError, load_topology
+
+    try:
+        topology = load_topology(args.topology)
+    except TopologyError as exc:
+        raise ValueError(str(exc)) from exc
+    states = STATES if args.state == "all" else (args.state,)
+    results = {state: check_design(topology, state) for state in states}
+    errors = sum(1 for issues in results.values() for i in issues if i.severity == "error")
+    if args.format == "json":
+        import json
+
+        text = json.dumps({"topology": str(args.topology), "checks": CHECKS,
+                           "states": {s: [i.__dict__ for i in issues] for s, issues in results.items()},
+                           "errors": errors}, indent=2) + "\n"
+    else:
+        lines = []
+        for state, issues in results.items():
+            lines.append(f"{state}: {'OK' if not issues else f'{len(issues)} issue(s)'} "
+                         f"({len(CHECKS)} checks, {len(topology.devices)} devices, {len(topology.hosts)} hosts, {len(topology.links)} links)")
+            lines += [f"  {i}" for i in issues]
+        text = "\n".join(lines) + "\n"
+    _emit(text, args.output)
+    return EXIT_FINDINGS if errors else EXIT_OK
+
+
 def _cmd_rules(args: argparse.Namespace) -> int:
     rules = [r for r in all_rules() if not args.category or r.info.category.lower() == args.category.lower()]
     if not rules:
@@ -129,7 +163,7 @@ def _cmd_rules(args: argparse.Namespace) -> int:
 
 def main(argv: list[str] | None = None) -> int:
     args = _build_parser().parse_args(argv)
-    handlers = {"audit": _cmd_audit, "compare": _cmd_compare, "rules": _cmd_rules}
+    handlers = {"audit": _cmd_audit, "compare": _cmd_compare, "rules": _cmd_rules, "design-check": _cmd_design_check}
     try:
         return handlers[args.command](args)
     except (ConfigError, WaiverError, ReportError, ValueError) as exc:

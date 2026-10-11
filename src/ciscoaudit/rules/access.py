@@ -194,6 +194,8 @@ def telnet_allowed(cfg: DeviceConfig):
 def vty_no_access_class(cfg: DeviceConfig):
     bad, evidence = [], []
     for blk in _vty(cfg):
+        if _transport_none(blk):
+            continue  # 'transport input none': the line accepts no remote sessions, so there is nobody to restrict
         ac = blk.access_class_in
         if ac is None:
             bad.append(blk.label)
@@ -363,6 +365,9 @@ def aaa_missing(cfg: DeviceConfig):
 def ssh_v2_not_enforced(cfg: DeviceConfig):
     # Whether an RSA key pair exists cannot be seen in a running-config - say so rather than guess.
     note = " (RSA key presence cannot be verified from a running-config)"
+    vty = _vty(cfg)
+    if vty and all(_transport_none(b) for b in vty):
+        return  # remote access is switched off on every VTY line: SSH is not in use
     version_lines = [l for l in cfg.top("ip", "ssh", "version")]
     if any(l.words[3:4] == ("2",) for l in version_lines):
         return

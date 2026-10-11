@@ -1,0 +1,244 @@
+# Source of truth for the lab design: devices, zones, hosts, cabling and published services.
+#
+# The device configurations in configs/ are written by hand. This file describes the network they are supposed to
+# implement, and `ciscoaudit design-check` verifies that every address, VLAN, port, trunk and NAT entry in the
+# configurations agrees with it. The policy validator (`ciscoaudit validate`) and the generated documents
+# (docs/generated/) are built from it as well.
+#
+# Interface names use the short IOS forms (Fa0/0, Eth0/1/0, Gi0/1).
+
+schema: 1
+name: Enterprise Network Security & Configuration Auditing Lab
+
+# --- Devices that run IOS ---------------------------------------------------------------------------------------------
+# pt_label is the name of the device in the original Packet Tracer file; configs/original-lab/<pt_label>.cfg holds its
+# original configuration. `audited: false` marks test infrastructure that is not part of the enterprise under audit.
+devices:
+  FW-EDGE:
+    pt_label: Router1
+    kind: router
+    model: Cisco 1841
+    ios: 12.4(15)T1
+    role: Perimeter router-firewall (inter-VLAN routing, ACL enforcement, NAT)
+    audited: true
+  SW-ACCESS:
+    pt_label: Switch0
+    kind: switch
+    model: Cisco 2960-24TT
+    ios: 15.0(2)SE4
+    role: Access switch for the Users, Servers, Guest and Management VLANs
+    audited: true
+  SW-DMZ:
+    pt_label: Switch1
+    kind: switch
+    model: Cisco 2960-24TT
+    ios: 15.0(2)SE4
+    role: DMZ switch
+    audited: true
+  ISP-R:
+    pt_label: Router4
+    kind: router
+    model: Cisco 1841
+    ios: 12.4(15)T1
+    role: Simulated ISP and Internet router
+    audited: false
+  SW-INET:
+    pt_label: Switch2
+    kind: switch
+    model: Cisco 2960-24TT
+    ios: 15.0(2)SE4
+    role: Simulated Internet LAN switch
+    audited: false
+
+# Devices of the original lab that the new design no longer uses.
+retired:
+  - pt_label: Router2
+    reason: >-
+      Sat between the hub and the Users switch, so inter-VLAN traffic could be routed around the firewall.
+      FW-EDGE now routes every VLAN itself and is the single enforcement point.
+  - pt_label: Router3
+    reason: >-
+      Sat between the hub and the second LAN for the same reason. The DMZ switch now connects directly to the firewall.
+
+# --- Security zones ----------------------------------------------------------------------------------------------------
+# `interface` is the FW-EDGE interface (or subinterface) that is the zone's default gateway.
+zones:
+  users:
+    description: Employee workstations
+    vlan: 10
+    subnet: 10.10.10.0/24
+    gateway: 10.10.10.1
+    interface: Fa0/0.10
+    addressing: static
+  servers:
+    description: Internal application servers
+    vlan: 20
+    subnet: 10.10.20.0/24
+    gateway: 10.10.20.1
+    interface: Fa0/0.20
+    addressing: static
+  guest:
+    description: Guest devices (Internet only)
+    vlan: 30
+    subnet: 10.10.30.0/24
+    gateway: 10.10.30.1
+    interface: Fa0/0.30
+    addressing: dhcp
+  mgmt:
+    description: Management plane (administrator workstation, log and time server, switch SVI)
+    vlan: 99
+    subnet: 10.10.99.0/24
+    gateway: 10.10.99.1
+    interface: Fa0/0.99
+    addressing: static
+  dmz:
+    description: Publicly reachable servers
+    vlan: 50
+    subnet: 172.16.50.0/24
+    gateway: 172.16.50.1
+    interface: Fa0/1
+    addressing: static
+  outside:
+    description: Transit link between FW-EDGE and the ISP
+    subnet: 203.0.113.0/30
+    gateway: 203.0.113.1
+    interface: Eth0/1/0
+    addressing: static
+  internet:
+    description: Simulated Internet LAN
+    vlan: 100
+    subnet: 198.51.100.0/24
+    gateway: 198.51.100.1
+    interface: null
+    addressing: static
+
+# --- End devices ------------------------------------------------------------------------------------------------------
+# origin: reused = same device and cabling as the original lab, moved = original device on a new port or switch, new = added.
+hosts:
+  PC0:
+    model: PC-PT
+    zone: users
+    ip: 10.10.10.10
+    attach: SW-ACCESS:Fa0/1
+    role: Employee workstation
+    origin: reused
+  PC1:
+    model: PC-PT
+    zone: users
+    ip: 10.10.10.11
+    attach: SW-ACCESS:Fa0/2
+    role: Employee workstation
+    origin: reused
+  PC2:
+    model: PC-PT
+    zone: guest
+    ip: 10.10.30.100          # first DHCP lease (the pool excludes .1-.99); only one guest host exists
+    attach: SW-ACCESS:Fa0/4
+    role: Guest laptop
+    origin: moved
+  PC3:
+    model: PC-PT
+    zone: mgmt
+    ip: 10.10.99.10
+    attach: SW-ACCESS:Fa0/5
+    role: Administrator workstation (the only host allowed to manage devices)
+    origin: moved
+  SRV-APP:
+    model: Server-PT
+    zone: servers
+    ip: 10.10.20.10
+    attach: SW-ACCESS:Fa0/6
+    role: Internal application server (HTTP/HTTPS)
+    origin: new
+  SRV-LOG:
+    model: Server-PT
+    zone: mgmt
+    ip: 10.10.99.20
+    attach: SW-ACCESS:Fa0/7
+    role: Syslog and NTP server
+    origin: new
+  WEB-DMZ:
+    model: Server-PT
+    zone: dmz
+    ip: 172.16.50.10
+    attach: SW-DMZ:Fa0/1
+    role: Public web server (HTTP/HTTPS)
+    origin: new
+  DNS-DMZ:
+    model: Server-PT
+    zone: dmz
+    ip: 172.16.50.20
+    attach: SW-DMZ:Fa0/2
+    role: DNS server
+    origin: new
+  PC4:
+    model: PC-PT
+    zone: internet
+    ip: 198.51.100.10
+    attach: SW-INET:Fa0/1
+    role: Legitimate Internet client
+    origin: reused
+  PC5:
+    model: PC-PT
+    zone: internet
+    ip: 198.51.100.66
+    attach: SW-INET:Fa0/2
+    role: Attacker on the Internet
+    origin: reused
+  WEB-EXT:
+    model: Server-PT
+    zone: internet
+    ip: 198.51.100.80
+    attach: SW-INET:Fa0/4
+    role: Public web site on the Internet
+    origin: new
+
+# --- Cabling -------------------------------------------------------------------------------------------------------------
+# kind: trunk (802.1Q), access (single VLAN), routed (point-to-point L3).  origin: reused / re-patched / new.
+links:
+  - {a: FW-EDGE:Fa0/0, b: SW-ACCESS:Fa0/3, kind: trunk, vlans: [10, 20, 30, 99], origin: re-patched,
+     note: "was Router1 Fa0/0 - Router2 Fa0/1 and Switch0 Fa0/3 - Router2 Fa0/0"}
+  - {a: FW-EDGE:Fa0/1, b: SW-DMZ:Fa0/3, kind: access, vlan: 50, origin: re-patched,
+     note: "was Router1 Fa0/1 - Router3 Fa0/1 and Switch1 Fa0/3 - Router3 Fa0/0"}
+  - {a: FW-EDGE:Eth0/1/0, b: ISP-R:Fa0/1, kind: routed, origin: reused,
+     note: "unchanged original cable Router1 Eth0/1/0 - Router4 Fa0/1"}
+  - {a: ISP-R:Fa0/0, b: SW-INET:Fa0/3, kind: access, vlan: 100, origin: reused,
+     note: "unchanged original cable Router4 Fa0/0 - Switch2 Fa0/3"}
+  - {a: PC0, b: SW-ACCESS:Fa0/1, kind: access, vlan: 10, origin: reused, note: "unchanged original cable PC0 - Switch0 Fa0/1"}
+  - {a: PC1, b: SW-ACCESS:Fa0/2, kind: access, vlan: 10, origin: reused, note: "unchanged original cable PC1 - Switch0 Fa0/2"}
+  - {a: PC2, b: SW-ACCESS:Fa0/4, kind: access, vlan: 30, origin: re-patched, note: "was PC2 - Switch1 Fa0/1"}
+  - {a: PC3, b: SW-ACCESS:Fa0/5, kind: access, vlan: 99, origin: re-patched, note: "was PC3 - Switch1 Fa0/2"}
+  - {a: SRV-APP, b: SW-ACCESS:Fa0/6, kind: access, vlan: 20, origin: new}
+  - {a: SRV-LOG, b: SW-ACCESS:Fa0/7, kind: access, vlan: 99, origin: new}
+  - {a: WEB-DMZ, b: SW-DMZ:Fa0/1, kind: access, vlan: 50, origin: new}
+  - {a: DNS-DMZ, b: SW-DMZ:Fa0/2, kind: access, vlan: 50, origin: new}
+  - {a: PC4, b: SW-INET:Fa0/1, kind: access, vlan: 100, origin: reused, note: "unchanged original cable PC4 - Switch2 Fa0/1"}
+  - {a: PC5, b: SW-INET:Fa0/2, kind: access, vlan: 100, origin: reused, note: "unchanged original cable PC5 - Switch2 Fa0/2"}
+  - {a: WEB-EXT, b: SW-INET:Fa0/4, kind: access, vlan: 100, origin: new}
+
+# --- Address translation and published services --------------------------------------------------------------------
+nat:
+  pat:
+    interface: FW-EDGE:Eth0/1/0
+    address: 203.0.113.2
+    sources: [users, guest]
+  public_block: 203.0.113.8/29        # routed to FW-EDGE by the ISP; used for static NAT only
+  static:
+    - {host: WEB-DMZ, inside: 172.16.50.10, outside: 203.0.113.9}
+    - {host: DNS-DMZ, inside: 172.16.50.20, outside: 203.0.113.10}
+
+services:
+  admin_host: PC3
+  syslog: {host: SRV-LOG, protocol: udp, port: 514}
+  ntp: {host: SRV-LOG, protocol: udp, port: 123}
+  dns: {host: DNS-DMZ, protocol: udp, port: 53}
+  published:
+    - {host: WEB-DMZ, protocol: tcp, ports: [80, 443]}
+    - {host: DNS-DMZ, protocol: udp, ports: [53]}
+    - {host: DNS-DMZ, protocol: tcp, ports: [53]}
+
+# Management addresses of the network devices (checked against the configurations).
+management:
+  FW-EDGE: 10.10.99.1
+  SW-ACCESS: 10.10.99.2
+  SW-DMZ: 172.16.50.2

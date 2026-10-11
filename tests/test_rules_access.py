@@ -53,6 +53,8 @@ class Management(RuleCase):
         restrictive = ("ip access-list standard MGMT\n permit host 10.1.99.10\n deny any log\n"
                        "line vty 0 4\n access-class MGMT in\n")
         self.quiet("MGMT-002", router(restrictive))
+        # a line that accepts no remote sessions has no audience to restrict
+        self.quiet("MGMT-002", router("line vty 0 4\n login local\n transport input none\n"))
 
     def test_mgmt_003_exec_timeout(self):
         self.fires("MGMT-003", router("line con 0\n exec-timeout 0 0\n"))
@@ -95,6 +97,8 @@ class Management(RuleCase):
         (f,) = self.fires("MGMT-010", router("ip ssh version 1\n"))
         self.assertEqual(f.severity, Severity.HIGH)
         self.quiet("MGMT-010", router("ip ssh version 2\n"))
+        self.quiet("MGMT-010", router("line vty 0 4\n transport input none\nline vty 5 15\n transport input none\n"))
+        self.fires("MGMT-010", router("line vty 0 4\n transport input none\nline vty 5 15\n transport input ssh\n"))
 
 
 STRONG = md5_crypt("correct horse battery staple", "abcd")  # a type-5 value of a non-dictionary passphrase
