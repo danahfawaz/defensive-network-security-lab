@@ -1,0 +1,52 @@
+# Accepted risks for the hardened configurations (configs/hardened/).
+#
+# A waiver never hides a finding: the finding stays in every report as "accepted-risk" together with the reason
+# written here, so a reviewer can challenge it. Each waiver has an expiry date - after it, the finding is open again
+# and `ciscoaudit audit --fail-on ...` fails, which forces a re-review.
+#
+#   ciscoaudit audit configs/hardened --waivers waivers/hardened.yaml
+#
+# Keep this list short. Anything that can be fixed in the lab should be fixed in the configuration instead.
+
+waivers:
+  - rule: MGMT-009
+    device: FW-EDGE
+    expires: 2027-12-31
+    reason: >-
+      The lab has no TACACS+/RADIUS server, so authentication is local (AAA is future work, see docs/limitations.md).
+      Compensating controls on the device: SSH version 2 only, 'login local' on every line, access to the VTY lines
+      limited to the administrator workstation by VTY-ADMIN, a 5-minute exec timeout, and login throttling. The
+      remaining weakness is that accounts are not centrally managed and commands are not accounted for.
+
+  - rule: MGMT-009
+    device: SW-ACCESS
+    expires: 2027-12-31
+    reason: >-
+      Same as FW-EDGE: no AAA server in the lab. Compensating controls: SSH only, 'login local', VTY-ADMIN source
+      restriction (administrator workstation 10.10.99.10), exec timeout.
+
+  - rule: MGMT-009
+    device: SW-DMZ
+    expires: 2027-12-31
+    reason: >-
+      Same as FW-EDGE: no AAA server in the lab. Compensating controls: SSH only, 'login local', VTY-ADMIN source
+      restriction, and FW-EDGE lets only the administrator workstation reach TCP/22 on this switch.
+
+  - rule: L2-011
+    device: SW-DMZ
+    expires: 2027-12-31
+    reason: >-
+      Both DMZ servers are statically addressed and the DMZ has no DHCP server, so snooping would have no bindings to
+      build. The attack it prevents - a rogue DHCP server handing out a bad gateway or DNS server - needs DHCP
+      clients, and there are none on this VLAN. Port security (sticky, maximum 1, violation shutdown) limits who can
+      plug in. Revisit if a DHCP client is ever placed in the DMZ.
+
+  - rule: L2-012
+    device: SW-DMZ
+    expires: 2027-12-31
+    reason: >-
+      Dynamic ARP Inspection validates ARP against DHCP-snooping bindings; with static addressing there are none, so
+      it would also need one ARP ACL entry per server. For two servers on port-secured ports that cost was judged
+      greater than the benefit in this lab. Residual risk: a compromised DMZ server could ARP-spoof the other DMZ
+      server or the firewall's DMZ interface and intercept DMZ traffic. FW-EDGE already prevents the DMZ from
+      initiating connections to the internal network, which limits the impact.
