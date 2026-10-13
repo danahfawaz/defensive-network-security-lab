@@ -1,0 +1,70 @@
+# The written security policy of the lab: which flows the organisation WANTS.
+#
+# `ciscoaudit matrix` probes every sender against every destination for every service listed below and compares the answer
+# of the policy simulator with this file. Anything permitted that is not listed here is a hole; anything listed here that is
+# blocked is a broken service. The file is written from the business need, not copied from the ACLs.
+#
+# Names: hosts, zones (= every host of the zone), devices (their management address) and the extra destinations below.
+# Hosts in the same zone reach each other without passing the firewall; that is a documented limitation (intra_zone).
+
+schema: 1
+
+intra_zone: allow
+
+# Services probed. A probe is permitted if the request arrives; the flows listed below must also get their reply back.
+services:
+  icmp: icmp/echo
+  ssh: tcp/22
+  telnet: tcp/23
+  http: tcp/80
+  https: tcp/443
+  rdp: tcp/3389
+  smb: tcp/445
+  dns-udp: udp/53
+  dns-tcp: tcp/53
+  syslog: udp/514
+  snmp: udp/161
+
+# Extra addresses to probe: the firewall's other interfaces, the public NAT addresses, and one unused address beside each
+# server segment (a rule written for a whole subnet shows up as a permit to an address nobody owns).
+destinations:
+  FW-EDGE-USERS: 10.10.10.1
+  FW-EDGE-SERVERS: 10.10.20.1
+  FW-EDGE-GUEST: 10.10.30.1
+  FW-EDGE-DMZ: 172.16.50.1
+  FW-EDGE-OUTSIDE: 203.0.113.2
+  WEB-DMZ-PUBLIC: 203.0.113.9
+  DNS-DMZ-PUBLIC: 203.0.113.10
+  UNUSED-PUBLIC: 203.0.113.11
+  UNUSED-USERS: 10.10.10.99
+  UNUSED-SERVERS: 10.10.20.99
+  UNUSED-GUEST: 10.10.30.99
+  UNUSED-MGMT: 10.10.99.99
+  UNUSED-DMZ: 172.16.50.99
+
+allow:
+  # --- Employees ---------------------------------------------------------------------------------------------------
+  - {from: users, to: SRV-APP, services: [http, https, icmp], why: Employees use the internal application}
+  - {from: users, to: WEB-DMZ, services: [http, https, icmp], why: Employees use the company web site by its private address (there is no hairpin NAT)}
+  - {from: users, to: DNS-DMZ, services: [dns-udp, dns-tcp, icmp], why: Name resolution for employees}
+  - {from: users, to: FW-EDGE-USERS, services: [icmp], why: Employees may ping their default gateway}
+  - {from: users, to: internet, services: [http, https, icmp], why: Employees browse the Internet (translated by PAT)}
+  # --- Guests ------------------------------------------------------------------------------------------------------
+  - {from: guest, to: DNS-DMZ, services: [dns-udp, dns-tcp], why: Name resolution for guests}
+  - {from: guest, to: FW-EDGE-GUEST, services: [icmp], why: Guests may ping their default gateway}
+  - {from: guest, to: internet, services: [http, https, icmp], why: Guests may only use the Internet}
+  # --- Servers -----------------------------------------------------------------------------------------------------
+  - {from: servers, to: DNS-DMZ, services: [dns-udp, dns-tcp], why: The application server resolves names}
+  - {from: servers, to: FW-EDGE-SERVERS, services: [icmp], why: Servers may ping their default gateway}
+  # --- Management --------------------------------------------------------------------------------------------------
+  - {from: PC3, to: [FW-EDGE, SW-ACCESS, SW-DMZ], services: [ssh], why: Only the administrator workstation manages the devices, by SSH}
+  - {from: mgmt, to: [FW-EDGE, SW-ACCESS], services: [icmp], why: Management hosts may ping the devices in their own VLAN}
+  - {from: PC3, to: SW-DMZ, services: [icmp], why: The administrator checks that the DMZ switch is up}
+  - {from: PC3, to: [SRV-APP, WEB-DMZ], services: [http, https, icmp], why: The administrator checks the servers}
+  - {from: PC3, to: DNS-DMZ, services: [icmp], why: The administrator checks the DNS server}
+  - {from: PC3, to: [users, UNUSED-USERS, FW-EDGE-USERS], services: [icmp], why: The administrator diagnoses the Users subnet, which is addressed as a whole}
+  - {from: dmz, to: SW-DMZ, services: [icmp], why: The DMZ switch is managed in-band on the DMZ segment, so it answers ping from its own VLAN (accepted, docs/limitations.md)}
+  # --- Published services and the one DMZ-to-inside flow -------------------------------------------------------------
+  - {from: internet, to: WEB-DMZ-PUBLIC, services: [http, https], why: The company web site is public}
+  - {from: internet, to: DNS-DMZ-PUBLIC, services: [dns-udp, dns-tcp], why: The company DNS server is public}
+  - {from: WEB-DMZ, to: SRV-APP, services: [http], why: The web tier calls the application tier}

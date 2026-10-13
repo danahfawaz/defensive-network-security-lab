@@ -192,6 +192,10 @@ class Simulator:
                 return router, iface
         return None
 
+    def is_router_address(self, ip: IPv4 | str) -> bool:
+        """True if ``ip`` is configured on an interface of one of the routers (such traffic is addressed to the router)."""
+        return self._owner(IPv4(str(ip))) is not None
+
     def _node_at(self, ip: IPv4) -> Node | None:
         node = self._ips.get(ip)
         if node is not None:

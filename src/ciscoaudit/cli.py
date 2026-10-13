@@ -91,6 +91,15 @@ def _build_parser() -> argparse.ArgumentParser:
     v.add_argument("--pt-plan", metavar="FILE", help="also write the Packet Tracer test plan (Markdown)")
     v.add_argument("--pt-results-template", metavar="FILE", help="also write an empty Packet Tracer results sheet (CSV)")
 
+    m = sub.add_parser("matrix", help="probe every sender against every destination and compare with the written policy")
+    m.add_argument("--topology", default="topology/topology.yaml")
+    m.add_argument("--intent", default="topology/policy-intent.yaml")
+    m.add_argument("--state", choices=["baseline", "hardened", "all"], default="all")
+    m.add_argument("-f", "--format", choices=["text", "markdown", "json", "csv"], default="text")
+    m.add_argument("-o", "--output")
+    m.add_argument("--all", action="store_true", help="csv: include blocked probes as well (large)")
+    m.add_argument("--title", default="Reachability matrix")
+
     t = sub.add_parser("trace", help="follow one flow hop by hop, e.g. \"PC5 -> 203.0.113.9 tcp/22\"")
     t.add_argument("flow", help="'<sender> -> <destination> <proto>/<port> [sport=N] [spoof=IP] [ack] [oneway]'")
     t.add_argument("--topology", default="topology/topology.yaml")
@@ -221,6 +230,30 @@ def _cmd_validate(args: argparse.Namespace) -> int:
     return EXIT_FINDINGS if run.failures or broken_design else EXIT_OK
 
 
+def _cmd_matrix(args: argparse.Namespace) -> int:
+    from .policy import matrix as mx
+    from .policy.topology import STATES, TopologyError
+
+    topology = _load_topology(args.topology)
+    intent = mx.load_intent(args.intent, topology)
+    states = STATES if args.state == "all" else (args.state,)
+    try:
+        matrices = [mx.compute(topology, state, intent) for state in states]
+    except TopologyError as exc:
+        raise ValueError(str(exc)) from exc
+    if args.format == "markdown":
+        text = mx.to_markdown(matrices, topology, intent, title=args.title)
+    elif args.format == "json":
+        text = mx.to_json(matrices)
+    elif args.format == "csv":
+        text = mx.to_csv(matrices, everything=args.all)
+    else:
+        text = mx.to_text(matrices)
+    _emit(text, args.output)
+    # the baseline is expected to disagree with the policy; only the hardened configuration is held to it
+    return EXIT_FINDINGS if any(m.violations for m in matrices if m.state == "hardened") else EXIT_OK
+
+
 def _cmd_trace(args: argparse.Namespace) -> int:
     from .policy.engine import Simulator, format_trace
     from .policy.flow import parse_flow
@@ -272,10 +305,10 @@ def _cmd_rules(args: argparse.Namespace) -> int:
 def main(argv: list[str] | None = None) -> int:
     args = _build_parser().parse_args(argv)
     handlers = {"audit": _cmd_audit, "compare": _cmd_compare, "rules": _cmd_rules, "design-check": _cmd_design_check,
-                "validate": _cmd_validate, "trace": _cmd_trace, "pt-compare": _cmd_pt_compare}
+                "validate": _cmd_validate, "matrix": _cmd_matrix, "trace": _cmd_trace, "pt-compare": _cmd_pt_compare}
     try:
         return handlers[args.command](args)
-    except (ConfigError, WaiverError, ReportError, ValueError) as exc:
+    except (ConfigError, WaiverError, ReportError, ValueError) as exc:  # IntentError and ScenarioError are ValueErrors
         print(f"ciscoaudit: error: {exc}", file=sys.stderr)
         return EXIT_ERROR
     except BrokenPipeError:  # e.g. piped into `head`
