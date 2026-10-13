@@ -1,0 +1,379 @@
+# Security validation scenarios.
+#
+#   ciscoaudit validate                       run every scenario against the baseline and hardened configurations
+#   ciscoaudit trace "PC5 -> 203.0.113.9 tcp/22" --state hardened     explain a single flow hop by hop
+#
+# `expect` is what the HARDENED configuration must do; `baseline` (optional) is what the unhardened configuration does.
+# Both are asserted, so the before/after story is computed from the configuration files, not told.
+#
+# A scenario is one of three kinds:
+#   flow    "<sender> -> <destination> <proto>/<port> [sport=N] [spoof=IP] [ack] [oneway]"  judged by the policy simulator
+#   audit   rules of the configuration auditor that must report nothing (expect: clean) or something (expect: finding)
+#   manual  needs Packet Tracer; reported as "pending" until the lab is built and tested (see docs/pt-test-plan.md)
+#
+# For a flow that must be blocked, `by` names what stops it (an ACL name, route, vty or no-service), `at` the device.
+#
+# The simulator says what the CONFIGURATION does. It is not a Packet Tracer result - see docs/validation.md.
+# Threat ids (T01-T12) refer to docs/threat-model.md.
+
+schema: 1
+
+scenarios:
+
+  # ==================================================================================================================
+  # Business traffic that must keep working (the hardening must not break the network)
+  # ==================================================================================================================
+  - {id: P-01, title: "Employee opens the internal application over HTTPS", category: permitted,
+     flow: "PC0 -> SRV-APP tcp/443", expect: delivered, baseline: delivered}
+  - {id: P-02, title: "Employee opens the internal application over HTTP", category: permitted,
+     flow: "PC1 -> SRV-APP tcp/80", expect: delivered, baseline: delivered}
+  - {id: P-03, title: "Employee pings the application server", category: permitted,
+     flow: "PC0 -> SRV-APP icmp/echo", expect: delivered, baseline: delivered}
+  - {id: P-04, title: "Employee opens the company web site over its private address", category: permitted,
+     flow: "PC0 -> WEB-DMZ tcp/443", expect: delivered, baseline: delivered}
+  - {id: P-05, title: "Employee resolves names through the DMZ DNS server (UDP)", category: permitted,
+     flow: "PC0 -> DNS-DMZ udp/53", expect: delivered, baseline: delivered}
+  - {id: P-06, title: "Employee resolves names through the DMZ DNS server (TCP)", category: permitted,
+     flow: "PC0 -> DNS-DMZ tcp/53", expect: delivered, baseline: delivered}
+  - {id: P-07, title: "Employee browses the Internet over HTTP (PAT)", category: permitted,
+     flow: "PC0 -> WEB-EXT tcp/80", expect: delivered, baseline: delivered}
+  - {id: P-08, title: "Employee browses the Internet over HTTPS (PAT)", category: permitted,
+     flow: "PC1 -> WEB-EXT tcp/443", expect: delivered, baseline: delivered}
+  - {id: P-09, title: "Employee pings an Internet host", category: permitted,
+     flow: "PC0 -> WEB-EXT icmp/echo", expect: delivered, baseline: delivered}
+  - {id: P-10, title: "Employee pings the default gateway", category: permitted,
+     flow: "PC0 -> 10.10.10.1 icmp/echo", expect: delivered, baseline: delivered}
+  - {id: P-11, title: "Guest browses the Internet over HTTPS", category: permitted,
+     flow: "PC2 -> WEB-EXT tcp/443", expect: delivered, baseline: delivered}
+  - {id: P-12, title: "Guest resolves names through the DMZ DNS server", category: permitted,
+     flow: "PC2 -> DNS-DMZ udp/53", expect: delivered, baseline: delivered}
+  - {id: P-13, title: "Guest device asks the router for an address (DHCP DISCOVER)", category: permitted,
+     flow: "PC2 -> 255.255.255.255 udp/67 sport=68 spoof=0.0.0.0", expect: delivered, baseline: delivered,
+     note: "The source is 0.0.0.0 because the client has no address yet."}
+  - {id: P-14, title: "Guest pings the default gateway", category: permitted,
+     flow: "PC2 -> 10.10.30.1 icmp/echo", expect: delivered, baseline: delivered}
+  - {id: P-15, title: "Administrator opens an SSH session to the firewall", category: permitted,
+     flow: "PC3 -> FW-EDGE tcp/22", expect: delivered}
+  - {id: P-16, title: "Administrator opens an SSH session to the access switch", category: permitted,
+     flow: "PC3 -> SW-ACCESS tcp/22", expect: delivered}
+  - {id: P-17, title: "Administrator opens an SSH session to the DMZ switch through the firewall", category: permitted,
+     flow: "PC3 -> SW-DMZ tcp/22", expect: delivered}
+  - {id: P-18, title: "Administrator checks the application server", category: permitted,
+     flow: "PC3 -> SRV-APP tcp/443", expect: delivered, baseline: delivered}
+  - {id: P-19, title: "Administrator checks the public web server on its private address", category: permitted,
+     flow: "PC3 -> WEB-DMZ tcp/80", expect: delivered, baseline: delivered}
+  - {id: P-20, title: "Administrator pings an employee workstation", category: permitted,
+     flow: "PC3 -> PC0 icmp/echo", expect: delivered, baseline: delivered}
+  - {id: P-21, title: "Internet client reaches the public web server over HTTP", category: permitted,
+     flow: "PC4 -> 203.0.113.9 tcp/80", expect: delivered, baseline: delivered}
+  - {id: P-22, title: "Internet client reaches the public web server over HTTPS", category: permitted,
+     flow: "PC4 -> 203.0.113.9 tcp/443", expect: delivered, baseline: delivered}
+  - {id: P-23, title: "Internet client queries the public DNS server (UDP)", category: permitted,
+     flow: "PC4 -> 203.0.113.10 udp/53", expect: delivered, baseline: delivered}
+  - {id: P-24, title: "Internet client queries the public DNS server (TCP)", category: permitted,
+     flow: "PC4 -> 203.0.113.10 tcp/53", expect: delivered, baseline: delivered}
+  - {id: P-25, title: "Web server calls the application tier (the one DMZ-to-inside flow)", category: permitted,
+     flow: "WEB-DMZ -> SRV-APP tcp/80", expect: delivered, baseline: delivered}
+  - {id: P-26, title: "Application server resolves names through the DMZ DNS server", category: permitted,
+     flow: "SRV-APP -> DNS-DMZ udp/53", expect: delivered, baseline: delivered}
+  - {id: P-27, title: "DMZ switch sends syslog to the log server", category: permitted,
+     flow: "SW-DMZ -> SRV-LOG udp/514 oneway", expect: delivered}
+  - {id: P-28, title: "DMZ switch synchronises time with the log server", category: permitted,
+     flow: "SW-DMZ -> SRV-LOG udp/123 sport=123", expect: delivered}
+  - {id: P-29, title: "Firewall sends syslog to the log server", category: permitted,
+     flow: "FW-EDGE -> SRV-LOG udp/514 oneway", expect: delivered}
+  - {id: P-30, title: "Firewall synchronises time with the log server", category: permitted,
+     flow: "FW-EDGE -> SRV-LOG udp/123 sport=123", expect: delivered,
+     note: "Found by the simulator: the first version of IN-MGMT dropped the NTP reply addressed to the firewall itself."}
+
+  # ==================================================================================================================
+  # Traffic that must be stopped
+  # ==================================================================================================================
+  # --- Guest zone ---------------------------------------------------------------------------------------------------
+  - {id: B-01, title: "Guest device reaches the application server", category: blocked, threats: [T01],
+     flow: "PC2 -> SRV-APP tcp/443", expect: blocked, by: IN-GUEST, at: FW-EDGE, baseline: delivered}
+  - {id: B-02, title: "Guest device pings an employee workstation", category: blocked, threats: [T01],
+     flow: "PC2 -> PC0 icmp/echo", expect: blocked, by: IN-GUEST, at: FW-EDGE, baseline: blocked,
+     note: "The baseline already isolated Guest from Users with one ACL entry; it did not isolate Guest from anything else."}
+  - {id: B-03, title: "Guest device pings the administrator workstation", category: blocked, threats: [T01],
+     flow: "PC2 -> PC3 icmp/echo", expect: blocked, by: IN-GUEST, at: FW-EDGE, baseline: delivered}
+  - {id: B-04, title: "Guest device sends traffic to the log server", category: blocked, threats: [T01],
+     flow: "PC2 -> SRV-LOG udp/514", expect: blocked, by: IN-GUEST, at: FW-EDGE, baseline: delivered}
+  - {id: B-05, title: "Guest device reaches the DMZ web server on its private address", category: blocked, threats: [T01],
+     flow: "PC2 -> WEB-DMZ tcp/80", expect: blocked, by: IN-GUEST, at: FW-EDGE, baseline: delivered}
+  - {id: B-06, title: "Guest device uses SSH to an Internet host (only web traffic is allowed out)", category: blocked, threats: [T01, T07],
+     flow: "PC2 -> WEB-EXT tcp/22", expect: blocked, by: IN-GUEST, at: FW-EDGE, baseline: delivered}
+  # --- Users zone ---------------------------------------------------------------------------------------------------
+  - {id: B-07, title: "Employee workstation pings the administrator workstation", category: blocked, threats: [T02],
+     flow: "PC0 -> PC3 icmp/echo", expect: blocked, by: IN-USERS, at: FW-EDGE, baseline: delivered}
+  - {id: B-08, title: "Employee workstation sends traffic to the log server", category: blocked, threats: [T02],
+     flow: "PC0 -> SRV-LOG udp/514", expect: blocked, by: IN-USERS, at: FW-EDGE, baseline: delivered}
+  - {id: B-09, title: "Employee workstation opens RDP to the application server", category: blocked, threats: [T02],
+     flow: "PC0 -> SRV-APP tcp/3389", expect: blocked, by: IN-USERS, at: FW-EDGE, baseline: delivered}
+  - {id: B-10, title: "Employee workstation opens SSH to the application server", category: blocked, threats: [T02],
+     flow: "PC0 -> SRV-APP tcp/22", expect: blocked, by: IN-USERS, at: FW-EDGE, baseline: delivered}
+  - {id: B-11, title: "Employee workstation opens SSH to the DMZ web server", category: blocked, threats: [T02],
+     flow: "PC0 -> WEB-DMZ tcp/22", expect: blocked, by: IN-USERS, at: FW-EDGE, baseline: delivered}
+  - {id: B-12, title: "Employee workstation uses SSH to an Internet host", category: blocked, threats: [T02, T07],
+     flow: "PC0 -> WEB-EXT tcp/22", expect: blocked, by: IN-USERS, at: FW-EDGE, baseline: delivered}
+  - {id: B-13, title: "Employee workstation connects to the guest network", category: blocked, threats: [T02],
+     flow: "PC0 -> PC2 tcp/445", expect: blocked, by: IN-USERS, at: FW-EDGE, phase: request}
+  # --- Servers and management zones ----------------------------------------------------------------------------------
+  - {id: B-14, title: "Application server connects to the Internet", category: blocked, threats: [T07],
+     flow: "SRV-APP -> WEB-EXT tcp/80", expect: blocked, by: IN-SERVERS, at: FW-EDGE, baseline: delivered}
+  - {id: B-15, title: "Application server opens a connection to an employee workstation", category: blocked, threats: [T02],
+     flow: "SRV-APP -> PC0 tcp/3389", expect: blocked, by: IN-SERVERS, at: FW-EDGE, baseline: delivered}
+  - {id: B-16, title: "Application server sends traffic to the log server", category: blocked, threats: [T02],
+     flow: "SRV-APP -> SRV-LOG udp/514", expect: blocked, by: IN-SERVERS, at: FW-EDGE, baseline: delivered}
+  - {id: B-17, title: "Log server connects to the Internet", category: blocked, threats: [T07],
+     flow: "SRV-LOG -> WEB-EXT tcp/80", expect: blocked, by: IN-MGMT, at: FW-EDGE, baseline: delivered}
+  - {id: B-18, title: "Administrator workstation browses the Internet", category: blocked, threats: [T07],
+     flow: "PC3 -> WEB-EXT tcp/80", expect: blocked, by: IN-MGMT, at: FW-EDGE, baseline: delivered}
+  - {id: B-19, title: "Administrator workstation pings the guest network", category: blocked, threats: [T01],
+     flow: "PC3 -> PC2 icmp/echo", expect: blocked, by: IN-MGMT, at: FW-EDGE, baseline: delivered}
+  # --- Internet attacker ----------------------------------------------------------------------------------------------
+  - {id: B-20, title: "Internet attacker tries Telnet to the firewall's public address", category: blocked, threats: [T03, T04],
+     flow: "PC5 -> 203.0.113.2 tcp/23", expect: blocked, by: IN-OUTSIDE, at: FW-EDGE, baseline: delivered}
+  - {id: B-21, title: "Internet attacker tries the HTTP management page of the firewall", category: blocked, threats: [T03, T04],
+     flow: "PC5 -> 203.0.113.2 tcp/80", expect: blocked, by: IN-OUTSIDE, at: FW-EDGE, baseline: delivered}
+  - {id: B-22, title: "Internet attacker tries SSH to the public web server", category: blocked, threats: [T04],
+     flow: "PC5 -> 203.0.113.9 tcp/22", expect: blocked, by: IN-OUTSIDE, at: FW-EDGE, baseline: delivered}
+  - {id: B-23, title: "Internet attacker tries RDP to the public web server", category: blocked, threats: [T04],
+     flow: "PC5 -> 203.0.113.9 tcp/3389", expect: blocked, by: IN-OUTSIDE, at: FW-EDGE, baseline: delivered}
+  - {id: B-24, title: "Internet attacker sends SNMP to the public DNS server", category: blocked, threats: [T04],
+     flow: "PC5 -> 203.0.113.10 udp/161", expect: blocked, by: IN-OUTSIDE, at: FW-EDGE, baseline: delivered}
+  - {id: B-25, title: "Internet attacker pings the public web server", category: blocked, threats: [T04],
+     flow: "PC5 -> 203.0.113.9 icmp/echo", expect: blocked, by: IN-OUTSIDE, at: FW-EDGE, baseline: delivered}
+  - {id: B-26, title: "Internet attacker probes an unused address of the public block", category: blocked, threats: [T04],
+     flow: "PC5 -> 203.0.113.11 tcp/80", expect: blocked, by: IN-OUTSIDE, at: FW-EDGE, baseline: blocked,
+     note: "Blocked in the baseline too, by the discard route to Null0, not by a filter."}
+  - {id: B-27, title: "Internet attacker targets the DMZ server's private address", category: blocked, threats: [T04],
+     flow: "PC5 -> 172.16.50.10 tcp/80", expect: blocked, by: route, at: ISP-R, baseline: blocked,
+     note: "Private addresses are not routed on the (simulated) Internet; this is a property of the provider, not of the hardening."}
+  - {id: B-28, title: "Internet attacker targets an internal server's private address", category: blocked, threats: [T04],
+     flow: "PC5 -> 10.10.20.10 tcp/443", expect: blocked, by: route, at: ISP-R, baseline: blocked}
+  # --- DMZ compromise -------------------------------------------------------------------------------------------------
+  - {id: B-29, title: "Compromised web server opens RDP to an employee workstation", category: blocked, threats: [T05],
+     flow: "WEB-DMZ -> PC0 tcp/3389", expect: blocked, by: IN-DMZ, at: FW-EDGE, baseline: delivered}
+  - {id: B-30, title: "Compromised web server opens SSH to the application server", category: blocked, threats: [T05],
+     flow: "WEB-DMZ -> SRV-APP tcp/22", expect: blocked, by: IN-DMZ, at: FW-EDGE, baseline: delivered}
+  - {id: B-31, title: "Compromised web server uses HTTPS to the application server (only HTTP is allowed)", category: blocked, threats: [T05],
+     flow: "WEB-DMZ -> SRV-APP tcp/443", expect: blocked, by: IN-DMZ, at: FW-EDGE, baseline: delivered}
+  - {id: B-32, title: "Compromised web server sends traffic to the log server", category: blocked, threats: [T05],
+     flow: "WEB-DMZ -> SRV-LOG udp/514", expect: blocked, by: IN-DMZ, at: FW-EDGE, baseline: delivered}
+  - {id: B-33, title: "Compromised web server connects out to the Internet", category: blocked, threats: [T05, T07],
+     flow: "WEB-DMZ -> WEB-EXT tcp/80", expect: blocked, by: IN-DMZ, at: FW-EDGE, baseline: delivered}
+  - {id: B-34, title: "Compromised DNS server reaches the application server", category: blocked, threats: [T05],
+     flow: "DNS-DMZ -> SRV-APP tcp/80", expect: blocked, by: IN-DMZ, at: FW-EDGE, baseline: delivered}
+  - {id: B-35, title: "Compromised web server opens SSH to the administrator workstation", category: blocked, threats: [T05],
+     flow: "WEB-DMZ -> PC3 tcp/22", expect: blocked, by: IN-DMZ, at: FW-EDGE, baseline: delivered}
+  - {id: B-36, title: "Compromised web server pings the guest network", category: blocked, threats: [T05],
+     flow: "WEB-DMZ -> PC2 icmp/echo", expect: blocked, by: IN-DMZ, at: FW-EDGE, baseline: delivered}
+
+  # ==================================================================================================================
+  # Forged source addresses
+  # ==================================================================================================================
+  - {id: S-01, title: "Internet attacker forges an internal (10.0.0.0/8) source address", category: spoofing, threats: [T06],
+     flow: "PC5 -> 203.0.113.9 tcp/80 spoof=10.10.10.10", expect: blocked, by: IN-OUTSIDE, at: FW-EDGE, baseline: delivered}
+  - {id: S-02, title: "Internet attacker forges a 192.168.0.0/16 source address", category: spoofing, threats: [T06],
+     flow: "PC5 -> 203.0.113.9 tcp/80 spoof=192.168.1.5", expect: blocked, by: IN-OUTSIDE, at: FW-EDGE, baseline: delivered}
+  - {id: S-03, title: "Internet attacker forges the DMZ server's private address", category: spoofing, threats: [T06],
+     flow: "PC5 -> 203.0.113.10 udp/53 spoof=172.16.50.20", expect: blocked, by: IN-OUTSIDE, at: FW-EDGE, baseline: delivered}
+  - {id: S-04, title: "Internet attacker forges a loopback source address", category: spoofing, threats: [T06],
+     flow: "PC5 -> 203.0.113.9 tcp/80 spoof=127.0.0.1", expect: blocked, by: IN-OUTSIDE, at: FW-EDGE, baseline: delivered}
+  - {id: S-05, title: "Internet attacker forges the firewall's own public address (reflection)", category: spoofing, threats: [T06],
+     flow: "PC5 -> 203.0.113.9 tcp/80 spoof=203.0.113.2", expect: blocked, by: IN-OUTSIDE, at: FW-EDGE, baseline: delivered}
+  - {id: S-06, title: "Internet attacker forges a public DMZ address of the organisation", category: spoofing, threats: [T06],
+     flow: "PC5 -> 203.0.113.10 udp/53 spoof=203.0.113.9", expect: blocked, by: IN-OUTSIDE, at: FW-EDGE, baseline: delivered}
+  - {id: S-07, title: "Internet attacker forges a reserved (240.0.0.0/4) source address", category: spoofing, threats: [T06],
+     flow: "PC5 -> 203.0.113.9 tcp/80 spoof=240.0.0.1", expect: blocked, by: IN-OUTSIDE, at: FW-EDGE, baseline: delivered}
+  - {id: S-08, title: "Employee workstation forges the administrator's address to reach the firewall", category: spoofing, threats: [T03, T06],
+     flow: "PC0 -> FW-EDGE tcp/23 spoof=10.10.99.10", expect: blocked, by: IN-USERS, at: FW-EDGE, baseline: delivered}
+  - {id: S-09, title: "Guest device forges an employee address", category: spoofing, threats: [T01, T06],
+     flow: "PC2 -> SRV-APP tcp/443 spoof=10.10.10.10", expect: blocked, by: IN-GUEST, at: FW-EDGE, baseline: delivered}
+  - {id: S-10, title: "DMZ server forges an employee address", category: spoofing, threats: [T05, T06],
+     flow: "WEB-DMZ -> SRV-APP tcp/80 spoof=10.10.10.10", expect: blocked, by: IN-DMZ, at: FW-EDGE, baseline: delivered}
+
+  # ==================================================================================================================
+  # Access to the devices themselves
+  # ==================================================================================================================
+  - {id: M-01, title: "Non-administrator host in the Management VLAN opens SSH to the access switch", category: management, threats: [T03],
+     flow: "SRV-LOG -> SW-ACCESS tcp/22", expect: blocked, by: vty, at: SW-ACCESS,
+     note: "Same VLAN, so no router is involved: only the VTY access-class stands in the way."}
+  - {id: M-02, title: "Non-administrator host in the Management VLAN opens Telnet to the access switch", category: management, threats: [T03],
+     flow: "SRV-LOG -> SW-ACCESS tcp/23", expect: blocked, by: vty, at: SW-ACCESS, baseline: delivered}
+  - {id: M-03, title: "Administrator tries Telnet to the access switch", category: management, threats: [T03, T09],
+     flow: "PC3 -> SW-ACCESS tcp/23", expect: blocked, by: vty, at: SW-ACCESS, baseline: delivered}
+  - {id: M-04, title: "Administrator tries Telnet to the firewall", category: management, threats: [T03, T09],
+     flow: "PC3 -> FW-EDGE tcp/23", expect: blocked, by: IN-MGMT, at: FW-EDGE, baseline: delivered}
+  - {id: M-05, title: "Administrator tries the HTTP management page of the firewall", category: management, threats: [T03, T09],
+     flow: "PC3 -> FW-EDGE tcp/80", expect: blocked, by: IN-MGMT, at: FW-EDGE, baseline: delivered}
+  - {id: M-06, title: "Administrator tries Telnet to the DMZ switch", category: management, threats: [T03, T09],
+     flow: "PC3 -> SW-DMZ tcp/23", expect: blocked, by: IN-MGMT, at: FW-EDGE, baseline: delivered}
+  - {id: M-07, title: "Non-administrator host in the Management VLAN opens SSH to the firewall", category: management, threats: [T03],
+     flow: "SRV-LOG -> FW-EDGE tcp/22", expect: blocked, by: IN-MGMT, at: FW-EDGE}
+  - {id: M-08, title: "Employee workstation opens Telnet to the firewall's gateway address", category: management, threats: [T02, T03],
+     flow: "PC0 -> 10.10.10.1 tcp/23", expect: blocked, by: IN-USERS, at: FW-EDGE, baseline: delivered}
+  - {id: M-09, title: "Employee workstation opens Telnet to the access switch", category: management, threats: [T02, T03],
+     flow: "PC0 -> SW-ACCESS tcp/23", expect: blocked, by: IN-USERS, at: FW-EDGE, baseline: delivered}
+  - {id: M-10, title: "Employee workstation opens SSH to the DMZ switch", category: management, threats: [T02, T03],
+     flow: "PC1 -> SW-DMZ tcp/22", expect: blocked, by: IN-USERS, at: FW-EDGE}
+  - {id: M-11, title: "Guest device opens Telnet to the firewall's guest-side address", category: management, threats: [T01, T03],
+     flow: "PC2 -> 10.10.30.1 tcp/23", expect: blocked, by: IN-GUEST, at: FW-EDGE, baseline: delivered}
+  - {id: M-12, title: "Application server opens Telnet to the firewall", category: management, threats: [T03],
+     flow: "SRV-APP -> 10.10.20.1 tcp/23", expect: blocked, by: IN-SERVERS, at: FW-EDGE, baseline: delivered}
+  - {id: M-13, title: "Compromised web server opens Telnet to the firewall's DMZ address", category: management, threats: [T05, T03],
+     flow: "WEB-DMZ -> 172.16.50.1 tcp/23", expect: blocked, by: IN-DMZ, at: FW-EDGE, baseline: delivered}
+  - {id: M-14, title: "Compromised web server opens Telnet to the DMZ switch (same VLAN, no firewall in between)", category: management, threats: [T05, T03],
+     flow: "WEB-DMZ -> SW-DMZ tcp/23", expect: blocked, by: vty, at: SW-DMZ, baseline: delivered}
+  - {id: M-15, title: "Compromised web server opens SSH to the DMZ switch (same VLAN)", category: management, threats: [T05, T03],
+     flow: "WEB-DMZ -> SW-DMZ tcp/22", expect: blocked, by: vty, at: SW-DMZ,
+     note: "Compensating control for the switch being managed in-band on the DMZ segment: the VTY access-class only accepts the administrator workstation."}
+  - {id: M-16, title: "Defence in depth - a crafted ACK that the stateless ACL lets through is still refused by the VTY", category: management, threats: [T03, T11],
+     flow: "PC5 -> 203.0.113.2 tcp/22 sport=80 ack", expect: blocked, by: vty, at: FW-EDGE,
+     note: "IN-OUTSIDE permits 'tcp any eq 80 host 203.0.113.2 established', which an ACK-only packet satisfies. The packet reaches the firewall itself, where the VTY access-class refuses the Internet source."}
+
+  # ==================================================================================================================
+  # Known limitations (documented in docs/limitations.md; asserted so the documentation cannot drift from the facts)
+  # ==================================================================================================================
+  - {id: K-01, title: "A crafted ACK from the application server reaches an employee workstation (stateless ACL)", category: limitation, threats: [T11],
+     flow: "SRV-APP -> PC0 tcp/3389 sport=80 ack", expect: delivered, limitation: stateless-acl,
+     note: "'established' only checks the ACK/RST flag. The workstation answers with a reset, which discloses that it is alive; no connection can be opened this way."}
+  - {id: K-02, title: "A crafted ACK from the DMZ web server reaches an employee workstation (stateless ACL)", category: limitation, threats: [T05, T11],
+     flow: "WEB-DMZ -> PC0 tcp/445 sport=80 ack", expect: delivered, limitation: stateless-acl}
+  - {id: K-03, title: "The DMZ DNS server may send UDP from port 53 to any Internet host", category: limitation, threats: [T05, T11],
+     flow: "DNS-DMZ -> WEB-EXT udp/53 sport=53", expect: delivered, limitation: stateless-acl,
+     note: "UDP has no flag that 'established' can check, so DNS replies are permitted by address and source port only."}
+  - {id: K-04, title: "Employees cannot reach the public web server through its public address (no hairpin NAT)", category: limitation,
+     flow: "PC0 -> 203.0.113.9 tcp/80", expect: blocked, by: route, at: FW-EDGE, limitation: no-hairpin-nat,
+     note: "The discard route for the public block stops the packet. Internal clients must use the private address (split DNS)."}
+  - {id: K-05, title: "Employee workstations can reach each other inside the Users VLAN", category: limitation, threats: [T02],
+     flow: "PC0 -> PC1 tcp/445", expect: delivered, limitation: no-intra-vlan-filtering,
+     note: "Traffic inside one VLAN never reaches the firewall. Isolating hosts inside a VLAN needs private VLANs or port ACLs, which this lab does not use."}
+  - {id: K-06, title: "DMZ servers can reach each other inside the DMZ VLAN", category: limitation, threats: [T05],
+     flow: "WEB-DMZ -> DNS-DMZ tcp/22", expect: delivered, limitation: no-intra-vlan-filtering}
+
+  # ==================================================================================================================
+  # Layer 2 protections and hardening baseline (answered by the auditor's own rules)
+  # ==================================================================================================================
+  - {id: L-01, title: "Switch ports do not negotiate trunking (DTP) - VLAN hopping by switch spoofing", category: layer2, threats: [T08],
+     kind: audit, check: {rules: [L2-001, L2-002], device: "SW-*"}, expect: clean, baseline: finding}
+  - {id: L-02, title: "Trunk native VLAN is not VLAN 1 and the trunk carries only needed VLANs - double tagging", category: layer2, threats: [T08],
+     kind: audit, check: {rules: [L2-003, L2-004], device: "SW-*"}, expect: clean, baseline: finding}
+  - {id: L-03, title: "Edge ports limit the number of MAC addresses - MAC flooding and unknown devices", category: layer2, threats: [T08, T12],
+     kind: audit, check: {rules: [L2-005], device: "SW-*"}, expect: clean, baseline: finding}
+  - {id: L-04, title: "Edge ports use PortFast with BPDU Guard - rogue switch and STP manipulation", category: layer2, threats: [T08],
+     kind: audit, check: {rules: [L2-006], device: "SW-*"}, expect: clean, baseline: finding}
+  - {id: L-05, title: "Unused ports are shut down and parked, nothing sits in VLAN 1", category: layer2, threats: [T12],
+     kind: audit, check: {rules: [L2-007, L2-008, L2-009], device: "SW-*"}, expect: clean, baseline: finding}
+  - {id: L-06, title: "VTP cannot be used to rewrite the VLAN database", category: layer2, threats: [T08],
+     kind: audit, check: {rules: [L2-010], device: "SW-*"}, expect: clean, baseline: finding}
+  - {id: L-07, title: "DHCP snooping protects the guest VLAN against rogue DHCP servers", category: layer2, threats: [T01, T08],
+     kind: audit, check: {rules: [L2-011], device: SW-ACCESS}, expect: clean, baseline: finding,
+     note: "Intended configuration; Packet Tracer support for this feature is not yet verified (docs/pt-verify.md)."}
+  - {id: L-08, title: "Dynamic ARP Inspection protects the guest VLAN against ARP spoofing", category: layer2, threats: [T01, T08],
+     kind: audit, check: {rules: [L2-012], device: SW-ACCESS}, expect: clean, baseline: finding,
+     note: "Intended configuration; Packet Tracer support for this feature is not yet verified (docs/pt-verify.md)."}
+  - {id: L-09, title: "DHCP snooping and ARP inspection are not applied to the statically addressed DMZ switch (accepted risk)", category: limitation, threats: [T08],
+     kind: audit, check: {rules: [L2-011, L2-012], device: SW-DMZ}, expect: finding, limitation: dmz-no-snooping,
+     note: "Recorded as an accepted risk with a reason in waivers/hardened.yaml."}
+
+  - {id: H-01, title: "No default, plain-text or reversible credentials on any device", category: hygiene, threats: [T09],
+     kind: audit, check: {rules: ["CRED-*"], device: "*"}, expect: clean, baseline: finding}
+  - {id: H-02, title: "Remote management is SSH-only, per-user and limited to management hosts", category: hygiene, threats: [T03, T09],
+     kind: audit, check: {rules: [AUTH-*, MGMT-001, MGMT-002, MGMT-010], device: "*"}, expect: clean, baseline: finding}
+  - {id: H-03, title: "HTTP management, SNMP defaults and the AUX port are off", category: hygiene, threats: [T09],
+     kind: audit, check: {rules: [MGMT-005, MGMT-006, MGMT-007, MGMT-008], device: "*"}, expect: clean, baseline: finding}
+  - {id: H-04, title: "Idle sessions time out and a login banner is shown", category: hygiene, threats: [T09],
+     kind: audit, check: {rules: [MGMT-003, MGMT-004], device: "*"}, expect: clean, baseline: finding}
+  - {id: H-05, title: "Devices log to the central server with time stamps and a time source", category: hygiene, threats: [T10],
+     kind: audit, check: {rules: ["LOG-*"], device: "*"}, expect: clean, baseline: finding}
+  - {id: H-06, title: "Unneeded services (CDP, source routing, proxy ARP, directed broadcast) are off", category: hygiene, threats: [T09],
+     kind: audit, check: {rules: ["SVC-*", "INT-*"], device: "*"}, expect: clean, baseline: finding}
+  - {id: H-07, title: "Access lists are default-deny, logged, used and free of permit-any-any", category: hygiene, threats: [T09],
+     kind: audit, check: {rules: ["ACL-*"], device: "*"}, expect: clean, baseline: finding}
+  - {id: H-08, title: "No central AAA server exists in the lab (accepted risk)", category: limitation, threats: [T09],
+     kind: audit, check: {rules: [MGMT-009], device: "*"}, expect: finding, baseline: finding, limitation: no-aaa-server,
+     note: "Recorded as an accepted risk with a reason in waivers/hardened.yaml."}
+
+  # ==================================================================================================================
+  # Checks only Packet Tracer can answer (pending until you run them; see docs/pt-test-plan.md)
+  # ==================================================================================================================
+  - id: X-01
+    title: The guest PC obtains an address, gateway and DNS server by DHCP
+    category: manual
+    threats: [T01]
+    kind: manual
+    steps:
+      - "On PC2 set IP Configuration to DHCP and wait for the lease."
+      - "Expect 10.10.30.100/24, gateway 10.10.30.1, DNS 172.16.50.20 (the pool excludes .1-.99)."
+  - id: X-02
+    title: SSH login to the firewall works and Telnet is refused
+    category: manual
+    threats: [T03]
+    kind: manual
+    steps:
+      - "On the firewall run 'crypto key generate rsa modulus 2048' once (the key is not part of the exported configuration)."
+      - "On PC3 open Command Prompt and run 'ssh -l admin 10.10.99.1'; log in with the admin password you generated."
+      - "On PC3 run 'telnet 10.10.99.1' and confirm the connection does not open."
+      - "On the firewall run 'show ip ssh' and note the SSH version."
+  - id: X-03
+    title: Port security shuts the port when a second device appears
+    category: manual
+    threats: [T08, T12]
+    kind: manual
+    steps:
+      - "Ping from PC0 so the access switch learns its MAC address on Fa0/1."
+      - "Unplug PC0, connect another PC (new MAC address) to SW-ACCESS Fa0/1 and send traffic."
+      - "Run 'show port-security interface fa0/1' and 'show interfaces status err-disabled' and record the result."
+  - id: X-04
+    title: NAT translations appear for browsing and for the published servers
+    category: manual
+    threats: []
+    kind: manual
+    steps:
+      - "Open http://198.51.100.80 on PC0, then run 'show ip nat translations' on the firewall."
+      - "Open http://203.0.113.9 on PC4 and run the command again; the static entries must be listed."
+  - id: X-05
+    title: ACL counters show the blocked attempts
+    category: manual
+    threats: [T04]
+    kind: manual
+    steps:
+      - "Run the blocked scenarios B-20 to B-25 from PC5 (ping, browser, Telnet)."
+      - "Run 'show access-lists IN-OUTSIDE' on the firewall and record the hit counters of the deny entries."
+  - id: X-06
+    title: Syslog and NTP reach the log server
+    category: manual
+    threats: [T10]
+    kind: manual
+    steps:
+      - "Enable the Syslog and NTP services on SRV-LOG."
+      - "Change a setting on a device (for example shut and re-enable an unused interface) and check that SRV-LOG receives the message."
+      - "Run 'show ntp status' on FW-EDGE and SW-ACCESS and record whether Packet Tracer supports it."
+  - id: X-07
+    title: Re-audit the configurations exported from Packet Tracer
+    category: manual
+    threats: [T09]
+    kind: manual
+    steps:
+      - "On each device run 'show running-config' and save the output to a text file named <hostname>.cfg."
+      - "Run 'ciscoaudit audit <folder> --waivers waivers/hardened.yaml' and compare with the committed audit of the intended configurations."
+      - "Every line Packet Tracer rejected while pasting (docs/pt-verify.md) will show up as a difference."
+  - id: X-08
+    title: Rogue DHCP server on the guest VLAN is ignored (DHCP snooping)
+    category: manual
+    threats: [T08]
+    kind: manual
+    steps:
+      - "Connect a server with a DHCP service to an unused switch port in VLAN 30."
+      - "Release and renew the lease on PC2 and record which server answered."
+      - "Record whether Packet Tracer supports 'ip dhcp snooping' at all."
+  - id: X-09
+    title: ARP inspection behaviour
+    category: manual
+    threats: [T08]
+    kind: manual
+    steps:
+      - "Check whether 'ip arp inspection vlan 30' is accepted by the 2960 image in Packet Tracer."
+      - "If it is, record what 'show ip arp inspection' prints; if not, mark the control as not testable in Packet Tracer."

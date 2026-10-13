@@ -6,47 +6,11 @@ the real configurations and expect exactly that check to complain.
 
 from __future__ import annotations
 
-import shutil
-import tempfile
 import unittest
-from pathlib import Path
-
-import yaml
 
 from ciscoaudit.policy.design import CHECKS, check_design
 from ciscoaudit.policy.topology import STATES, TopologyError, load_topology
-from tests.helpers import ROOT
-
-
-class Workspace:
-    """A throw-away copy of topology/ and configs/ that a test may damage."""
-
-    def __init__(self) -> None:
-        self._tmp = tempfile.TemporaryDirectory()
-        self.root = Path(self._tmp.name)
-        shutil.copytree(ROOT / "topology", self.root / "topology")
-        for folder in ("baseline", "hardened", "internet-sim"):
-            shutil.copytree(ROOT / "configs" / folder, self.root / "configs" / folder)
-        self.topology_path = self.root / "topology" / "topology.yaml"
-
-    def close(self) -> None:
-        self._tmp.cleanup()
-
-    def edit(self, state: str, device: str, old: str, new: str, count: int = 1) -> None:
-        folder = "internet-sim" if device in ("ISP-R", "SW-INET") else state
-        path = self.root / "configs" / folder / f"{device}.cfg"
-        text = path.read_text()
-        if text.count(old) < 1:
-            raise AssertionError(f"{old!r} not found in {path.name}")
-        path.write_text(text.replace(old, new, count))
-
-    def edit_topology(self, mutate) -> None:
-        data = yaml.safe_load(self.topology_path.read_text())
-        mutate(data)
-        self.topology_path.write_text(yaml.safe_dump(data, sort_keys=False))
-
-    def check(self, state: str):
-        return check_design(load_topology(self.topology_path), state)
+from tests.helpers import ROOT, Workspace
 
 
 class RealDesign(unittest.TestCase):

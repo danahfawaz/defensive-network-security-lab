@@ -79,6 +79,29 @@ def _build_parser() -> argparse.ArgumentParser:
     d.add_argument("-f", "--format", choices=["text", "json"], default="text")
     d.add_argument("-o", "--output")
 
+    v = sub.add_parser("validate", help="run the security validation scenarios (policy simulator + auditor) against the configurations")
+    v.add_argument("--topology", default="topology/topology.yaml")
+    v.add_argument("--scenarios", default="scenarios/scenarios.yaml")
+    v.add_argument("--state", choices=["baseline", "hardened", "all"], default="all")
+    v.add_argument("-f", "--format", choices=["text", "markdown", "json", "csv"], default="text")
+    v.add_argument("-o", "--output")
+    v.add_argument("--only", action="append", metavar="PATTERNS", help="run only scenario ids matching these globs (comma separated, e.g. 'B-*,S-01')")
+    v.add_argument("-v", "--verbose", action="store_true", help="text format: print the packet trace of every failure")
+    v.add_argument("--title", default="Security validation report", help="markdown title")
+    v.add_argument("--pt-plan", metavar="FILE", help="also write the Packet Tracer test plan (Markdown)")
+    v.add_argument("--pt-results-template", metavar="FILE", help="also write an empty Packet Tracer results sheet (CSV)")
+
+    t = sub.add_parser("trace", help="follow one flow hop by hop, e.g. \"PC5 -> 203.0.113.9 tcp/22\"")
+    t.add_argument("flow", help="'<sender> -> <destination> <proto>/<port> [sport=N] [spoof=IP] [ack] [oneway]'")
+    t.add_argument("--topology", default="topology/topology.yaml")
+    t.add_argument("--state", choices=["baseline", "hardened", "both"], default="hardened")
+
+    c2 = sub.add_parser("pt-compare", help="compare results recorded from Packet Tracer with the simulator's predictions")
+    c2.add_argument("results", help="CSV with the columns id and packet_tracer_result (see evidence/packet-tracer/)")
+    c2.add_argument("--topology", default="topology/topology.yaml")
+    c2.add_argument("--scenarios", default="scenarios/scenarios.yaml")
+    c2.add_argument("-o", "--output")
+
     r = sub.add_parser("rules", help="list the audit rules")
     r.add_argument("-f", "--format", choices=["text", "markdown", "json"], default="text")
     r.add_argument("--category")
@@ -152,6 +175,91 @@ def _cmd_design_check(args: argparse.Namespace) -> int:
     return EXIT_FINDINGS if errors else EXIT_OK
 
 
+def _load_topology(path: str):
+    from .policy.topology import TopologyError, load_topology
+
+    try:
+        return load_topology(path)
+    except TopologyError as exc:
+        raise ValueError(str(exc)) from exc
+
+
+def _cmd_validate(args: argparse.Namespace) -> int:
+    import fnmatch
+
+    from .policy import scenarios as sc, validation_report as vr
+    from .policy.topology import STATES, TopologyError
+
+    topology = _load_topology(args.topology)
+    scenarios = sc.load_scenarios(args.scenarios, topology)
+    patterns = _patterns(args.only)
+    if patterns:
+        scenarios = [s for s in scenarios if any(fnmatch.fnmatchcase(s.id, p.upper()) for p in patterns)]
+        if not scenarios:
+            raise ValueError(f"--only {patterns} matches no scenario")
+    states = STATES if args.state == "all" else (args.state,)
+    try:
+        run = sc.run_scenarios(topology, scenarios, tuple(states))
+    except TopologyError as exc:
+        raise ValueError(str(exc)) from exc
+    if args.format == "markdown":
+        text = vr.to_markdown(run, title=args.title)
+    elif args.format == "json":
+        text = vr.to_json(run)
+    elif args.format == "csv":
+        text = vr.to_csv(run)
+    else:
+        text = vr.to_text(run, verbose=args.verbose)
+    _emit(text, args.output)
+    if args.pt_plan:
+        _emit(vr.pt_plan_markdown(run, topology), args.pt_plan)
+    if args.pt_results_template:
+        _emit(vr.pt_results_template(run, topology), args.pt_results_template)
+    broken_design = [s for s, ok in run.design_ok.items() if not ok]
+    if broken_design:
+        print(f"ciscoaudit: design checks fail for {', '.join(broken_design)}; run 'ciscoaudit design-check'", file=sys.stderr)
+    return EXIT_FINDINGS if run.failures or broken_design else EXIT_OK
+
+
+def _cmd_trace(args: argparse.Namespace) -> int:
+    from .policy.engine import Simulator, format_trace
+    from .policy.flow import parse_flow
+    from .policy.network import load_network
+    from .policy.topology import TopologyError
+
+    topology = _load_topology(args.topology)
+    flow = parse_flow(args.flow)
+    states = ("baseline", "hardened") if args.state == "both" else (args.state,)
+    blocks = []
+    try:
+        for state in states:
+            blocks.append(f"[{state}] " + format_trace(Simulator(load_network(topology, state)).run(flow)))
+    except TopologyError as exc:
+        raise ValueError(str(exc)) from exc
+    sys.stdout.write("\n\n".join(blocks) + "\n")
+    return EXIT_OK
+
+
+def _cmd_pt_compare(args: argparse.Namespace) -> int:
+    from .policy import scenarios as sc, validation_report as vr
+
+    topology = _load_topology(args.topology)
+    run = sc.run_scenarios(topology, sc.load_scenarios(args.scenarios, topology), ("hardened",))
+    try:
+        text = Path(args.results).read_text(encoding="utf-8")
+    except OSError as exc:
+        raise ValueError(f"{args.results}: {exc}") from exc
+    result = vr.pt_compare(run, text)
+    recorded = len(result["agree"]) + len(result["disagree"])
+    lines = [f"recorded Packet Tracer results: {recorded}   agree with the simulator: {len(result['agree'])}   "
+             f"disagree: {len(result['disagree'])}   not supported in Packet Tracer: {len(result['not_supported'])}   "
+             f"not run yet: {len(result['not_run'])}"]
+    lines += [f"  DISAGREE {d['id']}: simulator {d['simulator']}, Packet Tracer {d['packet_tracer']}" for d in result["disagree"]]
+    lines += [f"  unknown scenario id in the CSV: {u}" for u in result["unknown_ids"]]
+    _emit("\n".join(lines) + "\n", args.output)
+    return EXIT_FINDINGS if result["disagree"] or result["unknown_ids"] else EXIT_OK
+
+
 def _cmd_rules(args: argparse.Namespace) -> int:
     rules = [r for r in all_rules() if not args.category or r.info.category.lower() == args.category.lower()]
     if not rules:
@@ -163,7 +271,8 @@ def _cmd_rules(args: argparse.Namespace) -> int:
 
 def main(argv: list[str] | None = None) -> int:
     args = _build_parser().parse_args(argv)
-    handlers = {"audit": _cmd_audit, "compare": _cmd_compare, "rules": _cmd_rules, "design-check": _cmd_design_check}
+    handlers = {"audit": _cmd_audit, "compare": _cmd_compare, "rules": _cmd_rules, "design-check": _cmd_design_check,
+                "validate": _cmd_validate, "trace": _cmd_trace, "pt-compare": _cmd_pt_compare}
     try:
         return handlers[args.command](args)
     except (ConfigError, WaiverError, ReportError, ValueError) as exc:

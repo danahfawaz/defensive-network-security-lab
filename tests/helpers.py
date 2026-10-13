@@ -52,3 +52,46 @@ class RuleCase(unittest.TestCase):
     def quiet(self, rule_id: str, config: DeviceConfig) -> None:
         found = run_rule(rule_id, config)
         self.assertEqual(found, [], f"{rule_id} should be silent, got {[(f.obj, f.detail) for f in found]}")
+
+
+# --------------------------------------------------------------------------
+# A damageable copy of the real lab
+# --------------------------------------------------------------------------
+import shutil  # noqa: E402
+import tempfile  # noqa: E402
+
+import yaml  # noqa: E402
+
+from ciscoaudit.policy.design import check_design  # noqa: E402
+from ciscoaudit.policy.topology import load_topology  # noqa: E402
+
+
+class Workspace:
+    """A throw-away copy of topology/ and configs/ that a test may damage."""
+
+    def __init__(self) -> None:
+        self._tmp = tempfile.TemporaryDirectory()
+        self.root = Path(self._tmp.name)
+        shutil.copytree(ROOT / "topology", self.root / "topology")
+        for folder in ("baseline", "hardened", "internet-sim"):
+            shutil.copytree(ROOT / "configs" / folder, self.root / "configs" / folder)
+        self.topology_path = self.root / "topology" / "topology.yaml"
+
+    def close(self) -> None:
+        self._tmp.cleanup()
+
+    def edit(self, state: str, device: str, old: str, new: str, count: int = 1) -> None:
+        folder = "internet-sim" if device in ("ISP-R", "SW-INET") else state
+        path = self.root / "configs" / folder / f"{device}.cfg"
+        text = path.read_text()
+        if text.count(old) < 1:
+            raise AssertionError(f"{old!r} not found in {path.name}")
+        path.write_text(text.replace(old, new, count))
+
+    def edit_topology(self, mutate) -> None:
+        data = yaml.safe_load(self.topology_path.read_text())
+        mutate(data)
+        self.topology_path.write_text(yaml.safe_dump(data, sort_keys=False))
+
+    def check(self, state: str):
+        return check_design(load_topology(self.topology_path), state)
