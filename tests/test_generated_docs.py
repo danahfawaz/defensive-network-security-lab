@@ -100,6 +100,44 @@ class QuotedNumbers(unittest.TestCase):
         self.assertIn(f"{base['pass']} asserted pass, {base['info']} informational, {base['pending']} pending", self.text)
 
 
+class ReadmeNumbers(unittest.TestCase):
+    """The headline numbers in README.md must be the ones the tools produce."""
+
+    def audit_summary(self, path: str, waivers: bool) -> dict:
+        import json
+        args = ["audit", str(ROOT / path), "-f", "json"]
+        if waivers:
+            args += ["--waivers", str(ROOT / "waivers/hardened.yaml"), "--today", "2026-10-12"]
+        out = io.StringIO()
+        with contextlib.redirect_stdout(out), contextlib.redirect_stderr(io.StringIO()):
+            cli.main(args)
+        return json.loads(out.getvalue())["summary"]
+
+    def test_audit_table(self):
+        text = (ROOT / "README.md").read_text(encoding="utf-8")
+        for label, path, waivers in (("Original university lab (7 devices)", "configs/original-lab", False),
+                                     ("Redesigned network, **baseline** configuration", "configs/baseline", False),
+                                     ("Redesigned network, **hardened** configuration", "configs/hardened", True)):
+            sm = self.audit_summary(path, waivers)
+            sev = sm["open_by_severity"]
+            open_ = f"**{sm['findings_open']}**" if waivers else str(sm["findings_open"])
+            accepted = f"{sm['findings_accepted_risk']} (documented, expiring)" if waivers else str(sm["findings_accepted_risk"])
+            row = f"| {label} | {open_} | {sev['critical']} | {sev['high']} | {sev['medium']} | {sev['low']} | {accepted} |"
+            self.assertIn(row, text)
+
+    def test_matrix_sentence(self):
+        from ciscoaudit.policy import matrix as mx
+        from ciscoaudit.policy.topology import load_topology
+        topology = load_topology(ROOT / "topology/topology.yaml")
+        intent = mx.load_intent(ROOT / "topology/policy-intent.yaml", topology)
+        base, hard = (mx.summary(mx.compute(topology, st, intent)) for st in ("baseline", "hardened"))
+        text = (ROOT / "README.md").read_text(encoding="utf-8").replace("\u00a0", " ")
+        probes = f"{hard['probes']:,}".replace(",", " ")
+        crossing = f"{base['permitted_between_zones']:,}".replace(",", " ")
+        self.assertIn(f"{hard['unexpected_permits'] + hard['unexpected_blocks']} of {probes}", text)
+        self.assertIn(f"the baseline lets {crossing} probes cross zones; the hardened network {hard['permitted_between_zones']}", text)
+
+
 class Evidence(unittest.TestCase):
     def test_committed_evidence_is_up_to_date(self):
         spec = importlib.util.spec_from_file_location("make_evidence", ROOT / "scripts" / "make_evidence.py")
