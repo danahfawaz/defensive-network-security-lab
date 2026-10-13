@@ -1,0 +1,48 @@
+graph lab {
+  rankdir=TB; compound=true; fontname="Helvetica"; nodesep=0.35; ranksep=0.6;
+  node [fontname="Helvetica", fontsize=10, shape=box, style="rounded,filled", fillcolor=white];
+  edge [fontname="Helvetica", fontsize=8];
+  "FW-EDGE" [shape=box3d, fillcolor="#fde68a", label="FW-EDGE\nCisco 1841"];
+  "SW-ACCESS" [shape=box, fillcolor="#e5e7eb", label="SW-ACCESS\nCisco 2960-24TT"];
+  "SW-DMZ" [shape=box, fillcolor="#e5e7eb", label="SW-DMZ\nCisco 2960-24TT"];
+  "ISP-R" [shape=box3d, fillcolor="#e5e7eb", label="ISP-R\nCisco 1841"];
+  "SW-INET" [shape=box, fillcolor="#e5e7eb", label="SW-INET\nCisco 2960-24TT"];
+  subgraph "cluster_users" { label="users - VLAN 10\n10.10.10.0/24"; style="rounded,filled"; fillcolor="#dbeafe";
+    "PC0" [label="PC0\n10.10.10.10"];
+    "PC1" [label="PC1\n10.10.10.11"];
+  }
+  subgraph "cluster_guest" { label="guest - VLAN 30\n10.10.30.0/24"; style="rounded,filled"; fillcolor="#fef3c7";
+    "PC2" [label="PC2\n10.10.30.100"];
+  }
+  subgraph "cluster_mgmt" { label="mgmt - VLAN 99\n10.10.99.0/24"; style="rounded,filled"; fillcolor="#dcfce7";
+    "PC3" [label="PC3\n10.10.99.10"];
+    "SRV-LOG" [label="SRV-LOG\n10.10.99.20"];
+  }
+  subgraph "cluster_servers" { label="servers - VLAN 20\n10.10.20.0/24"; style="rounded,filled"; fillcolor="#e0e7ff";
+    "SRV-APP" [label="SRV-APP\n10.10.20.10"];
+  }
+  subgraph "cluster_dmz" { label="dmz - VLAN 50\n172.16.50.0/24"; style="rounded,filled"; fillcolor="#fee2e2";
+    "WEB-DMZ" [label="WEB-DMZ\n172.16.50.10"];
+    "DNS-DMZ" [label="DNS-DMZ\n172.16.50.20"];
+  }
+  subgraph "cluster_internet" { label="internet - VLAN 100\n198.51.100.0/24"; style="rounded,filled"; fillcolor="#f3f4f6";
+    "PC4" [label="PC4\n198.51.100.10"];
+    "PC5" [label="PC5\n198.51.100.66"];
+    "WEB-EXT" [label="WEB-EXT\n198.51.100.80"];
+  }
+  "FW-EDGE" -- "SW-ACCESS" [label="trunk Fa0/0 - Fa0/3", penwidth=2, color="#b45309"];
+  "FW-EDGE" -- "SW-DMZ" [label="Fa0/1 - Fa0/3", color="#6b7280"];
+  "FW-EDGE" -- "ISP-R" [label="routed Eth0/1/0 - Fa0/1", penwidth=2, color="#b45309"];
+  "ISP-R" -- "SW-INET" [label="Fa0/0 - Fa0/3", color="#6b7280"];
+  "PC0" -- "SW-ACCESS" [label="Fa0/1", color="#6b7280"];
+  "PC1" -- "SW-ACCESS" [label="Fa0/2", color="#6b7280"];
+  "PC2" -- "SW-ACCESS" [label="Fa0/4", color="#6b7280"];
+  "PC3" -- "SW-ACCESS" [label="Fa0/5", color="#6b7280"];
+  "SRV-APP" -- "SW-ACCESS" [label="Fa0/6", color="#6b7280"];
+  "SRV-LOG" -- "SW-ACCESS" [label="Fa0/7", color="#6b7280"];
+  "WEB-DMZ" -- "SW-DMZ" [label="Fa0/1", color="#6b7280"];
+  "DNS-DMZ" -- "SW-DMZ" [label="Fa0/2", color="#6b7280"];
+  "PC4" -- "SW-INET" [label="Fa0/1", color="#6b7280"];
+  "PC5" -- "SW-INET" [label="Fa0/2", color="#6b7280"];
+  "WEB-EXT" -- "SW-INET" [label="Fa0/4", color="#6b7280"];
+}
