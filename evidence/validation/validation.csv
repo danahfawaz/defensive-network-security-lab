@@ -1,0 +1,125 @@
+id,category,kind,title,flow_or_check,baseline_expected,baseline_actual,baseline_status,baseline_stopped_by,baseline_at,hardened_expected,hardened_actual,hardened_status,hardened_stopped_by,hardened_at
+P-01,permitted,flow,Employee opens the internal application over HTTPS,PC0 -> SRV-APP tcp/443,delivered,delivered,pass,,,delivered,delivered,pass,,
+P-02,permitted,flow,Employee opens the internal application over HTTP,PC1 -> SRV-APP tcp/80,delivered,delivered,pass,,,delivered,delivered,pass,,
+P-03,permitted,flow,Employee pings the application server,PC0 -> SRV-APP icmp/echo,delivered,delivered,pass,,,delivered,delivered,pass,,
+P-04,permitted,flow,Employee opens the company web site over its private address,PC0 -> WEB-DMZ tcp/443,delivered,delivered,pass,,,delivered,delivered,pass,,
+P-05,permitted,flow,Employee resolves names through the DMZ DNS server (UDP),PC0 -> DNS-DMZ udp/53,delivered,delivered,pass,,,delivered,delivered,pass,,
+P-06,permitted,flow,Employee resolves names through the DMZ DNS server (TCP),PC0 -> DNS-DMZ tcp/53,delivered,delivered,pass,,,delivered,delivered,pass,,
+P-07,permitted,flow,Employee browses the Internet over HTTP (PAT),PC0 -> WEB-EXT tcp/80,delivered,delivered,pass,,,delivered,delivered,pass,,
+P-08,permitted,flow,Employee browses the Internet over HTTPS (PAT),PC1 -> WEB-EXT tcp/443,delivered,delivered,pass,,,delivered,delivered,pass,,
+P-09,permitted,flow,Employee pings an Internet host,PC0 -> WEB-EXT icmp/echo,delivered,delivered,pass,,,delivered,delivered,pass,,
+P-10,permitted,flow,Employee pings the default gateway,PC0 -> 10.10.10.1 icmp/echo,delivered,delivered,pass,,,delivered,delivered,pass,,
+P-11,permitted,flow,Guest browses the Internet over HTTPS,PC2 -> WEB-EXT tcp/443,delivered,delivered,pass,,,delivered,delivered,pass,,
+P-12,permitted,flow,Guest resolves names through the DMZ DNS server,PC2 -> DNS-DMZ udp/53,delivered,delivered,pass,,,delivered,delivered,pass,,
+P-13,permitted,flow,Guest device asks the router for an address (DHCP DISCOVER),PC2 -> 255.255.255.255 udp/67 sport=68 spoof=0.0.0.0,delivered,delivered,pass,,,delivered,delivered,pass,,
+P-14,permitted,flow,Guest pings the default gateway,PC2 -> 10.10.30.1 icmp/echo,delivered,delivered,pass,,,delivered,delivered,pass,,
+P-15,permitted,flow,Administrator opens an SSH session to the firewall,PC3 -> FW-EDGE tcp/22,,delivered,info,,,delivered,delivered,pass,,
+P-16,permitted,flow,Administrator opens an SSH session to the access switch,PC3 -> SW-ACCESS tcp/22,,delivered,info,,,delivered,delivered,pass,,
+P-17,permitted,flow,Administrator opens an SSH session to the DMZ switch through the firewall,PC3 -> SW-DMZ tcp/22,,delivered,info,,,delivered,delivered,pass,,
+P-18,permitted,flow,Administrator checks the application server,PC3 -> SRV-APP tcp/443,delivered,delivered,pass,,,delivered,delivered,pass,,
+P-19,permitted,flow,Administrator checks the public web server on its private address,PC3 -> WEB-DMZ tcp/80,delivered,delivered,pass,,,delivered,delivered,pass,,
+P-20,permitted,flow,Administrator pings an employee workstation,PC3 -> PC0 icmp/echo,delivered,delivered,pass,,,delivered,delivered,pass,,
+P-21,permitted,flow,Internet client reaches the public web server over HTTP,PC4 -> 203.0.113.9 tcp/80,delivered,delivered,pass,,,delivered,delivered,pass,,
+P-22,permitted,flow,Internet client reaches the public web server over HTTPS,PC4 -> 203.0.113.9 tcp/443,delivered,delivered,pass,,,delivered,delivered,pass,,
+P-23,permitted,flow,Internet client queries the public DNS server (UDP),PC4 -> 203.0.113.10 udp/53,delivered,delivered,pass,,,delivered,delivered,pass,,
+P-24,permitted,flow,Internet client queries the public DNS server (TCP),PC4 -> 203.0.113.10 tcp/53,delivered,delivered,pass,,,delivered,delivered,pass,,
+P-25,permitted,flow,Web server calls the application tier (the one DMZ-to-inside flow),WEB-DMZ -> SRV-APP tcp/80,delivered,delivered,pass,,,delivered,delivered,pass,,
+P-26,permitted,flow,Application server resolves names through the DMZ DNS server,SRV-APP -> DNS-DMZ udp/53,delivered,delivered,pass,,,delivered,delivered,pass,,
+P-27,permitted,flow,DMZ switch sends syslog to the log server,SW-DMZ -> SRV-LOG udp/514 oneway,,delivered,info,,,delivered,delivered,pass,,
+P-28,permitted,flow,DMZ switch synchronises time with the log server,SW-DMZ -> SRV-LOG udp/123 sport=123,,delivered,info,,,delivered,delivered,pass,,
+P-29,permitted,flow,Firewall sends syslog to the log server,FW-EDGE -> SRV-LOG udp/514 oneway,,delivered,info,,,delivered,delivered,pass,,
+P-30,permitted,flow,Firewall synchronises time with the log server,FW-EDGE -> SRV-LOG udp/123 sport=123,,delivered,info,,,delivered,delivered,pass,,
+B-01,blocked,flow,Guest device reaches the application server,PC2 -> SRV-APP tcp/443,delivered,delivered,pass,,,blocked,blocked,pass,IN-GUEST,FW-EDGE
+B-02,blocked,flow,Guest device pings an employee workstation,PC2 -> PC0 icmp/echo,blocked,blocked,pass,101,FW-EDGE,blocked,blocked,pass,IN-GUEST,FW-EDGE
+B-03,blocked,flow,Guest device pings the administrator workstation,PC2 -> PC3 icmp/echo,delivered,delivered,pass,,,blocked,blocked,pass,IN-GUEST,FW-EDGE
+B-04,blocked,flow,Guest device sends traffic to the log server,PC2 -> SRV-LOG udp/514,delivered,delivered,pass,,,blocked,blocked,pass,IN-GUEST,FW-EDGE
+B-05,blocked,flow,Guest device reaches the DMZ web server on its private address,PC2 -> WEB-DMZ tcp/80,delivered,delivered,pass,,,blocked,blocked,pass,IN-GUEST,FW-EDGE
+B-06,blocked,flow,Guest device uses SSH to an Internet host (only web traffic is allowed out),PC2 -> WEB-EXT tcp/22,delivered,delivered,pass,,,blocked,blocked,pass,IN-GUEST,FW-EDGE
+B-07,blocked,flow,Employee workstation pings the administrator workstation,PC0 -> PC3 icmp/echo,delivered,delivered,pass,,,blocked,blocked,pass,IN-USERS,FW-EDGE
+B-08,blocked,flow,Employee workstation sends traffic to the log server,PC0 -> SRV-LOG udp/514,delivered,delivered,pass,,,blocked,blocked,pass,IN-USERS,FW-EDGE
+B-09,blocked,flow,Employee workstation opens RDP to the application server,PC0 -> SRV-APP tcp/3389,delivered,delivered,pass,,,blocked,blocked,pass,IN-USERS,FW-EDGE
+B-10,blocked,flow,Employee workstation opens SSH to the application server,PC0 -> SRV-APP tcp/22,delivered,delivered,pass,,,blocked,blocked,pass,IN-USERS,FW-EDGE
+B-11,blocked,flow,Employee workstation opens SSH to the DMZ web server,PC0 -> WEB-DMZ tcp/22,delivered,delivered,pass,,,blocked,blocked,pass,IN-USERS,FW-EDGE
+B-12,blocked,flow,Employee workstation uses SSH to an Internet host,PC0 -> WEB-EXT tcp/22,delivered,delivered,pass,,,blocked,blocked,pass,IN-USERS,FW-EDGE
+B-13,blocked,flow,Employee workstation connects to the guest network,PC0 -> PC2 tcp/445,,blocked,info,101,FW-EDGE,blocked,blocked,pass,IN-USERS,FW-EDGE
+B-14,blocked,flow,Application server connects to the Internet,SRV-APP -> WEB-EXT tcp/80,delivered,delivered,pass,,,blocked,blocked,pass,IN-SERVERS,FW-EDGE
+B-15,blocked,flow,Application server opens a connection to an employee workstation,SRV-APP -> PC0 tcp/3389,delivered,delivered,pass,,,blocked,blocked,pass,IN-SERVERS,FW-EDGE
+B-16,blocked,flow,Application server sends traffic to the log server,SRV-APP -> SRV-LOG udp/514,delivered,delivered,pass,,,blocked,blocked,pass,IN-SERVERS,FW-EDGE
+B-17,blocked,flow,Log server connects to the Internet,SRV-LOG -> WEB-EXT tcp/80,delivered,delivered,pass,,,blocked,blocked,pass,IN-MGMT,FW-EDGE
+B-18,blocked,flow,Administrator workstation browses the Internet,PC3 -> WEB-EXT tcp/80,delivered,delivered,pass,,,blocked,blocked,pass,IN-MGMT,FW-EDGE
+B-19,blocked,flow,Administrator workstation pings the guest network,PC3 -> PC2 icmp/echo,delivered,delivered,pass,,,blocked,blocked,pass,IN-MGMT,FW-EDGE
+B-20,blocked,flow,Internet attacker tries Telnet to the firewall's public address,PC5 -> 203.0.113.2 tcp/23,delivered,delivered,pass,,,blocked,blocked,pass,IN-OUTSIDE,FW-EDGE
+B-21,blocked,flow,Internet attacker tries the HTTP management page of the firewall,PC5 -> 203.0.113.2 tcp/80,delivered,delivered,pass,,,blocked,blocked,pass,IN-OUTSIDE,FW-EDGE
+B-22,blocked,flow,Internet attacker tries SSH to the public web server,PC5 -> 203.0.113.9 tcp/22,delivered,delivered,pass,,,blocked,blocked,pass,IN-OUTSIDE,FW-EDGE
+B-23,blocked,flow,Internet attacker tries RDP to the public web server,PC5 -> 203.0.113.9 tcp/3389,delivered,delivered,pass,,,blocked,blocked,pass,IN-OUTSIDE,FW-EDGE
+B-24,blocked,flow,Internet attacker sends SNMP to the public DNS server,PC5 -> 203.0.113.10 udp/161,delivered,delivered,pass,,,blocked,blocked,pass,IN-OUTSIDE,FW-EDGE
+B-25,blocked,flow,Internet attacker pings the public web server,PC5 -> 203.0.113.9 icmp/echo,delivered,delivered,pass,,,blocked,blocked,pass,IN-OUTSIDE,FW-EDGE
+B-26,blocked,flow,Internet attacker probes an unused address of the public block,PC5 -> 203.0.113.11 tcp/80,blocked,blocked,pass,route,FW-EDGE,blocked,blocked,pass,IN-OUTSIDE,FW-EDGE
+B-27,blocked,flow,Internet attacker targets the DMZ server's private address,PC5 -> 172.16.50.10 tcp/80,blocked,blocked,pass,route,ISP-R,blocked,blocked,pass,route,ISP-R
+B-28,blocked,flow,Internet attacker targets an internal server's private address,PC5 -> 10.10.20.10 tcp/443,blocked,blocked,pass,route,ISP-R,blocked,blocked,pass,route,ISP-R
+B-29,blocked,flow,Compromised web server opens RDP to an employee workstation,WEB-DMZ -> PC0 tcp/3389,delivered,delivered,pass,,,blocked,blocked,pass,IN-DMZ,FW-EDGE
+B-30,blocked,flow,Compromised web server opens SSH to the application server,WEB-DMZ -> SRV-APP tcp/22,delivered,delivered,pass,,,blocked,blocked,pass,IN-DMZ,FW-EDGE
+B-31,blocked,flow,Compromised web server uses HTTPS to the application server (only HTTP is allowed),WEB-DMZ -> SRV-APP tcp/443,delivered,delivered,pass,,,blocked,blocked,pass,IN-DMZ,FW-EDGE
+B-32,blocked,flow,Compromised web server sends traffic to the log server,WEB-DMZ -> SRV-LOG udp/514,delivered,delivered,pass,,,blocked,blocked,pass,IN-DMZ,FW-EDGE
+B-33,blocked,flow,Compromised web server connects out to the Internet,WEB-DMZ -> WEB-EXT tcp/80,delivered,delivered,pass,,,blocked,blocked,pass,IN-DMZ,FW-EDGE
+B-34,blocked,flow,Compromised DNS server reaches the application server,DNS-DMZ -> SRV-APP tcp/80,delivered,delivered,pass,,,blocked,blocked,pass,IN-DMZ,FW-EDGE
+B-35,blocked,flow,Compromised web server opens SSH to the administrator workstation,WEB-DMZ -> PC3 tcp/22,delivered,delivered,pass,,,blocked,blocked,pass,IN-DMZ,FW-EDGE
+B-36,blocked,flow,Compromised web server pings the guest network,WEB-DMZ -> PC2 icmp/echo,delivered,delivered,pass,,,blocked,blocked,pass,IN-DMZ,FW-EDGE
+S-01,spoofing,flow,Internet attacker forges an internal (10.0.0.0/8) source address,PC5 -> 203.0.113.9 tcp/80 spoof=10.10.10.10,delivered,delivered,pass,,,blocked,blocked,pass,IN-OUTSIDE,FW-EDGE
+S-02,spoofing,flow,Internet attacker forges a 192.168.0.0/16 source address,PC5 -> 203.0.113.9 tcp/80 spoof=192.168.1.5,delivered,delivered,pass,,,blocked,blocked,pass,IN-OUTSIDE,FW-EDGE
+S-03,spoofing,flow,Internet attacker forges the DMZ server's private address,PC5 -> 203.0.113.10 udp/53 spoof=172.16.50.20,delivered,delivered,pass,,,blocked,blocked,pass,IN-OUTSIDE,FW-EDGE
+S-04,spoofing,flow,Internet attacker forges a loopback source address,PC5 -> 203.0.113.9 tcp/80 spoof=127.0.0.1,delivered,delivered,pass,,,blocked,blocked,pass,IN-OUTSIDE,FW-EDGE
+S-05,spoofing,flow,Internet attacker forges the firewall's own public address (reflection),PC5 -> 203.0.113.9 tcp/80 spoof=203.0.113.2,delivered,delivered,pass,,,blocked,blocked,pass,IN-OUTSIDE,FW-EDGE
+S-06,spoofing,flow,Internet attacker forges a public DMZ address of the organisation,PC5 -> 203.0.113.10 udp/53 spoof=203.0.113.9,delivered,delivered,pass,,,blocked,blocked,pass,IN-OUTSIDE,FW-EDGE
+S-07,spoofing,flow,Internet attacker forges a reserved (240.0.0.0/4) source address,PC5 -> 203.0.113.9 tcp/80 spoof=240.0.0.1,delivered,delivered,pass,,,blocked,blocked,pass,IN-OUTSIDE,FW-EDGE
+S-08,spoofing,flow,Employee workstation forges the administrator's address to reach the firewall,PC0 -> FW-EDGE tcp/23 spoof=10.10.99.10,delivered,delivered,pass,,,blocked,blocked,pass,IN-USERS,FW-EDGE
+S-09,spoofing,flow,Guest device forges an employee address,PC2 -> SRV-APP tcp/443 spoof=10.10.10.10,delivered,delivered,pass,,,blocked,blocked,pass,IN-GUEST,FW-EDGE
+S-10,spoofing,flow,DMZ server forges an employee address,WEB-DMZ -> SRV-APP tcp/80 spoof=10.10.10.10,delivered,delivered,pass,,,blocked,blocked,pass,IN-DMZ,FW-EDGE
+M-01,management,flow,Non-administrator host in the Management VLAN opens SSH to the access switch,SRV-LOG -> SW-ACCESS tcp/22,,delivered,info,,,blocked,blocked,pass,vty,SW-ACCESS
+M-02,management,flow,Non-administrator host in the Management VLAN opens Telnet to the access switch,SRV-LOG -> SW-ACCESS tcp/23,delivered,delivered,pass,,,blocked,blocked,pass,vty,SW-ACCESS
+M-03,management,flow,Administrator tries Telnet to the access switch,PC3 -> SW-ACCESS tcp/23,delivered,delivered,pass,,,blocked,blocked,pass,vty,SW-ACCESS
+M-04,management,flow,Administrator tries Telnet to the firewall,PC3 -> FW-EDGE tcp/23,delivered,delivered,pass,,,blocked,blocked,pass,IN-MGMT,FW-EDGE
+M-05,management,flow,Administrator tries the HTTP management page of the firewall,PC3 -> FW-EDGE tcp/80,delivered,delivered,pass,,,blocked,blocked,pass,IN-MGMT,FW-EDGE
+M-06,management,flow,Administrator tries Telnet to the DMZ switch,PC3 -> SW-DMZ tcp/23,delivered,delivered,pass,,,blocked,blocked,pass,IN-MGMT,FW-EDGE
+M-07,management,flow,Non-administrator host in the Management VLAN opens SSH to the firewall,SRV-LOG -> FW-EDGE tcp/22,,delivered,info,,,blocked,blocked,pass,IN-MGMT,FW-EDGE
+M-08,management,flow,Employee workstation opens Telnet to the firewall's gateway address,PC0 -> 10.10.10.1 tcp/23,delivered,delivered,pass,,,blocked,blocked,pass,IN-USERS,FW-EDGE
+M-09,management,flow,Employee workstation opens Telnet to the access switch,PC0 -> SW-ACCESS tcp/23,delivered,delivered,pass,,,blocked,blocked,pass,IN-USERS,FW-EDGE
+M-10,management,flow,Employee workstation opens SSH to the DMZ switch,PC1 -> SW-DMZ tcp/22,,delivered,info,,,blocked,blocked,pass,IN-USERS,FW-EDGE
+M-11,management,flow,Guest device opens Telnet to the firewall's guest-side address,PC2 -> 10.10.30.1 tcp/23,delivered,delivered,pass,,,blocked,blocked,pass,IN-GUEST,FW-EDGE
+M-12,management,flow,Application server opens Telnet to the firewall,SRV-APP -> 10.10.20.1 tcp/23,delivered,delivered,pass,,,blocked,blocked,pass,IN-SERVERS,FW-EDGE
+M-13,management,flow,Compromised web server opens Telnet to the firewall's DMZ address,WEB-DMZ -> 172.16.50.1 tcp/23,delivered,delivered,pass,,,blocked,blocked,pass,IN-DMZ,FW-EDGE
+M-14,management,flow,"Compromised web server opens Telnet to the DMZ switch (same VLAN, no firewall in between)",WEB-DMZ -> SW-DMZ tcp/23,delivered,delivered,pass,,,blocked,blocked,pass,vty,SW-DMZ
+M-15,management,flow,Compromised web server opens SSH to the DMZ switch (same VLAN),WEB-DMZ -> SW-DMZ tcp/22,,delivered,info,,,blocked,blocked,pass,vty,SW-DMZ
+M-16,management,flow,Defence in depth - a crafted ACK that the stateless ACL lets through is still refused by the VTY,PC5 -> 203.0.113.2 tcp/22 sport=80 ack,,delivered,info,,,blocked,blocked,pass,vty,FW-EDGE
+K-01,limitation,flow,A crafted ACK from the application server reaches an employee workstation (stateless ACL),SRV-APP -> PC0 tcp/3389 sport=80 ack,,delivered,info,,,delivered,delivered,pass,,
+K-02,limitation,flow,A crafted ACK from the DMZ web server reaches an employee workstation (stateless ACL),WEB-DMZ -> PC0 tcp/445 sport=80 ack,,delivered,info,,,delivered,delivered,pass,,
+K-03,limitation,flow,The DMZ DNS server may send UDP from port 53 to any Internet host,DNS-DMZ -> WEB-EXT udp/53 sport=53,,delivered,info,,,delivered,delivered,pass,,
+K-04,limitation,flow,Employees cannot reach the public web server through its public address (no hairpin NAT),PC0 -> 203.0.113.9 tcp/80,,blocked,info,route,FW-EDGE,blocked,blocked,pass,route,FW-EDGE
+K-05,limitation,flow,Employee workstations can reach each other inside the Users VLAN,PC0 -> PC1 tcp/445,,delivered,info,,,delivered,delivered,pass,,
+K-06,limitation,flow,DMZ servers can reach each other inside the DMZ VLAN,WEB-DMZ -> DNS-DMZ tcp/22,,delivered,info,,,delivered,delivered,pass,,
+L-01,layer2,audit,Switch ports do not negotiate trunking (DTP) - VLAN hopping by switch spoofing,"{""rules"": [""L2-001"", ""L2-002""], ""device"": ""SW-*""}",finding,finding,pass,,,clean,clean,pass,,
+L-02,layer2,audit,Trunk native VLAN is not VLAN 1 and the trunk carries only needed VLANs - double tagging,"{""rules"": [""L2-003"", ""L2-004""], ""device"": ""SW-*""}",finding,finding,pass,,,clean,clean,pass,,
+L-03,layer2,audit,Edge ports limit the number of MAC addresses - MAC flooding and unknown devices,"{""rules"": [""L2-005""], ""device"": ""SW-*""}",finding,finding,pass,,,clean,clean,pass,,
+L-04,layer2,audit,Edge ports use PortFast with BPDU Guard - rogue switch and STP manipulation,"{""rules"": [""L2-006""], ""device"": ""SW-*""}",finding,finding,pass,,,clean,clean,pass,,
+L-05,layer2,audit,"Unused ports are shut down and parked, nothing sits in VLAN 1","{""rules"": [""L2-007"", ""L2-008"", ""L2-009""], ""device"": ""SW-*""}",finding,finding,pass,,,clean,clean,pass,,
+L-06,layer2,audit,VTP cannot be used to rewrite the VLAN database,"{""rules"": [""L2-010""], ""device"": ""SW-*""}",finding,finding,pass,,,clean,clean,pass,,
+L-07,layer2,audit,DHCP snooping protects the guest VLAN against rogue DHCP servers,"{""rules"": [""L2-011""], ""device"": ""SW-ACCESS""}",finding,finding,pass,,,clean,clean,pass,,
+L-08,layer2,audit,Dynamic ARP Inspection protects the guest VLAN against ARP spoofing,"{""rules"": [""L2-012""], ""device"": ""SW-ACCESS""}",finding,finding,pass,,,clean,clean,pass,,
+L-09,limitation,audit,DHCP snooping and ARP inspection are not applied to the statically addressed DMZ switch (accepted risk),"{""rules"": [""L2-011"", ""L2-012""], ""device"": ""SW-DMZ""}",,finding,info,,,finding,finding,pass,,
+H-01,hygiene,audit,"No default, plain-text or reversible credentials on any device","{""rules"": [""CRED-*""], ""device"": ""*""}",finding,finding,pass,,,clean,clean,pass,,
+H-02,hygiene,audit,"Remote management is SSH-only, per-user and limited to management hosts","{""rules"": [""AUTH-*"", ""MGMT-001"", ""MGMT-002"", ""MGMT-010""], ""device"": ""*""}",finding,finding,pass,,,clean,clean,pass,,
+H-03,hygiene,audit,"HTTP management, SNMP defaults and the AUX port are off","{""rules"": [""MGMT-005"", ""MGMT-006"", ""MGMT-007"", ""MGMT-008""], ""device"": ""*""}",finding,finding,pass,,,clean,clean,pass,,
+H-04,hygiene,audit,Idle sessions time out and a login banner is shown,"{""rules"": [""MGMT-003"", ""MGMT-004""], ""device"": ""*""}",finding,finding,pass,,,clean,clean,pass,,
+H-05,hygiene,audit,Devices log to the central server with time stamps and a time source,"{""rules"": [""LOG-*""], ""device"": ""*""}",finding,finding,pass,,,clean,clean,pass,,
+H-06,hygiene,audit,"Unneeded services (CDP, source routing, proxy ARP, directed broadcast) are off","{""rules"": [""SVC-*"", ""INT-*""], ""device"": ""*""}",finding,finding,pass,,,clean,clean,pass,,
+H-07,hygiene,audit,"Access lists are default-deny, logged, used and free of permit-any-any","{""rules"": [""ACL-*""], ""device"": ""*""}",finding,finding,pass,,,clean,clean,pass,,
+H-08,limitation,audit,No central AAA server exists in the lab (accepted risk),"{""rules"": [""MGMT-009""], ""device"": ""*""}",finding,finding,pass,,,finding,finding,pass,,
+X-01,manual,manual,"The guest PC obtains an address, gateway and DNS server by DHCP",,,pending,pending,,,,pending,pending,,
+X-02,manual,manual,SSH login to the firewall works and Telnet is refused,,,pending,pending,,,,pending,pending,,
+X-03,manual,manual,Port security shuts the port when a second device appears,,,pending,pending,,,,pending,pending,,
+X-04,manual,manual,NAT translations appear for browsing and for the published servers,,,pending,pending,,,,pending,pending,,
+X-05,manual,manual,ACL counters show the blocked attempts,,,pending,pending,,,,pending,pending,,
+X-06,manual,manual,Syslog and NTP reach the log server,,,pending,pending,,,,pending,pending,,
+X-07,manual,manual,Re-audit the configurations exported from Packet Tracer,,,pending,pending,,,,pending,pending,,
+X-08,manual,manual,Rogue DHCP server on the guest VLAN is ignored (DHCP snooping),,,pending,pending,,,,pending,pending,,
+X-09,manual,manual,ARP inspection behaviour,,,pending,pending,,,,pending,pending,,

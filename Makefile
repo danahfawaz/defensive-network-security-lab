@@ -5,9 +5,9 @@ TODAY   ?= 2026-10-12
 export PYTHONPATH := src
 CA      := $(PY) -m ciscoaudit
 
-.PHONY: all test audit design validate matrix docs-check check-secrets evidence rules clean
+.PHONY: all test audit design validate matrix docs-check evidence evidence-check check-secrets rules clean
 
-all: test audit design validate matrix docs-check check-secrets
+all: test audit design validate matrix docs-check evidence-check check-secrets
 
 test:            ## unit tests
 	$(PY) -m unittest discover -s tests -t .
@@ -26,6 +26,12 @@ matrix:          ## every sender x destination x service against the written pol
 
 docs-check:       ## generated tables are up to date
 	$(PY) scripts/generate_docs.py --check
+
+evidence:        ## regenerate evidence/ (audit, validation, matrix, unit-test summary)
+	$(PY) scripts/make_evidence.py
+
+evidence-check:  ## committed evidence matches what the tools produce
+	$(PY) scripts/make_evidence.py --check --skip-tests
 
 check-secrets:   ## committed configs hold placeholders only
 	$(PY) scripts/render_configs.py --check

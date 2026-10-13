@@ -1,0 +1,246 @@
+{
+  "schema_version": "1.0",
+  "tool": {
+    "name": "ciscoaudit",
+    "version": "0.1.0"
+  },
+  "title": "Redesigned network, hardened configuration",
+  "generated_at": null,
+  "scope": {
+    "files": [
+      "configs/hardened/FW-EDGE.cfg",
+      "configs/hardened/SW-ACCESS.cfg",
+      "configs/hardened/SW-DMZ.cfg"
+    ],
+    "rules_run": [
+      "ACL-001",
+      "ACL-002",
+      "ACL-003",
+      "ACL-004",
+      "ACL-005",
+      "ACL-006",
+      "ACL-007",
+      "ACL-008",
+      "AUTH-001",
+      "AUTH-002",
+      "AUTH-003",
+      "AUTH-004",
+      "CRED-001",
+      "CRED-002",
+      "CRED-003",
+      "CRED-004",
+      "CRED-005",
+      "INT-001",
+      "INT-002",
+      "L2-001",
+      "L2-002",
+      "L2-003",
+      "L2-004",
+      "L2-005",
+      "L2-006",
+      "L2-007",
+      "L2-008",
+      "L2-009",
+      "L2-010",
+      "L2-011",
+      "L2-012",
+      "LOG-001",
+      "LOG-002",
+      "LOG-003",
+      "MGMT-001",
+      "MGMT-002",
+      "MGMT-003",
+      "MGMT-004",
+      "MGMT-005",
+      "MGMT-006",
+      "MGMT-007",
+      "MGMT-008",
+      "MGMT-009",
+      "MGMT-010",
+      "RTE-001",
+      "RTE-002",
+      "RTE-003",
+      "RTE-004",
+      "SVC-001",
+      "SVC-002",
+      "SVC-003",
+      "SVC-004"
+    ],
+    "min_severity": null
+  },
+  "summary": {
+    "devices": 3,
+    "findings_open": 0,
+    "findings_accepted_risk": 5,
+    "open_by_severity": {
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 0,
+      "info": 0
+    },
+    "accepted_risk_by_severity": {
+      "critical": 0,
+      "high": 0,
+      "medium": 2,
+      "low": 3,
+      "info": 0
+    },
+    "open_by_category": {}
+  },
+  "devices": [
+    {
+      "name": "FW-EDGE",
+      "hostname": "FW-EDGE",
+      "file": "configs/hardened/FW-EDGE.cfg",
+      "type": "router",
+      "model": "1841",
+      "ios_version": "12.4",
+      "open_by_severity": {
+        "critical": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "info": 0
+      },
+      "accepted_risk": 1
+    },
+    {
+      "name": "SW-ACCESS",
+      "hostname": "SW-ACCESS",
+      "file": "configs/hardened/SW-ACCESS.cfg",
+      "type": "switch",
+      "model": "2960-24TT",
+      "ios_version": "15.0",
+      "open_by_severity": {
+        "critical": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "info": 0
+      },
+      "accepted_risk": 1
+    },
+    {
+      "name": "SW-DMZ",
+      "hostname": "SW-DMZ",
+      "file": "configs/hardened/SW-DMZ.cfg",
+      "type": "switch",
+      "model": "2960-24TT",
+      "ios_version": "15.0",
+      "open_by_severity": {
+        "critical": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "info": 0
+      },
+      "accepted_risk": 3
+    }
+  ],
+  "findings": [
+    {
+      "rule_id": "L2-011",
+      "title": "DHCP snooping is not enabled",
+      "severity": "medium",
+      "category": "Layer 2",
+      "device": "SW-DMZ",
+      "file": "configs/hardened/SW-DMZ.cfg",
+      "object": "global",
+      "affected": [],
+      "detail": "'ip dhcp snooping' is not enabled.",
+      "evidence": [],
+      "risk": "Any port can answer DHCP requests. A rogue DHCP server hands clients its own default gateway or DNS server (a man-in-the-middle position) or exhausts the address pool (denial of service), and the switch has no binding table that ties each IP address to a port - which Dynamic ARP Inspection also needs.",
+      "remediation": "'ip dhcp snooping' and 'ip dhcp snooping vlan <ids>'; mark only the uplink toward the real DHCP server with 'ip dhcp snooping trust'; rate-limit client ports with 'ip dhcp snooping limit rate 15'.",
+      "references": [
+        "MITRE ATT&CK T1557 Adversary-in-the-Middle",
+        "Cisco, Guide to Harden Cisco IOS Devices",
+        "NSA, Network Infrastructure Security Guide"
+      ],
+      "status": "accepted-risk",
+      "waiver_reason": "Both DMZ servers are statically addressed and the DMZ has no DHCP server, so snooping would have no bindings to build. The attack it prevents - a rogue DHCP server handing out a bad gateway or DNS server - needs DHCP clients, and there are none on this VLAN. Port security (sticky, maximum 1, violation shutdown) limits who can plug in. Revisit if a DHCP client is ever placed in the DMZ."
+    },
+    {
+      "rule_id": "L2-012",
+      "title": "Dynamic ARP Inspection is not enabled",
+      "severity": "medium",
+      "category": "Layer 2",
+      "device": "SW-DMZ",
+      "file": "configs/hardened/SW-DMZ.cfg",
+      "object": "global",
+      "affected": [],
+      "detail": "'ip arp inspection vlan' is not configured.",
+      "evidence": [],
+      "risk": "Without Dynamic ARP Inspection any host can poison its neighbours' ARP caches (ARP spoofing) and sit between them and their gateway, reading or altering traffic that never leaves the VLAN, which no router ACL can see.",
+      "remediation": "'ip arp inspection vlan <ids>' on VLANs whose hosts get their addresses through DHCP snooping; trust only uplinks ('ip arp inspection trust'); use ARP ACLs for statically addressed hosts.",
+      "references": [
+        "MITRE ATT&CK T1557.002 Adversary-in-the-Middle: ARP Cache Poisoning",
+        "Cisco, Guide to Harden Cisco IOS Devices",
+        "NSA, Network Infrastructure Security Guide"
+      ],
+      "status": "accepted-risk",
+      "waiver_reason": "Dynamic ARP Inspection validates ARP against DHCP-snooping bindings; with static addressing there are none, so it would also need one ARP ACL entry per server. For two servers on port-secured ports that cost was judged greater than the benefit in this lab. Residual risk: a compromised DMZ server could ARP-spoof the other DMZ server or the firewall's DMZ interface and intercept DMZ traffic. FW-EDGE already prevents the DMZ from initiating connections to the internal network, which limits the impact."
+    },
+    {
+      "rule_id": "MGMT-009",
+      "title": "AAA is not enabled (local-only authentication)",
+      "severity": "low",
+      "category": "Management plane",
+      "device": "FW-EDGE",
+      "file": "configs/hardened/FW-EDGE.cfg",
+      "object": "global",
+      "affected": [],
+      "detail": "'aaa new-model' is not configured; only local accounts and line passwords exist.",
+      "evidence": [],
+      "risk": "Without AAA there is no central account lifecycle, command authorisation or accounting: every device keeps its own accounts and nothing records who ran which command.",
+      "remediation": "Enable 'aaa new-model', authenticate against TACACS+/RADIUS with a local fallback ('aaa authentication login default group tacacs+ local'), and add command accounting.",
+      "references": [
+        "CIS Cisco IOS Benchmark",
+        "NSA, Network Infrastructure Security Guide"
+      ],
+      "status": "accepted-risk",
+      "waiver_reason": "The lab has no TACACS+/RADIUS server, so authentication is local (AAA is future work, see docs/limitations.md). Compensating controls on the device: SSH version 2 only, 'login local' on every line, access to the VTY lines limited to the administrator workstation by VTY-ADMIN, a 5-minute exec timeout, and login throttling. The remaining weakness is that accounts are not centrally managed and commands are not accounted for."
+    },
+    {
+      "rule_id": "MGMT-009",
+      "title": "AAA is not enabled (local-only authentication)",
+      "severity": "low",
+      "category": "Management plane",
+      "device": "SW-ACCESS",
+      "file": "configs/hardened/SW-ACCESS.cfg",
+      "object": "global",
+      "affected": [],
+      "detail": "'aaa new-model' is not configured; only local accounts and line passwords exist.",
+      "evidence": [],
+      "risk": "Without AAA there is no central account lifecycle, command authorisation or accounting: every device keeps its own accounts and nothing records who ran which command.",
+      "remediation": "Enable 'aaa new-model', authenticate against TACACS+/RADIUS with a local fallback ('aaa authentication login default group tacacs+ local'), and add command accounting.",
+      "references": [
+        "CIS Cisco IOS Benchmark",
+        "NSA, Network Infrastructure Security Guide"
+      ],
+      "status": "accepted-risk",
+      "waiver_reason": "Same as FW-EDGE: no AAA server in the lab. Compensating controls: SSH only, 'login local', VTY-ADMIN source restriction (administrator workstation 10.10.99.10), exec timeout."
+    },
+    {
+      "rule_id": "MGMT-009",
+      "title": "AAA is not enabled (local-only authentication)",
+      "severity": "low",
+      "category": "Management plane",
+      "device": "SW-DMZ",
+      "file": "configs/hardened/SW-DMZ.cfg",
+      "object": "global",
+      "affected": [],
+      "detail": "'aaa new-model' is not configured; only local accounts and line passwords exist.",
+      "evidence": [],
+      "risk": "Without AAA there is no central account lifecycle, command authorisation or accounting: every device keeps its own accounts and nothing records who ran which command.",
+      "remediation": "Enable 'aaa new-model', authenticate against TACACS+/RADIUS with a local fallback ('aaa authentication login default group tacacs+ local'), and add command accounting.",
+      "references": [
+        "CIS Cisco IOS Benchmark",
+        "NSA, Network Infrastructure Security Guide"
+      ],
+      "status": "accepted-risk",
+      "waiver_reason": "Same as FW-EDGE: no AAA server in the lab. Compensating controls: SSH only, 'login local', VTY-ADMIN source restriction, and FW-EDGE lets only the administrator workstation reach TCP/22 on this switch."
+    }
+  ],
+  "warnings": []
+}

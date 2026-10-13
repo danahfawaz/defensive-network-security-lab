@@ -124,14 +124,21 @@ For each audited device (FW-EDGE, SW-ACCESS, SW-DMZ): `show running-config`, cop
 
 ```bash
 PYTHONPATH=src python -m ciscoaudit audit evidence/packet-tracer/exported --waivers waivers/hardened.yaml
-PYTHONPATH=src python -m ciscoaudit compare configs/hardened evidence/packet-tracer/exported
+# what did Packet Tracer keep? (comments ignored)
+diff -u <(grep -v '^!' configs/hardened/FW-EDGE.cfg) <(grep -v '^!' evidence/packet-tracer/exported/FW-EDGE.cfg)
 ```
 
-Differences between the committed configuration and what PT kept are exactly the lines PT silently dropped or rewrote. That is real evidence about Packet Tracer support, positive or negative.
+Lines that are in the committed configuration but missing from the export are commands Packet Tracer silently dropped or rewrote. That is real evidence about Packet Tracer support, positive or negative. (Export files must be named after the device, `FW-EDGE.cfg`.)
 
 ## 8. Before/after demonstration (optional, strong in an interview)
 
 1. Build and test the **baseline**. Run the attacks (guest → servers, Internet → internal, Telnet to the router). Many succeed.
 2. Run `ciscoaudit audit configs/baseline`: critical findings.
 3. Reset each device (`erase startup-config`, `reload`), paste the **hardened** configurations as in step 4, and repeat the same attacks. They are blocked, and the permitted flows still work.
-4. `ciscoaudit compare configs/baseline configs/hardened` lists exactly what was remediated.
+4. Export both audits as JSON and compare them; the report lists exactly what was remediated:
+
+```bash
+PYTHONPATH=src python -m ciscoaudit audit configs/baseline -f json -o baseline.json
+PYTHONPATH=src python -m ciscoaudit audit configs/hardened --waivers waivers/hardened.yaml -f json -o hardened.json
+PYTHONPATH=src python -m ciscoaudit compare baseline.json hardened.json
+```

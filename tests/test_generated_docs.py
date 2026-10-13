@@ -37,10 +37,85 @@ class GeneratedDocs(unittest.TestCase):
         original = path.read_text(encoding="utf-8")
         try:
             path.write_text(original + "\nedited\n", encoding="utf-8")
-            self.assertEqual(generate_docs.main(["--check"]), 1)
+            with contextlib.redirect_stderr(io.StringIO()):
+                self.assertEqual(generate_docs.main(["--check"]), 1)
         finally:
             path.write_text(original, encoding="utf-8")
-        self.assertEqual(generate_docs.main(["--check"]), 0)
+        with contextlib.redirect_stdout(io.StringIO()):
+            self.assertEqual(generate_docs.main(["--check"]), 0)
+
+
+class ThreatModel(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        import re
+        import yaml
+        text = (ROOT / "docs/threat-model.md").read_text(encoding="utf-8")
+        cls.defined = set(re.findall(r"^\| (T\d\d) \|", text, re.M))
+        cls.scenarios = yaml.safe_load((ROOT / "scenarios/scenarios.yaml").read_text(encoding="utf-8"))["scenarios"]
+
+    def test_twelve_threats_are_defined(self):
+        self.assertEqual(self.defined, {f"T{i:02d}" for i in range(1, 13)})
+
+    def test_scenarios_only_reference_defined_threats(self):
+        used = {t for sc in self.scenarios for t in sc.get("threats", [])}
+        self.assertLessEqual(used, self.defined)
+
+    def test_every_threat_has_a_simulated_scenario(self):
+        for tid in sorted(self.defined):
+            simulated = [sc["id"] for sc in self.scenarios if tid in sc.get("threats", []) and sc["category"] != "manual"]
+            self.assertTrue(simulated, f"{tid} has no simulated scenario")
+
+
+class QuotedNumbers(unittest.TestCase):
+    """docs/validation.md quotes results; they must be the ones the tools produce."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.text = (ROOT / "docs/validation.md").read_text(encoding="utf-8").replace("\u00a0", " ")
+
+    def test_matrix_figures(self):
+        from ciscoaudit.policy import matrix as mx
+        from ciscoaudit.policy.topology import load_topology
+        topology = load_topology(ROOT / "topology/topology.yaml")
+        intent = mx.load_intent(ROOT / "topology/policy-intent.yaml", topology)
+        base, hard = (mx.summary(mx.compute(topology, st, intent)) for st in ("baseline", "hardened"))
+        def spaced(n):
+            return f"{n:,}".replace(",", " ")
+        self.assertIn(f"{spaced(hard['probes'])} probes", self.text)
+        self.assertIn(f"{spaced(base['permitted_between_zones'])} probes cross zones against {hard['permitted_between_zones']} hardened", self.text)
+        self.assertIn(f"({hard['permitted_inside_a_zone']} of the {hard['permitted']} permitted hardened probes)", self.text)
+        self.assertEqual((hard["unexpected_permits"], hard["unexpected_blocks"]), (0, 0))
+
+    def test_scenario_figures(self):
+        import json
+        out = io.StringIO()
+        with contextlib.redirect_stdout(out), contextlib.redirect_stderr(io.StringIO()):
+            cli.main(["validate", "--topology", str(ROOT / "topology/topology.yaml"), "--scenarios", str(ROOT / "scenarios/scenarios.yaml"),
+                      "--format", "json"])
+        data = json.loads(out.getvalue())
+        self.assertIn(f"{len(data['scenarios'])} scenarios", self.text)
+        hard, base = data["summary"]["hardened"], data["summary"]["baseline"]
+        self.assertIn(f"{hard['pass']} passed, {hard['fail']} failed**, {hard['pending']} pending", self.text)
+        self.assertIn(f"{base['pass']} asserted pass, {base['info']} informational, {base['pending']} pending", self.text)
+
+
+class Evidence(unittest.TestCase):
+    def test_committed_evidence_is_up_to_date(self):
+        spec = importlib.util.spec_from_file_location("make_evidence", ROOT / "scripts" / "make_evidence.py")
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        files = module.build(with_tests=False)
+        for name, text in files.items():
+            path = ROOT / "evidence" / name
+            self.assertTrue(path.exists(), f"{path} missing - run make evidence")
+            self.assertEqual(path.read_text(encoding="utf-8"), text, f"evidence/{name} is stale - run make evidence")
+
+    def test_packet_tracer_folder_is_never_written_by_the_generator(self):
+        spec = importlib.util.spec_from_file_location("make_evidence2", ROOT / "scripts" / "make_evidence.py")
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        self.assertFalse([n for n in module.build(with_tests=False) if n.startswith("packet-tracer")])
 
 
 class PacketTracerPlan(unittest.TestCase):

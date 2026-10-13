@@ -1,0 +1,1975 @@
+state,from,to,service,result,in_policy,intra_zone,stopped_by,at,phase,disagreement
+baseline,PC0,PC1,icmp,permitted,yes,yes,,,,
+baseline,PC0,PC1,ssh,permitted,yes,yes,,,,
+baseline,PC0,PC1,telnet,permitted,yes,yes,,,,
+baseline,PC0,PC1,http,permitted,yes,yes,,,,
+baseline,PC0,PC1,https,permitted,yes,yes,,,,
+baseline,PC0,PC1,rdp,permitted,yes,yes,,,,
+baseline,PC0,PC1,smb,permitted,yes,yes,,,,
+baseline,PC0,PC1,dns-udp,permitted,yes,yes,,,,
+baseline,PC0,PC1,dns-tcp,permitted,yes,yes,,,,
+baseline,PC0,PC1,syslog,permitted,yes,yes,,,,
+baseline,PC0,PC1,snmp,permitted,yes,yes,,,,
+baseline,PC0,PC2,icmp,permitted,no,no,101,FW-EDGE,,unexpected permit
+baseline,PC0,PC2,ssh,permitted,no,no,101,FW-EDGE,,unexpected permit
+baseline,PC0,PC2,telnet,permitted,no,no,101,FW-EDGE,,unexpected permit
+baseline,PC0,PC2,http,permitted,no,no,101,FW-EDGE,,unexpected permit
+baseline,PC0,PC2,https,permitted,no,no,101,FW-EDGE,,unexpected permit
+baseline,PC0,PC2,rdp,permitted,no,no,101,FW-EDGE,,unexpected permit
+baseline,PC0,PC2,smb,permitted,no,no,101,FW-EDGE,,unexpected permit
+baseline,PC0,PC2,dns-udp,permitted,no,no,101,FW-EDGE,,unexpected permit
+baseline,PC0,PC2,dns-tcp,permitted,no,no,101,FW-EDGE,,unexpected permit
+baseline,PC0,PC2,syslog,permitted,no,no,101,FW-EDGE,,unexpected permit
+baseline,PC0,PC2,snmp,permitted,no,no,101,FW-EDGE,,unexpected permit
+baseline,PC0,PC3,icmp,permitted,no,no,,,,unexpected permit
+baseline,PC0,PC3,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC0,PC3,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC0,PC3,http,permitted,no,no,,,,unexpected permit
+baseline,PC0,PC3,https,permitted,no,no,,,,unexpected permit
+baseline,PC0,PC3,rdp,permitted,no,no,,,,unexpected permit
+baseline,PC0,PC3,smb,permitted,no,no,,,,unexpected permit
+baseline,PC0,PC3,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,PC0,PC3,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,PC0,PC3,syslog,permitted,no,no,,,,unexpected permit
+baseline,PC0,PC3,snmp,permitted,no,no,,,,unexpected permit
+baseline,PC0,SRV-APP,icmp,permitted,yes,no,,,,
+baseline,PC0,SRV-APP,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC0,SRV-APP,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC0,SRV-APP,http,permitted,yes,no,,,,
+baseline,PC0,SRV-APP,https,permitted,yes,no,,,,
+baseline,PC0,SRV-APP,rdp,permitted,no,no,,,,unexpected permit
+baseline,PC0,SRV-APP,smb,permitted,no,no,,,,unexpected permit
+baseline,PC0,SRV-APP,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,PC0,SRV-APP,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,PC0,SRV-APP,syslog,permitted,no,no,,,,unexpected permit
+baseline,PC0,SRV-APP,snmp,permitted,no,no,,,,unexpected permit
+baseline,PC0,SRV-LOG,icmp,permitted,no,no,,,,unexpected permit
+baseline,PC0,SRV-LOG,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC0,SRV-LOG,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC0,SRV-LOG,http,permitted,no,no,,,,unexpected permit
+baseline,PC0,SRV-LOG,https,permitted,no,no,,,,unexpected permit
+baseline,PC0,SRV-LOG,rdp,permitted,no,no,,,,unexpected permit
+baseline,PC0,SRV-LOG,smb,permitted,no,no,,,,unexpected permit
+baseline,PC0,SRV-LOG,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,PC0,SRV-LOG,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,PC0,SRV-LOG,syslog,permitted,no,no,,,,unexpected permit
+baseline,PC0,SRV-LOG,snmp,permitted,no,no,,,,unexpected permit
+baseline,PC0,WEB-DMZ,icmp,permitted,yes,no,,,,
+baseline,PC0,WEB-DMZ,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC0,WEB-DMZ,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC0,WEB-DMZ,http,permitted,yes,no,,,,
+baseline,PC0,WEB-DMZ,https,permitted,yes,no,,,,
+baseline,PC0,WEB-DMZ,rdp,permitted,no,no,,,,unexpected permit
+baseline,PC0,WEB-DMZ,smb,permitted,no,no,,,,unexpected permit
+baseline,PC0,WEB-DMZ,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,PC0,WEB-DMZ,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,PC0,WEB-DMZ,syslog,permitted,no,no,,,,unexpected permit
+baseline,PC0,WEB-DMZ,snmp,permitted,no,no,,,,unexpected permit
+baseline,PC0,DNS-DMZ,icmp,permitted,yes,no,,,,
+baseline,PC0,DNS-DMZ,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC0,DNS-DMZ,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC0,DNS-DMZ,http,permitted,no,no,,,,unexpected permit
+baseline,PC0,DNS-DMZ,https,permitted,no,no,,,,unexpected permit
+baseline,PC0,DNS-DMZ,rdp,permitted,no,no,,,,unexpected permit
+baseline,PC0,DNS-DMZ,smb,permitted,no,no,,,,unexpected permit
+baseline,PC0,DNS-DMZ,dns-udp,permitted,yes,no,,,,
+baseline,PC0,DNS-DMZ,dns-tcp,permitted,yes,no,,,,
+baseline,PC0,DNS-DMZ,syslog,permitted,no,no,,,,unexpected permit
+baseline,PC0,DNS-DMZ,snmp,permitted,no,no,,,,unexpected permit
+baseline,PC0,PC4,icmp,permitted,yes,no,,,,
+baseline,PC0,PC4,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC0,PC4,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC0,PC4,http,permitted,yes,no,,,,
+baseline,PC0,PC4,https,permitted,yes,no,,,,
+baseline,PC0,PC4,rdp,permitted,no,no,,,,unexpected permit
+baseline,PC0,PC4,smb,permitted,no,no,,,,unexpected permit
+baseline,PC0,PC4,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,PC0,PC4,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,PC0,PC4,syslog,permitted,no,no,,,,unexpected permit
+baseline,PC0,PC4,snmp,permitted,no,no,,,,unexpected permit
+baseline,PC0,PC5,icmp,permitted,yes,no,,,,
+baseline,PC0,PC5,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC0,PC5,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC0,PC5,http,permitted,yes,no,,,,
+baseline,PC0,PC5,https,permitted,yes,no,,,,
+baseline,PC0,PC5,rdp,permitted,no,no,,,,unexpected permit
+baseline,PC0,PC5,smb,permitted,no,no,,,,unexpected permit
+baseline,PC0,PC5,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,PC0,PC5,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,PC0,PC5,syslog,permitted,no,no,,,,unexpected permit
+baseline,PC0,PC5,snmp,permitted,no,no,,,,unexpected permit
+baseline,PC0,WEB-EXT,icmp,permitted,yes,no,,,,
+baseline,PC0,WEB-EXT,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC0,WEB-EXT,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC0,WEB-EXT,http,permitted,yes,no,,,,
+baseline,PC0,WEB-EXT,https,permitted,yes,no,,,,
+baseline,PC0,WEB-EXT,rdp,permitted,no,no,,,,unexpected permit
+baseline,PC0,WEB-EXT,smb,permitted,no,no,,,,unexpected permit
+baseline,PC0,WEB-EXT,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,PC0,WEB-EXT,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,PC0,WEB-EXT,syslog,permitted,no,no,,,,unexpected permit
+baseline,PC0,WEB-EXT,snmp,permitted,no,no,,,,unexpected permit
+baseline,PC0,FW-EDGE,icmp,permitted,no,no,,,,unexpected permit
+baseline,PC0,FW-EDGE,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC0,FW-EDGE,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC0,FW-EDGE,http,permitted,no,no,,,,unexpected permit
+baseline,PC0,SW-ACCESS,icmp,permitted,no,no,,,,unexpected permit
+baseline,PC0,SW-ACCESS,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC0,SW-ACCESS,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC0,SW-DMZ,icmp,permitted,no,no,,,,unexpected permit
+baseline,PC0,SW-DMZ,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC0,SW-DMZ,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC0,FW-EDGE-USERS,icmp,permitted,yes,no,,,,
+baseline,PC0,FW-EDGE-USERS,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC0,FW-EDGE-USERS,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC0,FW-EDGE-USERS,http,permitted,no,no,,,,unexpected permit
+baseline,PC0,FW-EDGE-SERVERS,icmp,permitted,no,no,,,,unexpected permit
+baseline,PC0,FW-EDGE-SERVERS,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC0,FW-EDGE-SERVERS,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC0,FW-EDGE-SERVERS,http,permitted,no,no,,,,unexpected permit
+baseline,PC0,FW-EDGE-GUEST,icmp,permitted,no,no,,,,unexpected permit
+baseline,PC0,FW-EDGE-GUEST,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC0,FW-EDGE-GUEST,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC0,FW-EDGE-GUEST,http,permitted,no,no,,,,unexpected permit
+baseline,PC0,FW-EDGE-DMZ,icmp,permitted,no,no,,,,unexpected permit
+baseline,PC0,FW-EDGE-DMZ,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC0,FW-EDGE-DMZ,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC0,FW-EDGE-DMZ,http,permitted,no,no,,,,unexpected permit
+baseline,PC0,FW-EDGE-OUTSIDE,icmp,permitted,no,no,,,,unexpected permit
+baseline,PC0,FW-EDGE-OUTSIDE,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC0,FW-EDGE-OUTSIDE,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC0,FW-EDGE-OUTSIDE,http,permitted,no,no,,,,unexpected permit
+baseline,PC0,UNUSED-USERS,icmp,permitted,yes,yes,,,,
+baseline,PC0,UNUSED-USERS,ssh,permitted,yes,yes,,,,
+baseline,PC0,UNUSED-USERS,telnet,permitted,yes,yes,,,,
+baseline,PC0,UNUSED-USERS,http,permitted,yes,yes,,,,
+baseline,PC0,UNUSED-USERS,https,permitted,yes,yes,,,,
+baseline,PC0,UNUSED-USERS,rdp,permitted,yes,yes,,,,
+baseline,PC0,UNUSED-USERS,smb,permitted,yes,yes,,,,
+baseline,PC0,UNUSED-USERS,dns-udp,permitted,yes,yes,,,,
+baseline,PC0,UNUSED-USERS,dns-tcp,permitted,yes,yes,,,,
+baseline,PC0,UNUSED-USERS,syslog,permitted,yes,yes,,,,
+baseline,PC0,UNUSED-USERS,snmp,permitted,yes,yes,,,,
+baseline,PC0,UNUSED-SERVERS,icmp,permitted,no,no,,,,unexpected permit
+baseline,PC0,UNUSED-SERVERS,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC0,UNUSED-SERVERS,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC0,UNUSED-SERVERS,http,permitted,no,no,,,,unexpected permit
+baseline,PC0,UNUSED-SERVERS,https,permitted,no,no,,,,unexpected permit
+baseline,PC0,UNUSED-SERVERS,rdp,permitted,no,no,,,,unexpected permit
+baseline,PC0,UNUSED-SERVERS,smb,permitted,no,no,,,,unexpected permit
+baseline,PC0,UNUSED-SERVERS,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,PC0,UNUSED-SERVERS,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,PC0,UNUSED-SERVERS,syslog,permitted,no,no,,,,unexpected permit
+baseline,PC0,UNUSED-SERVERS,snmp,permitted,no,no,,,,unexpected permit
+baseline,PC0,UNUSED-GUEST,icmp,permitted,no,no,,,,unexpected permit
+baseline,PC0,UNUSED-GUEST,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC0,UNUSED-GUEST,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC0,UNUSED-GUEST,http,permitted,no,no,,,,unexpected permit
+baseline,PC0,UNUSED-GUEST,https,permitted,no,no,,,,unexpected permit
+baseline,PC0,UNUSED-GUEST,rdp,permitted,no,no,,,,unexpected permit
+baseline,PC0,UNUSED-GUEST,smb,permitted,no,no,,,,unexpected permit
+baseline,PC0,UNUSED-GUEST,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,PC0,UNUSED-GUEST,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,PC0,UNUSED-GUEST,syslog,permitted,no,no,,,,unexpected permit
+baseline,PC0,UNUSED-GUEST,snmp,permitted,no,no,,,,unexpected permit
+baseline,PC0,UNUSED-MGMT,icmp,permitted,no,no,,,,unexpected permit
+baseline,PC0,UNUSED-MGMT,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC0,UNUSED-MGMT,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC0,UNUSED-MGMT,http,permitted,no,no,,,,unexpected permit
+baseline,PC0,UNUSED-MGMT,https,permitted,no,no,,,,unexpected permit
+baseline,PC0,UNUSED-MGMT,rdp,permitted,no,no,,,,unexpected permit
+baseline,PC0,UNUSED-MGMT,smb,permitted,no,no,,,,unexpected permit
+baseline,PC0,UNUSED-MGMT,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,PC0,UNUSED-MGMT,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,PC0,UNUSED-MGMT,syslog,permitted,no,no,,,,unexpected permit
+baseline,PC0,UNUSED-MGMT,snmp,permitted,no,no,,,,unexpected permit
+baseline,PC0,UNUSED-DMZ,icmp,permitted,no,no,,,,unexpected permit
+baseline,PC0,UNUSED-DMZ,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC0,UNUSED-DMZ,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC0,UNUSED-DMZ,http,permitted,no,no,,,,unexpected permit
+baseline,PC0,UNUSED-DMZ,https,permitted,no,no,,,,unexpected permit
+baseline,PC0,UNUSED-DMZ,rdp,permitted,no,no,,,,unexpected permit
+baseline,PC0,UNUSED-DMZ,smb,permitted,no,no,,,,unexpected permit
+baseline,PC0,UNUSED-DMZ,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,PC0,UNUSED-DMZ,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,PC0,UNUSED-DMZ,syslog,permitted,no,no,,,,unexpected permit
+baseline,PC0,UNUSED-DMZ,snmp,permitted,no,no,,,,unexpected permit
+baseline,PC1,PC0,icmp,permitted,yes,yes,,,,
+baseline,PC1,PC0,ssh,permitted,yes,yes,,,,
+baseline,PC1,PC0,telnet,permitted,yes,yes,,,,
+baseline,PC1,PC0,http,permitted,yes,yes,,,,
+baseline,PC1,PC0,https,permitted,yes,yes,,,,
+baseline,PC1,PC0,rdp,permitted,yes,yes,,,,
+baseline,PC1,PC0,smb,permitted,yes,yes,,,,
+baseline,PC1,PC0,dns-udp,permitted,yes,yes,,,,
+baseline,PC1,PC0,dns-tcp,permitted,yes,yes,,,,
+baseline,PC1,PC0,syslog,permitted,yes,yes,,,,
+baseline,PC1,PC0,snmp,permitted,yes,yes,,,,
+baseline,PC1,PC2,icmp,permitted,no,no,101,FW-EDGE,,unexpected permit
+baseline,PC1,PC2,ssh,permitted,no,no,101,FW-EDGE,,unexpected permit
+baseline,PC1,PC2,telnet,permitted,no,no,101,FW-EDGE,,unexpected permit
+baseline,PC1,PC2,http,permitted,no,no,101,FW-EDGE,,unexpected permit
+baseline,PC1,PC2,https,permitted,no,no,101,FW-EDGE,,unexpected permit
+baseline,PC1,PC2,rdp,permitted,no,no,101,FW-EDGE,,unexpected permit
+baseline,PC1,PC2,smb,permitted,no,no,101,FW-EDGE,,unexpected permit
+baseline,PC1,PC2,dns-udp,permitted,no,no,101,FW-EDGE,,unexpected permit
+baseline,PC1,PC2,dns-tcp,permitted,no,no,101,FW-EDGE,,unexpected permit
+baseline,PC1,PC2,syslog,permitted,no,no,101,FW-EDGE,,unexpected permit
+baseline,PC1,PC2,snmp,permitted,no,no,101,FW-EDGE,,unexpected permit
+baseline,PC1,PC3,icmp,permitted,no,no,,,,unexpected permit
+baseline,PC1,PC3,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC1,PC3,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC1,PC3,http,permitted,no,no,,,,unexpected permit
+baseline,PC1,PC3,https,permitted,no,no,,,,unexpected permit
+baseline,PC1,PC3,rdp,permitted,no,no,,,,unexpected permit
+baseline,PC1,PC3,smb,permitted,no,no,,,,unexpected permit
+baseline,PC1,PC3,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,PC1,PC3,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,PC1,PC3,syslog,permitted,no,no,,,,unexpected permit
+baseline,PC1,PC3,snmp,permitted,no,no,,,,unexpected permit
+baseline,PC1,SRV-APP,icmp,permitted,yes,no,,,,
+baseline,PC1,SRV-APP,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC1,SRV-APP,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC1,SRV-APP,http,permitted,yes,no,,,,
+baseline,PC1,SRV-APP,https,permitted,yes,no,,,,
+baseline,PC1,SRV-APP,rdp,permitted,no,no,,,,unexpected permit
+baseline,PC1,SRV-APP,smb,permitted,no,no,,,,unexpected permit
+baseline,PC1,SRV-APP,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,PC1,SRV-APP,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,PC1,SRV-APP,syslog,permitted,no,no,,,,unexpected permit
+baseline,PC1,SRV-APP,snmp,permitted,no,no,,,,unexpected permit
+baseline,PC1,SRV-LOG,icmp,permitted,no,no,,,,unexpected permit
+baseline,PC1,SRV-LOG,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC1,SRV-LOG,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC1,SRV-LOG,http,permitted,no,no,,,,unexpected permit
+baseline,PC1,SRV-LOG,https,permitted,no,no,,,,unexpected permit
+baseline,PC1,SRV-LOG,rdp,permitted,no,no,,,,unexpected permit
+baseline,PC1,SRV-LOG,smb,permitted,no,no,,,,unexpected permit
+baseline,PC1,SRV-LOG,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,PC1,SRV-LOG,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,PC1,SRV-LOG,syslog,permitted,no,no,,,,unexpected permit
+baseline,PC1,SRV-LOG,snmp,permitted,no,no,,,,unexpected permit
+baseline,PC1,WEB-DMZ,icmp,permitted,yes,no,,,,
+baseline,PC1,WEB-DMZ,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC1,WEB-DMZ,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC1,WEB-DMZ,http,permitted,yes,no,,,,
+baseline,PC1,WEB-DMZ,https,permitted,yes,no,,,,
+baseline,PC1,WEB-DMZ,rdp,permitted,no,no,,,,unexpected permit
+baseline,PC1,WEB-DMZ,smb,permitted,no,no,,,,unexpected permit
+baseline,PC1,WEB-DMZ,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,PC1,WEB-DMZ,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,PC1,WEB-DMZ,syslog,permitted,no,no,,,,unexpected permit
+baseline,PC1,WEB-DMZ,snmp,permitted,no,no,,,,unexpected permit
+baseline,PC1,DNS-DMZ,icmp,permitted,yes,no,,,,
+baseline,PC1,DNS-DMZ,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC1,DNS-DMZ,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC1,DNS-DMZ,http,permitted,no,no,,,,unexpected permit
+baseline,PC1,DNS-DMZ,https,permitted,no,no,,,,unexpected permit
+baseline,PC1,DNS-DMZ,rdp,permitted,no,no,,,,unexpected permit
+baseline,PC1,DNS-DMZ,smb,permitted,no,no,,,,unexpected permit
+baseline,PC1,DNS-DMZ,dns-udp,permitted,yes,no,,,,
+baseline,PC1,DNS-DMZ,dns-tcp,permitted,yes,no,,,,
+baseline,PC1,DNS-DMZ,syslog,permitted,no,no,,,,unexpected permit
+baseline,PC1,DNS-DMZ,snmp,permitted,no,no,,,,unexpected permit
+baseline,PC1,PC4,icmp,permitted,yes,no,,,,
+baseline,PC1,PC4,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC1,PC4,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC1,PC4,http,permitted,yes,no,,,,
+baseline,PC1,PC4,https,permitted,yes,no,,,,
+baseline,PC1,PC4,rdp,permitted,no,no,,,,unexpected permit
+baseline,PC1,PC4,smb,permitted,no,no,,,,unexpected permit
+baseline,PC1,PC4,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,PC1,PC4,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,PC1,PC4,syslog,permitted,no,no,,,,unexpected permit
+baseline,PC1,PC4,snmp,permitted,no,no,,,,unexpected permit
+baseline,PC1,PC5,icmp,permitted,yes,no,,,,
+baseline,PC1,PC5,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC1,PC5,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC1,PC5,http,permitted,yes,no,,,,
+baseline,PC1,PC5,https,permitted,yes,no,,,,
+baseline,PC1,PC5,rdp,permitted,no,no,,,,unexpected permit
+baseline,PC1,PC5,smb,permitted,no,no,,,,unexpected permit
+baseline,PC1,PC5,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,PC1,PC5,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,PC1,PC5,syslog,permitted,no,no,,,,unexpected permit
+baseline,PC1,PC5,snmp,permitted,no,no,,,,unexpected permit
+baseline,PC1,WEB-EXT,icmp,permitted,yes,no,,,,
+baseline,PC1,WEB-EXT,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC1,WEB-EXT,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC1,WEB-EXT,http,permitted,yes,no,,,,
+baseline,PC1,WEB-EXT,https,permitted,yes,no,,,,
+baseline,PC1,WEB-EXT,rdp,permitted,no,no,,,,unexpected permit
+baseline,PC1,WEB-EXT,smb,permitted,no,no,,,,unexpected permit
+baseline,PC1,WEB-EXT,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,PC1,WEB-EXT,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,PC1,WEB-EXT,syslog,permitted,no,no,,,,unexpected permit
+baseline,PC1,WEB-EXT,snmp,permitted,no,no,,,,unexpected permit
+baseline,PC1,FW-EDGE,icmp,permitted,no,no,,,,unexpected permit
+baseline,PC1,FW-EDGE,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC1,FW-EDGE,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC1,FW-EDGE,http,permitted,no,no,,,,unexpected permit
+baseline,PC1,SW-ACCESS,icmp,permitted,no,no,,,,unexpected permit
+baseline,PC1,SW-ACCESS,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC1,SW-ACCESS,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC1,SW-DMZ,icmp,permitted,no,no,,,,unexpected permit
+baseline,PC1,SW-DMZ,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC1,SW-DMZ,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC1,FW-EDGE-USERS,icmp,permitted,yes,no,,,,
+baseline,PC1,FW-EDGE-USERS,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC1,FW-EDGE-USERS,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC1,FW-EDGE-USERS,http,permitted,no,no,,,,unexpected permit
+baseline,PC1,FW-EDGE-SERVERS,icmp,permitted,no,no,,,,unexpected permit
+baseline,PC1,FW-EDGE-SERVERS,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC1,FW-EDGE-SERVERS,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC1,FW-EDGE-SERVERS,http,permitted,no,no,,,,unexpected permit
+baseline,PC1,FW-EDGE-GUEST,icmp,permitted,no,no,,,,unexpected permit
+baseline,PC1,FW-EDGE-GUEST,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC1,FW-EDGE-GUEST,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC1,FW-EDGE-GUEST,http,permitted,no,no,,,,unexpected permit
+baseline,PC1,FW-EDGE-DMZ,icmp,permitted,no,no,,,,unexpected permit
+baseline,PC1,FW-EDGE-DMZ,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC1,FW-EDGE-DMZ,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC1,FW-EDGE-DMZ,http,permitted,no,no,,,,unexpected permit
+baseline,PC1,FW-EDGE-OUTSIDE,icmp,permitted,no,no,,,,unexpected permit
+baseline,PC1,FW-EDGE-OUTSIDE,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC1,FW-EDGE-OUTSIDE,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC1,FW-EDGE-OUTSIDE,http,permitted,no,no,,,,unexpected permit
+baseline,PC1,UNUSED-USERS,icmp,permitted,yes,yes,,,,
+baseline,PC1,UNUSED-USERS,ssh,permitted,yes,yes,,,,
+baseline,PC1,UNUSED-USERS,telnet,permitted,yes,yes,,,,
+baseline,PC1,UNUSED-USERS,http,permitted,yes,yes,,,,
+baseline,PC1,UNUSED-USERS,https,permitted,yes,yes,,,,
+baseline,PC1,UNUSED-USERS,rdp,permitted,yes,yes,,,,
+baseline,PC1,UNUSED-USERS,smb,permitted,yes,yes,,,,
+baseline,PC1,UNUSED-USERS,dns-udp,permitted,yes,yes,,,,
+baseline,PC1,UNUSED-USERS,dns-tcp,permitted,yes,yes,,,,
+baseline,PC1,UNUSED-USERS,syslog,permitted,yes,yes,,,,
+baseline,PC1,UNUSED-USERS,snmp,permitted,yes,yes,,,,
+baseline,PC1,UNUSED-SERVERS,icmp,permitted,no,no,,,,unexpected permit
+baseline,PC1,UNUSED-SERVERS,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC1,UNUSED-SERVERS,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC1,UNUSED-SERVERS,http,permitted,no,no,,,,unexpected permit
+baseline,PC1,UNUSED-SERVERS,https,permitted,no,no,,,,unexpected permit
+baseline,PC1,UNUSED-SERVERS,rdp,permitted,no,no,,,,unexpected permit
+baseline,PC1,UNUSED-SERVERS,smb,permitted,no,no,,,,unexpected permit
+baseline,PC1,UNUSED-SERVERS,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,PC1,UNUSED-SERVERS,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,PC1,UNUSED-SERVERS,syslog,permitted,no,no,,,,unexpected permit
+baseline,PC1,UNUSED-SERVERS,snmp,permitted,no,no,,,,unexpected permit
+baseline,PC1,UNUSED-GUEST,icmp,permitted,no,no,,,,unexpected permit
+baseline,PC1,UNUSED-GUEST,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC1,UNUSED-GUEST,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC1,UNUSED-GUEST,http,permitted,no,no,,,,unexpected permit
+baseline,PC1,UNUSED-GUEST,https,permitted,no,no,,,,unexpected permit
+baseline,PC1,UNUSED-GUEST,rdp,permitted,no,no,,,,unexpected permit
+baseline,PC1,UNUSED-GUEST,smb,permitted,no,no,,,,unexpected permit
+baseline,PC1,UNUSED-GUEST,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,PC1,UNUSED-GUEST,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,PC1,UNUSED-GUEST,syslog,permitted,no,no,,,,unexpected permit
+baseline,PC1,UNUSED-GUEST,snmp,permitted,no,no,,,,unexpected permit
+baseline,PC1,UNUSED-MGMT,icmp,permitted,no,no,,,,unexpected permit
+baseline,PC1,UNUSED-MGMT,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC1,UNUSED-MGMT,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC1,UNUSED-MGMT,http,permitted,no,no,,,,unexpected permit
+baseline,PC1,UNUSED-MGMT,https,permitted,no,no,,,,unexpected permit
+baseline,PC1,UNUSED-MGMT,rdp,permitted,no,no,,,,unexpected permit
+baseline,PC1,UNUSED-MGMT,smb,permitted,no,no,,,,unexpected permit
+baseline,PC1,UNUSED-MGMT,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,PC1,UNUSED-MGMT,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,PC1,UNUSED-MGMT,syslog,permitted,no,no,,,,unexpected permit
+baseline,PC1,UNUSED-MGMT,snmp,permitted,no,no,,,,unexpected permit
+baseline,PC1,UNUSED-DMZ,icmp,permitted,no,no,,,,unexpected permit
+baseline,PC1,UNUSED-DMZ,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC1,UNUSED-DMZ,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC1,UNUSED-DMZ,http,permitted,no,no,,,,unexpected permit
+baseline,PC1,UNUSED-DMZ,https,permitted,no,no,,,,unexpected permit
+baseline,PC1,UNUSED-DMZ,rdp,permitted,no,no,,,,unexpected permit
+baseline,PC1,UNUSED-DMZ,smb,permitted,no,no,,,,unexpected permit
+baseline,PC1,UNUSED-DMZ,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,PC1,UNUSED-DMZ,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,PC1,UNUSED-DMZ,syslog,permitted,no,no,,,,unexpected permit
+baseline,PC1,UNUSED-DMZ,snmp,permitted,no,no,,,,unexpected permit
+baseline,PC2,PC3,icmp,permitted,no,no,,,,unexpected permit
+baseline,PC2,PC3,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC2,PC3,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC2,PC3,http,permitted,no,no,,,,unexpected permit
+baseline,PC2,PC3,https,permitted,no,no,,,,unexpected permit
+baseline,PC2,PC3,rdp,permitted,no,no,,,,unexpected permit
+baseline,PC2,PC3,smb,permitted,no,no,,,,unexpected permit
+baseline,PC2,PC3,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,PC2,PC3,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,PC2,PC3,syslog,permitted,no,no,,,,unexpected permit
+baseline,PC2,PC3,snmp,permitted,no,no,,,,unexpected permit
+baseline,PC2,SRV-APP,icmp,permitted,no,no,,,,unexpected permit
+baseline,PC2,SRV-APP,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC2,SRV-APP,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC2,SRV-APP,http,permitted,no,no,,,,unexpected permit
+baseline,PC2,SRV-APP,https,permitted,no,no,,,,unexpected permit
+baseline,PC2,SRV-APP,rdp,permitted,no,no,,,,unexpected permit
+baseline,PC2,SRV-APP,smb,permitted,no,no,,,,unexpected permit
+baseline,PC2,SRV-APP,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,PC2,SRV-APP,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,PC2,SRV-APP,syslog,permitted,no,no,,,,unexpected permit
+baseline,PC2,SRV-APP,snmp,permitted,no,no,,,,unexpected permit
+baseline,PC2,SRV-LOG,icmp,permitted,no,no,,,,unexpected permit
+baseline,PC2,SRV-LOG,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC2,SRV-LOG,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC2,SRV-LOG,http,permitted,no,no,,,,unexpected permit
+baseline,PC2,SRV-LOG,https,permitted,no,no,,,,unexpected permit
+baseline,PC2,SRV-LOG,rdp,permitted,no,no,,,,unexpected permit
+baseline,PC2,SRV-LOG,smb,permitted,no,no,,,,unexpected permit
+baseline,PC2,SRV-LOG,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,PC2,SRV-LOG,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,PC2,SRV-LOG,syslog,permitted,no,no,,,,unexpected permit
+baseline,PC2,SRV-LOG,snmp,permitted,no,no,,,,unexpected permit
+baseline,PC2,WEB-DMZ,icmp,permitted,no,no,,,,unexpected permit
+baseline,PC2,WEB-DMZ,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC2,WEB-DMZ,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC2,WEB-DMZ,http,permitted,no,no,,,,unexpected permit
+baseline,PC2,WEB-DMZ,https,permitted,no,no,,,,unexpected permit
+baseline,PC2,WEB-DMZ,rdp,permitted,no,no,,,,unexpected permit
+baseline,PC2,WEB-DMZ,smb,permitted,no,no,,,,unexpected permit
+baseline,PC2,WEB-DMZ,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,PC2,WEB-DMZ,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,PC2,WEB-DMZ,syslog,permitted,no,no,,,,unexpected permit
+baseline,PC2,WEB-DMZ,snmp,permitted,no,no,,,,unexpected permit
+baseline,PC2,DNS-DMZ,icmp,permitted,no,no,,,,unexpected permit
+baseline,PC2,DNS-DMZ,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC2,DNS-DMZ,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC2,DNS-DMZ,http,permitted,no,no,,,,unexpected permit
+baseline,PC2,DNS-DMZ,https,permitted,no,no,,,,unexpected permit
+baseline,PC2,DNS-DMZ,rdp,permitted,no,no,,,,unexpected permit
+baseline,PC2,DNS-DMZ,smb,permitted,no,no,,,,unexpected permit
+baseline,PC2,DNS-DMZ,dns-udp,permitted,yes,no,,,,
+baseline,PC2,DNS-DMZ,dns-tcp,permitted,yes,no,,,,
+baseline,PC2,DNS-DMZ,syslog,permitted,no,no,,,,unexpected permit
+baseline,PC2,DNS-DMZ,snmp,permitted,no,no,,,,unexpected permit
+baseline,PC2,PC4,icmp,permitted,yes,no,,,,
+baseline,PC2,PC4,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC2,PC4,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC2,PC4,http,permitted,yes,no,,,,
+baseline,PC2,PC4,https,permitted,yes,no,,,,
+baseline,PC2,PC4,rdp,permitted,no,no,,,,unexpected permit
+baseline,PC2,PC4,smb,permitted,no,no,,,,unexpected permit
+baseline,PC2,PC4,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,PC2,PC4,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,PC2,PC4,syslog,permitted,no,no,,,,unexpected permit
+baseline,PC2,PC4,snmp,permitted,no,no,,,,unexpected permit
+baseline,PC2,PC5,icmp,permitted,yes,no,,,,
+baseline,PC2,PC5,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC2,PC5,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC2,PC5,http,permitted,yes,no,,,,
+baseline,PC2,PC5,https,permitted,yes,no,,,,
+baseline,PC2,PC5,rdp,permitted,no,no,,,,unexpected permit
+baseline,PC2,PC5,smb,permitted,no,no,,,,unexpected permit
+baseline,PC2,PC5,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,PC2,PC5,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,PC2,PC5,syslog,permitted,no,no,,,,unexpected permit
+baseline,PC2,PC5,snmp,permitted,no,no,,,,unexpected permit
+baseline,PC2,WEB-EXT,icmp,permitted,yes,no,,,,
+baseline,PC2,WEB-EXT,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC2,WEB-EXT,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC2,WEB-EXT,http,permitted,yes,no,,,,
+baseline,PC2,WEB-EXT,https,permitted,yes,no,,,,
+baseline,PC2,WEB-EXT,rdp,permitted,no,no,,,,unexpected permit
+baseline,PC2,WEB-EXT,smb,permitted,no,no,,,,unexpected permit
+baseline,PC2,WEB-EXT,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,PC2,WEB-EXT,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,PC2,WEB-EXT,syslog,permitted,no,no,,,,unexpected permit
+baseline,PC2,WEB-EXT,snmp,permitted,no,no,,,,unexpected permit
+baseline,PC2,FW-EDGE,icmp,permitted,no,no,,,,unexpected permit
+baseline,PC2,FW-EDGE,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC2,FW-EDGE,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC2,FW-EDGE,http,permitted,no,no,,,,unexpected permit
+baseline,PC2,SW-ACCESS,icmp,permitted,no,no,,,,unexpected permit
+baseline,PC2,SW-ACCESS,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC2,SW-ACCESS,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC2,SW-DMZ,icmp,permitted,no,no,,,,unexpected permit
+baseline,PC2,SW-DMZ,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC2,SW-DMZ,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC2,FW-EDGE-SERVERS,icmp,permitted,no,no,,,,unexpected permit
+baseline,PC2,FW-EDGE-SERVERS,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC2,FW-EDGE-SERVERS,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC2,FW-EDGE-SERVERS,http,permitted,no,no,,,,unexpected permit
+baseline,PC2,FW-EDGE-GUEST,icmp,permitted,yes,no,,,,
+baseline,PC2,FW-EDGE-GUEST,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC2,FW-EDGE-GUEST,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC2,FW-EDGE-GUEST,http,permitted,no,no,,,,unexpected permit
+baseline,PC2,FW-EDGE-DMZ,icmp,permitted,no,no,,,,unexpected permit
+baseline,PC2,FW-EDGE-DMZ,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC2,FW-EDGE-DMZ,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC2,FW-EDGE-DMZ,http,permitted,no,no,,,,unexpected permit
+baseline,PC2,FW-EDGE-OUTSIDE,icmp,permitted,no,no,,,,unexpected permit
+baseline,PC2,FW-EDGE-OUTSIDE,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC2,FW-EDGE-OUTSIDE,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC2,FW-EDGE-OUTSIDE,http,permitted,no,no,,,,unexpected permit
+baseline,PC2,UNUSED-SERVERS,icmp,permitted,no,no,,,,unexpected permit
+baseline,PC2,UNUSED-SERVERS,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC2,UNUSED-SERVERS,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC2,UNUSED-SERVERS,http,permitted,no,no,,,,unexpected permit
+baseline,PC2,UNUSED-SERVERS,https,permitted,no,no,,,,unexpected permit
+baseline,PC2,UNUSED-SERVERS,rdp,permitted,no,no,,,,unexpected permit
+baseline,PC2,UNUSED-SERVERS,smb,permitted,no,no,,,,unexpected permit
+baseline,PC2,UNUSED-SERVERS,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,PC2,UNUSED-SERVERS,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,PC2,UNUSED-SERVERS,syslog,permitted,no,no,,,,unexpected permit
+baseline,PC2,UNUSED-SERVERS,snmp,permitted,no,no,,,,unexpected permit
+baseline,PC2,UNUSED-GUEST,icmp,permitted,yes,yes,,,,
+baseline,PC2,UNUSED-GUEST,ssh,permitted,yes,yes,,,,
+baseline,PC2,UNUSED-GUEST,telnet,permitted,yes,yes,,,,
+baseline,PC2,UNUSED-GUEST,http,permitted,yes,yes,,,,
+baseline,PC2,UNUSED-GUEST,https,permitted,yes,yes,,,,
+baseline,PC2,UNUSED-GUEST,rdp,permitted,yes,yes,,,,
+baseline,PC2,UNUSED-GUEST,smb,permitted,yes,yes,,,,
+baseline,PC2,UNUSED-GUEST,dns-udp,permitted,yes,yes,,,,
+baseline,PC2,UNUSED-GUEST,dns-tcp,permitted,yes,yes,,,,
+baseline,PC2,UNUSED-GUEST,syslog,permitted,yes,yes,,,,
+baseline,PC2,UNUSED-GUEST,snmp,permitted,yes,yes,,,,
+baseline,PC2,UNUSED-MGMT,icmp,permitted,no,no,,,,unexpected permit
+baseline,PC2,UNUSED-MGMT,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC2,UNUSED-MGMT,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC2,UNUSED-MGMT,http,permitted,no,no,,,,unexpected permit
+baseline,PC2,UNUSED-MGMT,https,permitted,no,no,,,,unexpected permit
+baseline,PC2,UNUSED-MGMT,rdp,permitted,no,no,,,,unexpected permit
+baseline,PC2,UNUSED-MGMT,smb,permitted,no,no,,,,unexpected permit
+baseline,PC2,UNUSED-MGMT,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,PC2,UNUSED-MGMT,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,PC2,UNUSED-MGMT,syslog,permitted,no,no,,,,unexpected permit
+baseline,PC2,UNUSED-MGMT,snmp,permitted,no,no,,,,unexpected permit
+baseline,PC2,UNUSED-DMZ,icmp,permitted,no,no,,,,unexpected permit
+baseline,PC2,UNUSED-DMZ,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC2,UNUSED-DMZ,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC2,UNUSED-DMZ,http,permitted,no,no,,,,unexpected permit
+baseline,PC2,UNUSED-DMZ,https,permitted,no,no,,,,unexpected permit
+baseline,PC2,UNUSED-DMZ,rdp,permitted,no,no,,,,unexpected permit
+baseline,PC2,UNUSED-DMZ,smb,permitted,no,no,,,,unexpected permit
+baseline,PC2,UNUSED-DMZ,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,PC2,UNUSED-DMZ,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,PC2,UNUSED-DMZ,syslog,permitted,no,no,,,,unexpected permit
+baseline,PC2,UNUSED-DMZ,snmp,permitted,no,no,,,,unexpected permit
+baseline,PC3,PC0,icmp,permitted,yes,no,,,,
+baseline,PC3,PC0,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC3,PC0,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC3,PC0,http,permitted,no,no,,,,unexpected permit
+baseline,PC3,PC0,https,permitted,no,no,,,,unexpected permit
+baseline,PC3,PC0,rdp,permitted,no,no,,,,unexpected permit
+baseline,PC3,PC0,smb,permitted,no,no,,,,unexpected permit
+baseline,PC3,PC0,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,PC3,PC0,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,PC3,PC0,syslog,permitted,no,no,,,,unexpected permit
+baseline,PC3,PC0,snmp,permitted,no,no,,,,unexpected permit
+baseline,PC3,PC1,icmp,permitted,yes,no,,,,
+baseline,PC3,PC1,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC3,PC1,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC3,PC1,http,permitted,no,no,,,,unexpected permit
+baseline,PC3,PC1,https,permitted,no,no,,,,unexpected permit
+baseline,PC3,PC1,rdp,permitted,no,no,,,,unexpected permit
+baseline,PC3,PC1,smb,permitted,no,no,,,,unexpected permit
+baseline,PC3,PC1,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,PC3,PC1,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,PC3,PC1,syslog,permitted,no,no,,,,unexpected permit
+baseline,PC3,PC1,snmp,permitted,no,no,,,,unexpected permit
+baseline,PC3,PC2,icmp,permitted,no,no,,,,unexpected permit
+baseline,PC3,PC2,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC3,PC2,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC3,PC2,http,permitted,no,no,,,,unexpected permit
+baseline,PC3,PC2,https,permitted,no,no,,,,unexpected permit
+baseline,PC3,PC2,rdp,permitted,no,no,,,,unexpected permit
+baseline,PC3,PC2,smb,permitted,no,no,,,,unexpected permit
+baseline,PC3,PC2,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,PC3,PC2,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,PC3,PC2,syslog,permitted,no,no,,,,unexpected permit
+baseline,PC3,PC2,snmp,permitted,no,no,,,,unexpected permit
+baseline,PC3,SRV-APP,icmp,permitted,yes,no,,,,
+baseline,PC3,SRV-APP,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC3,SRV-APP,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC3,SRV-APP,http,permitted,yes,no,,,,
+baseline,PC3,SRV-APP,https,permitted,yes,no,,,,
+baseline,PC3,SRV-APP,rdp,permitted,no,no,,,,unexpected permit
+baseline,PC3,SRV-APP,smb,permitted,no,no,,,,unexpected permit
+baseline,PC3,SRV-APP,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,PC3,SRV-APP,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,PC3,SRV-APP,syslog,permitted,no,no,,,,unexpected permit
+baseline,PC3,SRV-APP,snmp,permitted,no,no,,,,unexpected permit
+baseline,PC3,SRV-LOG,icmp,permitted,yes,yes,,,,
+baseline,PC3,SRV-LOG,ssh,permitted,yes,yes,,,,
+baseline,PC3,SRV-LOG,telnet,permitted,yes,yes,,,,
+baseline,PC3,SRV-LOG,http,permitted,yes,yes,,,,
+baseline,PC3,SRV-LOG,https,permitted,yes,yes,,,,
+baseline,PC3,SRV-LOG,rdp,permitted,yes,yes,,,,
+baseline,PC3,SRV-LOG,smb,permitted,yes,yes,,,,
+baseline,PC3,SRV-LOG,dns-udp,permitted,yes,yes,,,,
+baseline,PC3,SRV-LOG,dns-tcp,permitted,yes,yes,,,,
+baseline,PC3,SRV-LOG,syslog,permitted,yes,yes,,,,
+baseline,PC3,SRV-LOG,snmp,permitted,yes,yes,,,,
+baseline,PC3,WEB-DMZ,icmp,permitted,yes,no,,,,
+baseline,PC3,WEB-DMZ,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC3,WEB-DMZ,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC3,WEB-DMZ,http,permitted,yes,no,,,,
+baseline,PC3,WEB-DMZ,https,permitted,yes,no,,,,
+baseline,PC3,WEB-DMZ,rdp,permitted,no,no,,,,unexpected permit
+baseline,PC3,WEB-DMZ,smb,permitted,no,no,,,,unexpected permit
+baseline,PC3,WEB-DMZ,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,PC3,WEB-DMZ,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,PC3,WEB-DMZ,syslog,permitted,no,no,,,,unexpected permit
+baseline,PC3,WEB-DMZ,snmp,permitted,no,no,,,,unexpected permit
+baseline,PC3,DNS-DMZ,icmp,permitted,yes,no,,,,
+baseline,PC3,DNS-DMZ,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC3,DNS-DMZ,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC3,DNS-DMZ,http,permitted,no,no,,,,unexpected permit
+baseline,PC3,DNS-DMZ,https,permitted,no,no,,,,unexpected permit
+baseline,PC3,DNS-DMZ,rdp,permitted,no,no,,,,unexpected permit
+baseline,PC3,DNS-DMZ,smb,permitted,no,no,,,,unexpected permit
+baseline,PC3,DNS-DMZ,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,PC3,DNS-DMZ,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,PC3,DNS-DMZ,syslog,permitted,no,no,,,,unexpected permit
+baseline,PC3,DNS-DMZ,snmp,permitted,no,no,,,,unexpected permit
+baseline,PC3,PC4,icmp,permitted,no,no,,,,unexpected permit
+baseline,PC3,PC4,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC3,PC4,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC3,PC4,http,permitted,no,no,,,,unexpected permit
+baseline,PC3,PC4,https,permitted,no,no,,,,unexpected permit
+baseline,PC3,PC4,rdp,permitted,no,no,,,,unexpected permit
+baseline,PC3,PC4,smb,permitted,no,no,,,,unexpected permit
+baseline,PC3,PC4,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,PC3,PC4,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,PC3,PC4,syslog,permitted,no,no,,,,unexpected permit
+baseline,PC3,PC4,snmp,permitted,no,no,,,,unexpected permit
+baseline,PC3,PC5,icmp,permitted,no,no,,,,unexpected permit
+baseline,PC3,PC5,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC3,PC5,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC3,PC5,http,permitted,no,no,,,,unexpected permit
+baseline,PC3,PC5,https,permitted,no,no,,,,unexpected permit
+baseline,PC3,PC5,rdp,permitted,no,no,,,,unexpected permit
+baseline,PC3,PC5,smb,permitted,no,no,,,,unexpected permit
+baseline,PC3,PC5,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,PC3,PC5,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,PC3,PC5,syslog,permitted,no,no,,,,unexpected permit
+baseline,PC3,PC5,snmp,permitted,no,no,,,,unexpected permit
+baseline,PC3,WEB-EXT,icmp,permitted,no,no,,,,unexpected permit
+baseline,PC3,WEB-EXT,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC3,WEB-EXT,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC3,WEB-EXT,http,permitted,no,no,,,,unexpected permit
+baseline,PC3,WEB-EXT,https,permitted,no,no,,,,unexpected permit
+baseline,PC3,WEB-EXT,rdp,permitted,no,no,,,,unexpected permit
+baseline,PC3,WEB-EXT,smb,permitted,no,no,,,,unexpected permit
+baseline,PC3,WEB-EXT,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,PC3,WEB-EXT,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,PC3,WEB-EXT,syslog,permitted,no,no,,,,unexpected permit
+baseline,PC3,WEB-EXT,snmp,permitted,no,no,,,,unexpected permit
+baseline,PC3,FW-EDGE,icmp,permitted,yes,no,,,,
+baseline,PC3,FW-EDGE,ssh,permitted,yes,no,,,,
+baseline,PC3,FW-EDGE,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC3,FW-EDGE,http,permitted,no,no,,,,unexpected permit
+baseline,PC3,SW-ACCESS,icmp,permitted,yes,no,,,,
+baseline,PC3,SW-ACCESS,ssh,permitted,yes,no,,,,
+baseline,PC3,SW-ACCESS,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC3,SW-DMZ,icmp,permitted,yes,no,,,,
+baseline,PC3,SW-DMZ,ssh,permitted,yes,no,,,,
+baseline,PC3,SW-DMZ,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC3,FW-EDGE-USERS,icmp,permitted,yes,no,,,,
+baseline,PC3,FW-EDGE-USERS,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC3,FW-EDGE-USERS,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC3,FW-EDGE-USERS,http,permitted,no,no,,,,unexpected permit
+baseline,PC3,FW-EDGE-SERVERS,icmp,permitted,no,no,,,,unexpected permit
+baseline,PC3,FW-EDGE-SERVERS,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC3,FW-EDGE-SERVERS,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC3,FW-EDGE-SERVERS,http,permitted,no,no,,,,unexpected permit
+baseline,PC3,FW-EDGE-GUEST,icmp,permitted,no,no,,,,unexpected permit
+baseline,PC3,FW-EDGE-GUEST,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC3,FW-EDGE-GUEST,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC3,FW-EDGE-GUEST,http,permitted,no,no,,,,unexpected permit
+baseline,PC3,FW-EDGE-DMZ,icmp,permitted,no,no,,,,unexpected permit
+baseline,PC3,FW-EDGE-DMZ,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC3,FW-EDGE-DMZ,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC3,FW-EDGE-DMZ,http,permitted,no,no,,,,unexpected permit
+baseline,PC3,FW-EDGE-OUTSIDE,icmp,permitted,no,no,,,,unexpected permit
+baseline,PC3,FW-EDGE-OUTSIDE,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC3,FW-EDGE-OUTSIDE,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC3,FW-EDGE-OUTSIDE,http,permitted,no,no,,,,unexpected permit
+baseline,PC3,UNUSED-USERS,icmp,permitted,yes,no,,,,
+baseline,PC3,UNUSED-USERS,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC3,UNUSED-USERS,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC3,UNUSED-USERS,http,permitted,no,no,,,,unexpected permit
+baseline,PC3,UNUSED-USERS,https,permitted,no,no,,,,unexpected permit
+baseline,PC3,UNUSED-USERS,rdp,permitted,no,no,,,,unexpected permit
+baseline,PC3,UNUSED-USERS,smb,permitted,no,no,,,,unexpected permit
+baseline,PC3,UNUSED-USERS,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,PC3,UNUSED-USERS,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,PC3,UNUSED-USERS,syslog,permitted,no,no,,,,unexpected permit
+baseline,PC3,UNUSED-USERS,snmp,permitted,no,no,,,,unexpected permit
+baseline,PC3,UNUSED-SERVERS,icmp,permitted,no,no,,,,unexpected permit
+baseline,PC3,UNUSED-SERVERS,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC3,UNUSED-SERVERS,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC3,UNUSED-SERVERS,http,permitted,no,no,,,,unexpected permit
+baseline,PC3,UNUSED-SERVERS,https,permitted,no,no,,,,unexpected permit
+baseline,PC3,UNUSED-SERVERS,rdp,permitted,no,no,,,,unexpected permit
+baseline,PC3,UNUSED-SERVERS,smb,permitted,no,no,,,,unexpected permit
+baseline,PC3,UNUSED-SERVERS,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,PC3,UNUSED-SERVERS,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,PC3,UNUSED-SERVERS,syslog,permitted,no,no,,,,unexpected permit
+baseline,PC3,UNUSED-SERVERS,snmp,permitted,no,no,,,,unexpected permit
+baseline,PC3,UNUSED-GUEST,icmp,permitted,no,no,,,,unexpected permit
+baseline,PC3,UNUSED-GUEST,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC3,UNUSED-GUEST,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC3,UNUSED-GUEST,http,permitted,no,no,,,,unexpected permit
+baseline,PC3,UNUSED-GUEST,https,permitted,no,no,,,,unexpected permit
+baseline,PC3,UNUSED-GUEST,rdp,permitted,no,no,,,,unexpected permit
+baseline,PC3,UNUSED-GUEST,smb,permitted,no,no,,,,unexpected permit
+baseline,PC3,UNUSED-GUEST,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,PC3,UNUSED-GUEST,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,PC3,UNUSED-GUEST,syslog,permitted,no,no,,,,unexpected permit
+baseline,PC3,UNUSED-GUEST,snmp,permitted,no,no,,,,unexpected permit
+baseline,PC3,UNUSED-MGMT,icmp,permitted,yes,yes,,,,
+baseline,PC3,UNUSED-MGMT,ssh,permitted,yes,yes,,,,
+baseline,PC3,UNUSED-MGMT,telnet,permitted,yes,yes,,,,
+baseline,PC3,UNUSED-MGMT,http,permitted,yes,yes,,,,
+baseline,PC3,UNUSED-MGMT,https,permitted,yes,yes,,,,
+baseline,PC3,UNUSED-MGMT,rdp,permitted,yes,yes,,,,
+baseline,PC3,UNUSED-MGMT,smb,permitted,yes,yes,,,,
+baseline,PC3,UNUSED-MGMT,dns-udp,permitted,yes,yes,,,,
+baseline,PC3,UNUSED-MGMT,dns-tcp,permitted,yes,yes,,,,
+baseline,PC3,UNUSED-MGMT,syslog,permitted,yes,yes,,,,
+baseline,PC3,UNUSED-MGMT,snmp,permitted,yes,yes,,,,
+baseline,PC3,UNUSED-DMZ,icmp,permitted,no,no,,,,unexpected permit
+baseline,PC3,UNUSED-DMZ,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC3,UNUSED-DMZ,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC3,UNUSED-DMZ,http,permitted,no,no,,,,unexpected permit
+baseline,PC3,UNUSED-DMZ,https,permitted,no,no,,,,unexpected permit
+baseline,PC3,UNUSED-DMZ,rdp,permitted,no,no,,,,unexpected permit
+baseline,PC3,UNUSED-DMZ,smb,permitted,no,no,,,,unexpected permit
+baseline,PC3,UNUSED-DMZ,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,PC3,UNUSED-DMZ,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,PC3,UNUSED-DMZ,syslog,permitted,no,no,,,,unexpected permit
+baseline,PC3,UNUSED-DMZ,snmp,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,PC0,icmp,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,PC0,ssh,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,PC0,telnet,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,PC0,http,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,PC0,https,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,PC0,rdp,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,PC0,smb,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,PC0,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,PC0,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,PC0,syslog,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,PC0,snmp,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,PC1,icmp,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,PC1,ssh,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,PC1,telnet,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,PC1,http,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,PC1,https,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,PC1,rdp,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,PC1,smb,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,PC1,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,PC1,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,PC1,syslog,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,PC1,snmp,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,PC2,icmp,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,PC2,ssh,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,PC2,telnet,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,PC2,http,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,PC2,https,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,PC2,rdp,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,PC2,smb,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,PC2,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,PC2,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,PC2,syslog,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,PC2,snmp,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,PC3,icmp,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,PC3,ssh,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,PC3,telnet,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,PC3,http,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,PC3,https,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,PC3,rdp,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,PC3,smb,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,PC3,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,PC3,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,PC3,syslog,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,PC3,snmp,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,SRV-LOG,icmp,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,SRV-LOG,ssh,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,SRV-LOG,telnet,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,SRV-LOG,http,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,SRV-LOG,https,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,SRV-LOG,rdp,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,SRV-LOG,smb,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,SRV-LOG,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,SRV-LOG,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,SRV-LOG,syslog,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,SRV-LOG,snmp,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,WEB-DMZ,icmp,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,WEB-DMZ,ssh,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,WEB-DMZ,telnet,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,WEB-DMZ,http,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,WEB-DMZ,https,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,WEB-DMZ,rdp,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,WEB-DMZ,smb,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,WEB-DMZ,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,WEB-DMZ,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,WEB-DMZ,syslog,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,WEB-DMZ,snmp,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,DNS-DMZ,icmp,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,DNS-DMZ,ssh,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,DNS-DMZ,telnet,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,DNS-DMZ,http,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,DNS-DMZ,https,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,DNS-DMZ,rdp,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,DNS-DMZ,smb,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,DNS-DMZ,dns-udp,permitted,yes,no,,,,
+baseline,SRV-APP,DNS-DMZ,dns-tcp,permitted,yes,no,,,,
+baseline,SRV-APP,DNS-DMZ,syslog,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,DNS-DMZ,snmp,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,PC4,icmp,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,PC4,ssh,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,PC4,telnet,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,PC4,http,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,PC4,https,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,PC4,rdp,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,PC4,smb,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,PC4,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,PC4,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,PC4,syslog,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,PC4,snmp,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,PC5,icmp,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,PC5,ssh,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,PC5,telnet,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,PC5,http,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,PC5,https,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,PC5,rdp,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,PC5,smb,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,PC5,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,PC5,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,PC5,syslog,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,PC5,snmp,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,WEB-EXT,icmp,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,WEB-EXT,ssh,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,WEB-EXT,telnet,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,WEB-EXT,http,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,WEB-EXT,https,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,WEB-EXT,rdp,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,WEB-EXT,smb,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,WEB-EXT,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,WEB-EXT,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,WEB-EXT,syslog,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,WEB-EXT,snmp,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,FW-EDGE,icmp,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,FW-EDGE,ssh,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,FW-EDGE,telnet,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,FW-EDGE,http,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,SW-ACCESS,icmp,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,SW-ACCESS,ssh,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,SW-ACCESS,telnet,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,SW-DMZ,icmp,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,SW-DMZ,ssh,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,SW-DMZ,telnet,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,FW-EDGE-USERS,icmp,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,FW-EDGE-USERS,ssh,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,FW-EDGE-USERS,telnet,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,FW-EDGE-USERS,http,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,FW-EDGE-SERVERS,icmp,permitted,yes,no,,,,
+baseline,SRV-APP,FW-EDGE-SERVERS,ssh,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,FW-EDGE-SERVERS,telnet,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,FW-EDGE-SERVERS,http,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,FW-EDGE-GUEST,icmp,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,FW-EDGE-GUEST,ssh,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,FW-EDGE-GUEST,telnet,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,FW-EDGE-GUEST,http,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,FW-EDGE-DMZ,icmp,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,FW-EDGE-DMZ,ssh,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,FW-EDGE-DMZ,telnet,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,FW-EDGE-DMZ,http,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,FW-EDGE-OUTSIDE,icmp,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,FW-EDGE-OUTSIDE,ssh,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,FW-EDGE-OUTSIDE,telnet,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,FW-EDGE-OUTSIDE,http,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,UNUSED-USERS,icmp,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,UNUSED-USERS,ssh,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,UNUSED-USERS,telnet,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,UNUSED-USERS,http,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,UNUSED-USERS,https,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,UNUSED-USERS,rdp,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,UNUSED-USERS,smb,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,UNUSED-USERS,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,UNUSED-USERS,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,UNUSED-USERS,syslog,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,UNUSED-USERS,snmp,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,UNUSED-SERVERS,icmp,permitted,yes,yes,,,,
+baseline,SRV-APP,UNUSED-SERVERS,ssh,permitted,yes,yes,,,,
+baseline,SRV-APP,UNUSED-SERVERS,telnet,permitted,yes,yes,,,,
+baseline,SRV-APP,UNUSED-SERVERS,http,permitted,yes,yes,,,,
+baseline,SRV-APP,UNUSED-SERVERS,https,permitted,yes,yes,,,,
+baseline,SRV-APP,UNUSED-SERVERS,rdp,permitted,yes,yes,,,,
+baseline,SRV-APP,UNUSED-SERVERS,smb,permitted,yes,yes,,,,
+baseline,SRV-APP,UNUSED-SERVERS,dns-udp,permitted,yes,yes,,,,
+baseline,SRV-APP,UNUSED-SERVERS,dns-tcp,permitted,yes,yes,,,,
+baseline,SRV-APP,UNUSED-SERVERS,syslog,permitted,yes,yes,,,,
+baseline,SRV-APP,UNUSED-SERVERS,snmp,permitted,yes,yes,,,,
+baseline,SRV-APP,UNUSED-GUEST,icmp,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,UNUSED-GUEST,ssh,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,UNUSED-GUEST,telnet,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,UNUSED-GUEST,http,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,UNUSED-GUEST,https,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,UNUSED-GUEST,rdp,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,UNUSED-GUEST,smb,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,UNUSED-GUEST,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,UNUSED-GUEST,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,UNUSED-GUEST,syslog,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,UNUSED-GUEST,snmp,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,UNUSED-MGMT,icmp,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,UNUSED-MGMT,ssh,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,UNUSED-MGMT,telnet,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,UNUSED-MGMT,http,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,UNUSED-MGMT,https,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,UNUSED-MGMT,rdp,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,UNUSED-MGMT,smb,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,UNUSED-MGMT,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,UNUSED-MGMT,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,UNUSED-MGMT,syslog,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,UNUSED-MGMT,snmp,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,UNUSED-DMZ,icmp,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,UNUSED-DMZ,ssh,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,UNUSED-DMZ,telnet,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,UNUSED-DMZ,http,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,UNUSED-DMZ,https,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,UNUSED-DMZ,rdp,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,UNUSED-DMZ,smb,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,UNUSED-DMZ,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,UNUSED-DMZ,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,UNUSED-DMZ,syslog,permitted,no,no,,,,unexpected permit
+baseline,SRV-APP,UNUSED-DMZ,snmp,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,PC0,icmp,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,PC0,ssh,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,PC0,telnet,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,PC0,http,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,PC0,https,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,PC0,rdp,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,PC0,smb,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,PC0,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,PC0,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,PC0,syslog,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,PC0,snmp,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,PC1,icmp,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,PC1,ssh,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,PC1,telnet,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,PC1,http,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,PC1,https,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,PC1,rdp,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,PC1,smb,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,PC1,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,PC1,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,PC1,syslog,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,PC1,snmp,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,PC2,icmp,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,PC2,ssh,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,PC2,telnet,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,PC2,http,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,PC2,https,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,PC2,rdp,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,PC2,smb,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,PC2,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,PC2,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,PC2,syslog,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,PC2,snmp,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,PC3,icmp,permitted,yes,yes,,,,
+baseline,SRV-LOG,PC3,ssh,permitted,yes,yes,,,,
+baseline,SRV-LOG,PC3,telnet,permitted,yes,yes,,,,
+baseline,SRV-LOG,PC3,http,permitted,yes,yes,,,,
+baseline,SRV-LOG,PC3,https,permitted,yes,yes,,,,
+baseline,SRV-LOG,PC3,rdp,permitted,yes,yes,,,,
+baseline,SRV-LOG,PC3,smb,permitted,yes,yes,,,,
+baseline,SRV-LOG,PC3,dns-udp,permitted,yes,yes,,,,
+baseline,SRV-LOG,PC3,dns-tcp,permitted,yes,yes,,,,
+baseline,SRV-LOG,PC3,syslog,permitted,yes,yes,,,,
+baseline,SRV-LOG,PC3,snmp,permitted,yes,yes,,,,
+baseline,SRV-LOG,SRV-APP,icmp,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,SRV-APP,ssh,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,SRV-APP,telnet,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,SRV-APP,http,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,SRV-APP,https,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,SRV-APP,rdp,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,SRV-APP,smb,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,SRV-APP,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,SRV-APP,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,SRV-APP,syslog,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,SRV-APP,snmp,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,WEB-DMZ,icmp,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,WEB-DMZ,ssh,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,WEB-DMZ,telnet,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,WEB-DMZ,http,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,WEB-DMZ,https,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,WEB-DMZ,rdp,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,WEB-DMZ,smb,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,WEB-DMZ,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,WEB-DMZ,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,WEB-DMZ,syslog,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,WEB-DMZ,snmp,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,DNS-DMZ,icmp,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,DNS-DMZ,ssh,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,DNS-DMZ,telnet,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,DNS-DMZ,http,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,DNS-DMZ,https,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,DNS-DMZ,rdp,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,DNS-DMZ,smb,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,DNS-DMZ,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,DNS-DMZ,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,DNS-DMZ,syslog,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,DNS-DMZ,snmp,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,PC4,icmp,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,PC4,ssh,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,PC4,telnet,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,PC4,http,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,PC4,https,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,PC4,rdp,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,PC4,smb,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,PC4,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,PC4,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,PC4,syslog,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,PC4,snmp,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,PC5,icmp,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,PC5,ssh,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,PC5,telnet,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,PC5,http,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,PC5,https,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,PC5,rdp,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,PC5,smb,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,PC5,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,PC5,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,PC5,syslog,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,PC5,snmp,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,WEB-EXT,icmp,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,WEB-EXT,ssh,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,WEB-EXT,telnet,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,WEB-EXT,http,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,WEB-EXT,https,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,WEB-EXT,rdp,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,WEB-EXT,smb,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,WEB-EXT,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,WEB-EXT,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,WEB-EXT,syslog,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,WEB-EXT,snmp,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,FW-EDGE,icmp,permitted,yes,no,,,,
+baseline,SRV-LOG,FW-EDGE,ssh,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,FW-EDGE,telnet,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,FW-EDGE,http,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,SW-ACCESS,icmp,permitted,yes,no,,,,
+baseline,SRV-LOG,SW-ACCESS,ssh,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,SW-ACCESS,telnet,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,SW-DMZ,icmp,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,SW-DMZ,ssh,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,SW-DMZ,telnet,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,FW-EDGE-USERS,icmp,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,FW-EDGE-USERS,ssh,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,FW-EDGE-USERS,telnet,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,FW-EDGE-USERS,http,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,FW-EDGE-SERVERS,icmp,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,FW-EDGE-SERVERS,ssh,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,FW-EDGE-SERVERS,telnet,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,FW-EDGE-SERVERS,http,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,FW-EDGE-GUEST,icmp,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,FW-EDGE-GUEST,ssh,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,FW-EDGE-GUEST,telnet,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,FW-EDGE-GUEST,http,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,FW-EDGE-DMZ,icmp,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,FW-EDGE-DMZ,ssh,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,FW-EDGE-DMZ,telnet,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,FW-EDGE-DMZ,http,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,FW-EDGE-OUTSIDE,icmp,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,FW-EDGE-OUTSIDE,ssh,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,FW-EDGE-OUTSIDE,telnet,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,FW-EDGE-OUTSIDE,http,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,UNUSED-USERS,icmp,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,UNUSED-USERS,ssh,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,UNUSED-USERS,telnet,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,UNUSED-USERS,http,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,UNUSED-USERS,https,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,UNUSED-USERS,rdp,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,UNUSED-USERS,smb,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,UNUSED-USERS,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,UNUSED-USERS,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,UNUSED-USERS,syslog,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,UNUSED-USERS,snmp,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,UNUSED-SERVERS,icmp,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,UNUSED-SERVERS,ssh,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,UNUSED-SERVERS,telnet,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,UNUSED-SERVERS,http,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,UNUSED-SERVERS,https,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,UNUSED-SERVERS,rdp,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,UNUSED-SERVERS,smb,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,UNUSED-SERVERS,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,UNUSED-SERVERS,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,UNUSED-SERVERS,syslog,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,UNUSED-SERVERS,snmp,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,UNUSED-GUEST,icmp,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,UNUSED-GUEST,ssh,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,UNUSED-GUEST,telnet,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,UNUSED-GUEST,http,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,UNUSED-GUEST,https,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,UNUSED-GUEST,rdp,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,UNUSED-GUEST,smb,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,UNUSED-GUEST,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,UNUSED-GUEST,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,UNUSED-GUEST,syslog,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,UNUSED-GUEST,snmp,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,UNUSED-MGMT,icmp,permitted,yes,yes,,,,
+baseline,SRV-LOG,UNUSED-MGMT,ssh,permitted,yes,yes,,,,
+baseline,SRV-LOG,UNUSED-MGMT,telnet,permitted,yes,yes,,,,
+baseline,SRV-LOG,UNUSED-MGMT,http,permitted,yes,yes,,,,
+baseline,SRV-LOG,UNUSED-MGMT,https,permitted,yes,yes,,,,
+baseline,SRV-LOG,UNUSED-MGMT,rdp,permitted,yes,yes,,,,
+baseline,SRV-LOG,UNUSED-MGMT,smb,permitted,yes,yes,,,,
+baseline,SRV-LOG,UNUSED-MGMT,dns-udp,permitted,yes,yes,,,,
+baseline,SRV-LOG,UNUSED-MGMT,dns-tcp,permitted,yes,yes,,,,
+baseline,SRV-LOG,UNUSED-MGMT,syslog,permitted,yes,yes,,,,
+baseline,SRV-LOG,UNUSED-MGMT,snmp,permitted,yes,yes,,,,
+baseline,SRV-LOG,UNUSED-DMZ,icmp,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,UNUSED-DMZ,ssh,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,UNUSED-DMZ,telnet,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,UNUSED-DMZ,http,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,UNUSED-DMZ,https,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,UNUSED-DMZ,rdp,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,UNUSED-DMZ,smb,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,UNUSED-DMZ,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,UNUSED-DMZ,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,UNUSED-DMZ,syslog,permitted,no,no,,,,unexpected permit
+baseline,SRV-LOG,UNUSED-DMZ,snmp,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,PC0,icmp,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,PC0,ssh,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,PC0,telnet,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,PC0,http,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,PC0,https,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,PC0,rdp,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,PC0,smb,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,PC0,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,PC0,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,PC0,syslog,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,PC0,snmp,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,PC1,icmp,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,PC1,ssh,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,PC1,telnet,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,PC1,http,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,PC1,https,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,PC1,rdp,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,PC1,smb,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,PC1,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,PC1,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,PC1,syslog,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,PC1,snmp,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,PC2,icmp,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,PC2,ssh,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,PC2,telnet,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,PC2,http,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,PC2,https,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,PC2,rdp,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,PC2,smb,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,PC2,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,PC2,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,PC2,syslog,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,PC2,snmp,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,PC3,icmp,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,PC3,ssh,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,PC3,telnet,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,PC3,http,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,PC3,https,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,PC3,rdp,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,PC3,smb,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,PC3,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,PC3,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,PC3,syslog,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,PC3,snmp,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,SRV-APP,icmp,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,SRV-APP,ssh,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,SRV-APP,telnet,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,SRV-APP,http,permitted,yes,no,,,,
+baseline,WEB-DMZ,SRV-APP,https,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,SRV-APP,rdp,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,SRV-APP,smb,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,SRV-APP,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,SRV-APP,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,SRV-APP,syslog,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,SRV-APP,snmp,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,SRV-LOG,icmp,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,SRV-LOG,ssh,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,SRV-LOG,telnet,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,SRV-LOG,http,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,SRV-LOG,https,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,SRV-LOG,rdp,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,SRV-LOG,smb,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,SRV-LOG,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,SRV-LOG,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,SRV-LOG,syslog,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,SRV-LOG,snmp,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,DNS-DMZ,icmp,permitted,yes,yes,,,,
+baseline,WEB-DMZ,DNS-DMZ,ssh,permitted,yes,yes,,,,
+baseline,WEB-DMZ,DNS-DMZ,telnet,permitted,yes,yes,,,,
+baseline,WEB-DMZ,DNS-DMZ,http,permitted,yes,yes,,,,
+baseline,WEB-DMZ,DNS-DMZ,https,permitted,yes,yes,,,,
+baseline,WEB-DMZ,DNS-DMZ,rdp,permitted,yes,yes,,,,
+baseline,WEB-DMZ,DNS-DMZ,smb,permitted,yes,yes,,,,
+baseline,WEB-DMZ,DNS-DMZ,dns-udp,permitted,yes,yes,,,,
+baseline,WEB-DMZ,DNS-DMZ,dns-tcp,permitted,yes,yes,,,,
+baseline,WEB-DMZ,DNS-DMZ,syslog,permitted,yes,yes,,,,
+baseline,WEB-DMZ,DNS-DMZ,snmp,permitted,yes,yes,,,,
+baseline,WEB-DMZ,PC4,icmp,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,PC4,ssh,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,PC4,telnet,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,PC4,http,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,PC4,https,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,PC4,rdp,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,PC4,smb,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,PC4,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,PC4,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,PC4,syslog,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,PC4,snmp,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,PC5,icmp,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,PC5,ssh,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,PC5,telnet,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,PC5,http,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,PC5,https,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,PC5,rdp,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,PC5,smb,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,PC5,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,PC5,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,PC5,syslog,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,PC5,snmp,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,WEB-EXT,icmp,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,WEB-EXT,ssh,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,WEB-EXT,telnet,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,WEB-EXT,http,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,WEB-EXT,https,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,WEB-EXT,rdp,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,WEB-EXT,smb,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,WEB-EXT,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,WEB-EXT,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,WEB-EXT,syslog,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,WEB-EXT,snmp,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,FW-EDGE,icmp,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,FW-EDGE,ssh,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,FW-EDGE,telnet,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,FW-EDGE,http,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,SW-ACCESS,icmp,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,SW-ACCESS,ssh,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,SW-ACCESS,telnet,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,SW-DMZ,icmp,permitted,yes,no,,,,
+baseline,WEB-DMZ,SW-DMZ,ssh,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,SW-DMZ,telnet,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,FW-EDGE-USERS,icmp,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,FW-EDGE-USERS,ssh,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,FW-EDGE-USERS,telnet,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,FW-EDGE-USERS,http,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,FW-EDGE-SERVERS,icmp,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,FW-EDGE-SERVERS,ssh,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,FW-EDGE-SERVERS,telnet,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,FW-EDGE-SERVERS,http,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,FW-EDGE-GUEST,icmp,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,FW-EDGE-GUEST,ssh,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,FW-EDGE-GUEST,telnet,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,FW-EDGE-GUEST,http,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,FW-EDGE-DMZ,icmp,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,FW-EDGE-DMZ,ssh,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,FW-EDGE-DMZ,telnet,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,FW-EDGE-DMZ,http,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,FW-EDGE-OUTSIDE,icmp,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,FW-EDGE-OUTSIDE,ssh,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,FW-EDGE-OUTSIDE,telnet,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,FW-EDGE-OUTSIDE,http,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,UNUSED-USERS,icmp,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,UNUSED-USERS,ssh,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,UNUSED-USERS,telnet,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,UNUSED-USERS,http,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,UNUSED-USERS,https,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,UNUSED-USERS,rdp,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,UNUSED-USERS,smb,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,UNUSED-USERS,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,UNUSED-USERS,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,UNUSED-USERS,syslog,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,UNUSED-USERS,snmp,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,UNUSED-SERVERS,icmp,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,UNUSED-SERVERS,ssh,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,UNUSED-SERVERS,telnet,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,UNUSED-SERVERS,http,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,UNUSED-SERVERS,https,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,UNUSED-SERVERS,rdp,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,UNUSED-SERVERS,smb,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,UNUSED-SERVERS,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,UNUSED-SERVERS,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,UNUSED-SERVERS,syslog,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,UNUSED-SERVERS,snmp,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,UNUSED-GUEST,icmp,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,UNUSED-GUEST,ssh,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,UNUSED-GUEST,telnet,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,UNUSED-GUEST,http,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,UNUSED-GUEST,https,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,UNUSED-GUEST,rdp,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,UNUSED-GUEST,smb,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,UNUSED-GUEST,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,UNUSED-GUEST,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,UNUSED-GUEST,syslog,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,UNUSED-GUEST,snmp,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,UNUSED-MGMT,icmp,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,UNUSED-MGMT,ssh,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,UNUSED-MGMT,telnet,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,UNUSED-MGMT,http,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,UNUSED-MGMT,https,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,UNUSED-MGMT,rdp,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,UNUSED-MGMT,smb,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,UNUSED-MGMT,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,UNUSED-MGMT,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,UNUSED-MGMT,syslog,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,UNUSED-MGMT,snmp,permitted,no,no,,,,unexpected permit
+baseline,WEB-DMZ,UNUSED-DMZ,icmp,permitted,yes,yes,,,,
+baseline,WEB-DMZ,UNUSED-DMZ,ssh,permitted,yes,yes,,,,
+baseline,WEB-DMZ,UNUSED-DMZ,telnet,permitted,yes,yes,,,,
+baseline,WEB-DMZ,UNUSED-DMZ,http,permitted,yes,yes,,,,
+baseline,WEB-DMZ,UNUSED-DMZ,https,permitted,yes,yes,,,,
+baseline,WEB-DMZ,UNUSED-DMZ,rdp,permitted,yes,yes,,,,
+baseline,WEB-DMZ,UNUSED-DMZ,smb,permitted,yes,yes,,,,
+baseline,WEB-DMZ,UNUSED-DMZ,dns-udp,permitted,yes,yes,,,,
+baseline,WEB-DMZ,UNUSED-DMZ,dns-tcp,permitted,yes,yes,,,,
+baseline,WEB-DMZ,UNUSED-DMZ,syslog,permitted,yes,yes,,,,
+baseline,WEB-DMZ,UNUSED-DMZ,snmp,permitted,yes,yes,,,,
+baseline,DNS-DMZ,PC0,icmp,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,PC0,ssh,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,PC0,telnet,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,PC0,http,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,PC0,https,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,PC0,rdp,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,PC0,smb,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,PC0,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,PC0,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,PC0,syslog,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,PC0,snmp,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,PC1,icmp,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,PC1,ssh,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,PC1,telnet,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,PC1,http,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,PC1,https,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,PC1,rdp,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,PC1,smb,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,PC1,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,PC1,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,PC1,syslog,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,PC1,snmp,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,PC2,icmp,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,PC2,ssh,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,PC2,telnet,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,PC2,http,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,PC2,https,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,PC2,rdp,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,PC2,smb,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,PC2,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,PC2,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,PC2,syslog,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,PC2,snmp,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,PC3,icmp,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,PC3,ssh,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,PC3,telnet,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,PC3,http,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,PC3,https,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,PC3,rdp,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,PC3,smb,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,PC3,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,PC3,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,PC3,syslog,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,PC3,snmp,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,SRV-APP,icmp,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,SRV-APP,ssh,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,SRV-APP,telnet,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,SRV-APP,http,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,SRV-APP,https,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,SRV-APP,rdp,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,SRV-APP,smb,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,SRV-APP,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,SRV-APP,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,SRV-APP,syslog,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,SRV-APP,snmp,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,SRV-LOG,icmp,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,SRV-LOG,ssh,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,SRV-LOG,telnet,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,SRV-LOG,http,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,SRV-LOG,https,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,SRV-LOG,rdp,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,SRV-LOG,smb,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,SRV-LOG,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,SRV-LOG,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,SRV-LOG,syslog,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,SRV-LOG,snmp,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,WEB-DMZ,icmp,permitted,yes,yes,,,,
+baseline,DNS-DMZ,WEB-DMZ,ssh,permitted,yes,yes,,,,
+baseline,DNS-DMZ,WEB-DMZ,telnet,permitted,yes,yes,,,,
+baseline,DNS-DMZ,WEB-DMZ,http,permitted,yes,yes,,,,
+baseline,DNS-DMZ,WEB-DMZ,https,permitted,yes,yes,,,,
+baseline,DNS-DMZ,WEB-DMZ,rdp,permitted,yes,yes,,,,
+baseline,DNS-DMZ,WEB-DMZ,smb,permitted,yes,yes,,,,
+baseline,DNS-DMZ,WEB-DMZ,dns-udp,permitted,yes,yes,,,,
+baseline,DNS-DMZ,WEB-DMZ,dns-tcp,permitted,yes,yes,,,,
+baseline,DNS-DMZ,WEB-DMZ,syslog,permitted,yes,yes,,,,
+baseline,DNS-DMZ,WEB-DMZ,snmp,permitted,yes,yes,,,,
+baseline,DNS-DMZ,PC4,icmp,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,PC4,ssh,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,PC4,telnet,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,PC4,http,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,PC4,https,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,PC4,rdp,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,PC4,smb,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,PC4,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,PC4,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,PC4,syslog,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,PC4,snmp,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,PC5,icmp,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,PC5,ssh,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,PC5,telnet,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,PC5,http,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,PC5,https,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,PC5,rdp,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,PC5,smb,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,PC5,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,PC5,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,PC5,syslog,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,PC5,snmp,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,WEB-EXT,icmp,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,WEB-EXT,ssh,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,WEB-EXT,telnet,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,WEB-EXT,http,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,WEB-EXT,https,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,WEB-EXT,rdp,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,WEB-EXT,smb,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,WEB-EXT,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,WEB-EXT,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,WEB-EXT,syslog,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,WEB-EXT,snmp,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,FW-EDGE,icmp,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,FW-EDGE,ssh,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,FW-EDGE,telnet,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,FW-EDGE,http,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,SW-ACCESS,icmp,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,SW-ACCESS,ssh,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,SW-ACCESS,telnet,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,SW-DMZ,icmp,permitted,yes,no,,,,
+baseline,DNS-DMZ,SW-DMZ,ssh,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,SW-DMZ,telnet,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,FW-EDGE-USERS,icmp,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,FW-EDGE-USERS,ssh,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,FW-EDGE-USERS,telnet,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,FW-EDGE-USERS,http,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,FW-EDGE-SERVERS,icmp,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,FW-EDGE-SERVERS,ssh,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,FW-EDGE-SERVERS,telnet,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,FW-EDGE-SERVERS,http,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,FW-EDGE-GUEST,icmp,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,FW-EDGE-GUEST,ssh,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,FW-EDGE-GUEST,telnet,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,FW-EDGE-GUEST,http,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,FW-EDGE-DMZ,icmp,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,FW-EDGE-DMZ,ssh,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,FW-EDGE-DMZ,telnet,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,FW-EDGE-DMZ,http,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,FW-EDGE-OUTSIDE,icmp,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,FW-EDGE-OUTSIDE,ssh,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,FW-EDGE-OUTSIDE,telnet,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,FW-EDGE-OUTSIDE,http,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,UNUSED-USERS,icmp,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,UNUSED-USERS,ssh,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,UNUSED-USERS,telnet,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,UNUSED-USERS,http,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,UNUSED-USERS,https,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,UNUSED-USERS,rdp,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,UNUSED-USERS,smb,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,UNUSED-USERS,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,UNUSED-USERS,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,UNUSED-USERS,syslog,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,UNUSED-USERS,snmp,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,UNUSED-SERVERS,icmp,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,UNUSED-SERVERS,ssh,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,UNUSED-SERVERS,telnet,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,UNUSED-SERVERS,http,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,UNUSED-SERVERS,https,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,UNUSED-SERVERS,rdp,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,UNUSED-SERVERS,smb,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,UNUSED-SERVERS,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,UNUSED-SERVERS,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,UNUSED-SERVERS,syslog,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,UNUSED-SERVERS,snmp,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,UNUSED-GUEST,icmp,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,UNUSED-GUEST,ssh,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,UNUSED-GUEST,telnet,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,UNUSED-GUEST,http,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,UNUSED-GUEST,https,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,UNUSED-GUEST,rdp,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,UNUSED-GUEST,smb,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,UNUSED-GUEST,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,UNUSED-GUEST,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,UNUSED-GUEST,syslog,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,UNUSED-GUEST,snmp,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,UNUSED-MGMT,icmp,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,UNUSED-MGMT,ssh,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,UNUSED-MGMT,telnet,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,UNUSED-MGMT,http,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,UNUSED-MGMT,https,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,UNUSED-MGMT,rdp,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,UNUSED-MGMT,smb,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,UNUSED-MGMT,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,UNUSED-MGMT,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,UNUSED-MGMT,syslog,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,UNUSED-MGMT,snmp,permitted,no,no,,,,unexpected permit
+baseline,DNS-DMZ,UNUSED-DMZ,icmp,permitted,yes,yes,,,,
+baseline,DNS-DMZ,UNUSED-DMZ,ssh,permitted,yes,yes,,,,
+baseline,DNS-DMZ,UNUSED-DMZ,telnet,permitted,yes,yes,,,,
+baseline,DNS-DMZ,UNUSED-DMZ,http,permitted,yes,yes,,,,
+baseline,DNS-DMZ,UNUSED-DMZ,https,permitted,yes,yes,,,,
+baseline,DNS-DMZ,UNUSED-DMZ,rdp,permitted,yes,yes,,,,
+baseline,DNS-DMZ,UNUSED-DMZ,smb,permitted,yes,yes,,,,
+baseline,DNS-DMZ,UNUSED-DMZ,dns-udp,permitted,yes,yes,,,,
+baseline,DNS-DMZ,UNUSED-DMZ,dns-tcp,permitted,yes,yes,,,,
+baseline,DNS-DMZ,UNUSED-DMZ,syslog,permitted,yes,yes,,,,
+baseline,DNS-DMZ,UNUSED-DMZ,snmp,permitted,yes,yes,,,,
+baseline,PC4,PC5,icmp,permitted,yes,yes,,,,
+baseline,PC4,PC5,ssh,permitted,yes,yes,,,,
+baseline,PC4,PC5,telnet,permitted,yes,yes,,,,
+baseline,PC4,PC5,http,permitted,yes,yes,,,,
+baseline,PC4,PC5,https,permitted,yes,yes,,,,
+baseline,PC4,PC5,rdp,permitted,yes,yes,,,,
+baseline,PC4,PC5,smb,permitted,yes,yes,,,,
+baseline,PC4,PC5,dns-udp,permitted,yes,yes,,,,
+baseline,PC4,PC5,dns-tcp,permitted,yes,yes,,,,
+baseline,PC4,PC5,syslog,permitted,yes,yes,,,,
+baseline,PC4,PC5,snmp,permitted,yes,yes,,,,
+baseline,PC4,WEB-EXT,icmp,permitted,yes,yes,,,,
+baseline,PC4,WEB-EXT,ssh,permitted,yes,yes,,,,
+baseline,PC4,WEB-EXT,telnet,permitted,yes,yes,,,,
+baseline,PC4,WEB-EXT,http,permitted,yes,yes,,,,
+baseline,PC4,WEB-EXT,https,permitted,yes,yes,,,,
+baseline,PC4,WEB-EXT,rdp,permitted,yes,yes,,,,
+baseline,PC4,WEB-EXT,smb,permitted,yes,yes,,,,
+baseline,PC4,WEB-EXT,dns-udp,permitted,yes,yes,,,,
+baseline,PC4,WEB-EXT,dns-tcp,permitted,yes,yes,,,,
+baseline,PC4,WEB-EXT,syslog,permitted,yes,yes,,,,
+baseline,PC4,WEB-EXT,snmp,permitted,yes,yes,,,,
+baseline,PC4,FW-EDGE-OUTSIDE,icmp,permitted,no,no,,,,unexpected permit
+baseline,PC4,FW-EDGE-OUTSIDE,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC4,FW-EDGE-OUTSIDE,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC4,FW-EDGE-OUTSIDE,http,permitted,no,no,,,,unexpected permit
+baseline,PC4,WEB-DMZ-PUBLIC,icmp,permitted,no,no,,,,unexpected permit
+baseline,PC4,WEB-DMZ-PUBLIC,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC4,WEB-DMZ-PUBLIC,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC4,WEB-DMZ-PUBLIC,http,permitted,yes,no,,,,
+baseline,PC4,WEB-DMZ-PUBLIC,https,permitted,yes,no,,,,
+baseline,PC4,WEB-DMZ-PUBLIC,rdp,permitted,no,no,,,,unexpected permit
+baseline,PC4,WEB-DMZ-PUBLIC,smb,permitted,no,no,,,,unexpected permit
+baseline,PC4,WEB-DMZ-PUBLIC,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,PC4,WEB-DMZ-PUBLIC,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,PC4,WEB-DMZ-PUBLIC,syslog,permitted,no,no,,,,unexpected permit
+baseline,PC4,WEB-DMZ-PUBLIC,snmp,permitted,no,no,,,,unexpected permit
+baseline,PC4,DNS-DMZ-PUBLIC,icmp,permitted,no,no,,,,unexpected permit
+baseline,PC4,DNS-DMZ-PUBLIC,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC4,DNS-DMZ-PUBLIC,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC4,DNS-DMZ-PUBLIC,http,permitted,no,no,,,,unexpected permit
+baseline,PC4,DNS-DMZ-PUBLIC,https,permitted,no,no,,,,unexpected permit
+baseline,PC4,DNS-DMZ-PUBLIC,rdp,permitted,no,no,,,,unexpected permit
+baseline,PC4,DNS-DMZ-PUBLIC,smb,permitted,no,no,,,,unexpected permit
+baseline,PC4,DNS-DMZ-PUBLIC,dns-udp,permitted,yes,no,,,,
+baseline,PC4,DNS-DMZ-PUBLIC,dns-tcp,permitted,yes,no,,,,
+baseline,PC4,DNS-DMZ-PUBLIC,syslog,permitted,no,no,,,,unexpected permit
+baseline,PC4,DNS-DMZ-PUBLIC,snmp,permitted,no,no,,,,unexpected permit
+baseline,PC5,PC4,icmp,permitted,yes,yes,,,,
+baseline,PC5,PC4,ssh,permitted,yes,yes,,,,
+baseline,PC5,PC4,telnet,permitted,yes,yes,,,,
+baseline,PC5,PC4,http,permitted,yes,yes,,,,
+baseline,PC5,PC4,https,permitted,yes,yes,,,,
+baseline,PC5,PC4,rdp,permitted,yes,yes,,,,
+baseline,PC5,PC4,smb,permitted,yes,yes,,,,
+baseline,PC5,PC4,dns-udp,permitted,yes,yes,,,,
+baseline,PC5,PC4,dns-tcp,permitted,yes,yes,,,,
+baseline,PC5,PC4,syslog,permitted,yes,yes,,,,
+baseline,PC5,PC4,snmp,permitted,yes,yes,,,,
+baseline,PC5,WEB-EXT,icmp,permitted,yes,yes,,,,
+baseline,PC5,WEB-EXT,ssh,permitted,yes,yes,,,,
+baseline,PC5,WEB-EXT,telnet,permitted,yes,yes,,,,
+baseline,PC5,WEB-EXT,http,permitted,yes,yes,,,,
+baseline,PC5,WEB-EXT,https,permitted,yes,yes,,,,
+baseline,PC5,WEB-EXT,rdp,permitted,yes,yes,,,,
+baseline,PC5,WEB-EXT,smb,permitted,yes,yes,,,,
+baseline,PC5,WEB-EXT,dns-udp,permitted,yes,yes,,,,
+baseline,PC5,WEB-EXT,dns-tcp,permitted,yes,yes,,,,
+baseline,PC5,WEB-EXT,syslog,permitted,yes,yes,,,,
+baseline,PC5,WEB-EXT,snmp,permitted,yes,yes,,,,
+baseline,PC5,FW-EDGE-OUTSIDE,icmp,permitted,no,no,,,,unexpected permit
+baseline,PC5,FW-EDGE-OUTSIDE,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC5,FW-EDGE-OUTSIDE,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC5,FW-EDGE-OUTSIDE,http,permitted,no,no,,,,unexpected permit
+baseline,PC5,WEB-DMZ-PUBLIC,icmp,permitted,no,no,,,,unexpected permit
+baseline,PC5,WEB-DMZ-PUBLIC,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC5,WEB-DMZ-PUBLIC,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC5,WEB-DMZ-PUBLIC,http,permitted,yes,no,,,,
+baseline,PC5,WEB-DMZ-PUBLIC,https,permitted,yes,no,,,,
+baseline,PC5,WEB-DMZ-PUBLIC,rdp,permitted,no,no,,,,unexpected permit
+baseline,PC5,WEB-DMZ-PUBLIC,smb,permitted,no,no,,,,unexpected permit
+baseline,PC5,WEB-DMZ-PUBLIC,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,PC5,WEB-DMZ-PUBLIC,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,PC5,WEB-DMZ-PUBLIC,syslog,permitted,no,no,,,,unexpected permit
+baseline,PC5,WEB-DMZ-PUBLIC,snmp,permitted,no,no,,,,unexpected permit
+baseline,PC5,DNS-DMZ-PUBLIC,icmp,permitted,no,no,,,,unexpected permit
+baseline,PC5,DNS-DMZ-PUBLIC,ssh,permitted,no,no,,,,unexpected permit
+baseline,PC5,DNS-DMZ-PUBLIC,telnet,permitted,no,no,,,,unexpected permit
+baseline,PC5,DNS-DMZ-PUBLIC,http,permitted,no,no,,,,unexpected permit
+baseline,PC5,DNS-DMZ-PUBLIC,https,permitted,no,no,,,,unexpected permit
+baseline,PC5,DNS-DMZ-PUBLIC,rdp,permitted,no,no,,,,unexpected permit
+baseline,PC5,DNS-DMZ-PUBLIC,smb,permitted,no,no,,,,unexpected permit
+baseline,PC5,DNS-DMZ-PUBLIC,dns-udp,permitted,yes,no,,,,
+baseline,PC5,DNS-DMZ-PUBLIC,dns-tcp,permitted,yes,no,,,,
+baseline,PC5,DNS-DMZ-PUBLIC,syslog,permitted,no,no,,,,unexpected permit
+baseline,PC5,DNS-DMZ-PUBLIC,snmp,permitted,no,no,,,,unexpected permit
+baseline,WEB-EXT,PC4,icmp,permitted,yes,yes,,,,
+baseline,WEB-EXT,PC4,ssh,permitted,yes,yes,,,,
+baseline,WEB-EXT,PC4,telnet,permitted,yes,yes,,,,
+baseline,WEB-EXT,PC4,http,permitted,yes,yes,,,,
+baseline,WEB-EXT,PC4,https,permitted,yes,yes,,,,
+baseline,WEB-EXT,PC4,rdp,permitted,yes,yes,,,,
+baseline,WEB-EXT,PC4,smb,permitted,yes,yes,,,,
+baseline,WEB-EXT,PC4,dns-udp,permitted,yes,yes,,,,
+baseline,WEB-EXT,PC4,dns-tcp,permitted,yes,yes,,,,
+baseline,WEB-EXT,PC4,syslog,permitted,yes,yes,,,,
+baseline,WEB-EXT,PC4,snmp,permitted,yes,yes,,,,
+baseline,WEB-EXT,PC5,icmp,permitted,yes,yes,,,,
+baseline,WEB-EXT,PC5,ssh,permitted,yes,yes,,,,
+baseline,WEB-EXT,PC5,telnet,permitted,yes,yes,,,,
+baseline,WEB-EXT,PC5,http,permitted,yes,yes,,,,
+baseline,WEB-EXT,PC5,https,permitted,yes,yes,,,,
+baseline,WEB-EXT,PC5,rdp,permitted,yes,yes,,,,
+baseline,WEB-EXT,PC5,smb,permitted,yes,yes,,,,
+baseline,WEB-EXT,PC5,dns-udp,permitted,yes,yes,,,,
+baseline,WEB-EXT,PC5,dns-tcp,permitted,yes,yes,,,,
+baseline,WEB-EXT,PC5,syslog,permitted,yes,yes,,,,
+baseline,WEB-EXT,PC5,snmp,permitted,yes,yes,,,,
+baseline,WEB-EXT,FW-EDGE-OUTSIDE,icmp,permitted,no,no,,,,unexpected permit
+baseline,WEB-EXT,FW-EDGE-OUTSIDE,ssh,permitted,no,no,,,,unexpected permit
+baseline,WEB-EXT,FW-EDGE-OUTSIDE,telnet,permitted,no,no,,,,unexpected permit
+baseline,WEB-EXT,FW-EDGE-OUTSIDE,http,permitted,no,no,,,,unexpected permit
+baseline,WEB-EXT,WEB-DMZ-PUBLIC,icmp,permitted,no,no,,,,unexpected permit
+baseline,WEB-EXT,WEB-DMZ-PUBLIC,ssh,permitted,no,no,,,,unexpected permit
+baseline,WEB-EXT,WEB-DMZ-PUBLIC,telnet,permitted,no,no,,,,unexpected permit
+baseline,WEB-EXT,WEB-DMZ-PUBLIC,http,permitted,yes,no,,,,
+baseline,WEB-EXT,WEB-DMZ-PUBLIC,https,permitted,yes,no,,,,
+baseline,WEB-EXT,WEB-DMZ-PUBLIC,rdp,permitted,no,no,,,,unexpected permit
+baseline,WEB-EXT,WEB-DMZ-PUBLIC,smb,permitted,no,no,,,,unexpected permit
+baseline,WEB-EXT,WEB-DMZ-PUBLIC,dns-udp,permitted,no,no,,,,unexpected permit
+baseline,WEB-EXT,WEB-DMZ-PUBLIC,dns-tcp,permitted,no,no,,,,unexpected permit
+baseline,WEB-EXT,WEB-DMZ-PUBLIC,syslog,permitted,no,no,,,,unexpected permit
+baseline,WEB-EXT,WEB-DMZ-PUBLIC,snmp,permitted,no,no,,,,unexpected permit
+baseline,WEB-EXT,DNS-DMZ-PUBLIC,icmp,permitted,no,no,,,,unexpected permit
+baseline,WEB-EXT,DNS-DMZ-PUBLIC,ssh,permitted,no,no,,,,unexpected permit
+baseline,WEB-EXT,DNS-DMZ-PUBLIC,telnet,permitted,no,no,,,,unexpected permit
+baseline,WEB-EXT,DNS-DMZ-PUBLIC,http,permitted,no,no,,,,unexpected permit
+baseline,WEB-EXT,DNS-DMZ-PUBLIC,https,permitted,no,no,,,,unexpected permit
+baseline,WEB-EXT,DNS-DMZ-PUBLIC,rdp,permitted,no,no,,,,unexpected permit
+baseline,WEB-EXT,DNS-DMZ-PUBLIC,smb,permitted,no,no,,,,unexpected permit
+baseline,WEB-EXT,DNS-DMZ-PUBLIC,dns-udp,permitted,yes,no,,,,
+baseline,WEB-EXT,DNS-DMZ-PUBLIC,dns-tcp,permitted,yes,no,,,,
+baseline,WEB-EXT,DNS-DMZ-PUBLIC,syslog,permitted,no,no,,,,unexpected permit
+baseline,WEB-EXT,DNS-DMZ-PUBLIC,snmp,permitted,no,no,,,,unexpected permit
+hardened,PC0,PC1,icmp,permitted,yes,yes,,,,
+hardened,PC0,PC1,ssh,permitted,yes,yes,,,,
+hardened,PC0,PC1,telnet,permitted,yes,yes,,,,
+hardened,PC0,PC1,http,permitted,yes,yes,,,,
+hardened,PC0,PC1,https,permitted,yes,yes,,,,
+hardened,PC0,PC1,rdp,permitted,yes,yes,,,,
+hardened,PC0,PC1,smb,permitted,yes,yes,,,,
+hardened,PC0,PC1,dns-udp,permitted,yes,yes,,,,
+hardened,PC0,PC1,dns-tcp,permitted,yes,yes,,,,
+hardened,PC0,PC1,syslog,permitted,yes,yes,,,,
+hardened,PC0,PC1,snmp,permitted,yes,yes,,,,
+hardened,PC0,SRV-APP,icmp,permitted,yes,no,,,,
+hardened,PC0,SRV-APP,http,permitted,yes,no,,,,
+hardened,PC0,SRV-APP,https,permitted,yes,no,,,,
+hardened,PC0,WEB-DMZ,icmp,permitted,yes,no,,,,
+hardened,PC0,WEB-DMZ,http,permitted,yes,no,,,,
+hardened,PC0,WEB-DMZ,https,permitted,yes,no,,,,
+hardened,PC0,DNS-DMZ,icmp,permitted,yes,no,,,,
+hardened,PC0,DNS-DMZ,dns-udp,permitted,yes,no,,,,
+hardened,PC0,DNS-DMZ,dns-tcp,permitted,yes,no,,,,
+hardened,PC0,PC4,icmp,permitted,yes,no,,,,
+hardened,PC0,PC4,http,permitted,yes,no,,,,
+hardened,PC0,PC4,https,permitted,yes,no,,,,
+hardened,PC0,PC5,icmp,permitted,yes,no,,,,
+hardened,PC0,PC5,http,permitted,yes,no,,,,
+hardened,PC0,PC5,https,permitted,yes,no,,,,
+hardened,PC0,WEB-EXT,icmp,permitted,yes,no,,,,
+hardened,PC0,WEB-EXT,http,permitted,yes,no,,,,
+hardened,PC0,WEB-EXT,https,permitted,yes,no,,,,
+hardened,PC0,FW-EDGE-USERS,icmp,permitted,yes,no,,,,
+hardened,PC0,UNUSED-USERS,icmp,permitted,yes,yes,,,,
+hardened,PC0,UNUSED-USERS,ssh,permitted,yes,yes,,,,
+hardened,PC0,UNUSED-USERS,telnet,permitted,yes,yes,,,,
+hardened,PC0,UNUSED-USERS,http,permitted,yes,yes,,,,
+hardened,PC0,UNUSED-USERS,https,permitted,yes,yes,,,,
+hardened,PC0,UNUSED-USERS,rdp,permitted,yes,yes,,,,
+hardened,PC0,UNUSED-USERS,smb,permitted,yes,yes,,,,
+hardened,PC0,UNUSED-USERS,dns-udp,permitted,yes,yes,,,,
+hardened,PC0,UNUSED-USERS,dns-tcp,permitted,yes,yes,,,,
+hardened,PC0,UNUSED-USERS,syslog,permitted,yes,yes,,,,
+hardened,PC0,UNUSED-USERS,snmp,permitted,yes,yes,,,,
+hardened,PC1,PC0,icmp,permitted,yes,yes,,,,
+hardened,PC1,PC0,ssh,permitted,yes,yes,,,,
+hardened,PC1,PC0,telnet,permitted,yes,yes,,,,
+hardened,PC1,PC0,http,permitted,yes,yes,,,,
+hardened,PC1,PC0,https,permitted,yes,yes,,,,
+hardened,PC1,PC0,rdp,permitted,yes,yes,,,,
+hardened,PC1,PC0,smb,permitted,yes,yes,,,,
+hardened,PC1,PC0,dns-udp,permitted,yes,yes,,,,
+hardened,PC1,PC0,dns-tcp,permitted,yes,yes,,,,
+hardened,PC1,PC0,syslog,permitted,yes,yes,,,,
+hardened,PC1,PC0,snmp,permitted,yes,yes,,,,
+hardened,PC1,SRV-APP,icmp,permitted,yes,no,,,,
+hardened,PC1,SRV-APP,http,permitted,yes,no,,,,
+hardened,PC1,SRV-APP,https,permitted,yes,no,,,,
+hardened,PC1,WEB-DMZ,icmp,permitted,yes,no,,,,
+hardened,PC1,WEB-DMZ,http,permitted,yes,no,,,,
+hardened,PC1,WEB-DMZ,https,permitted,yes,no,,,,
+hardened,PC1,DNS-DMZ,icmp,permitted,yes,no,,,,
+hardened,PC1,DNS-DMZ,dns-udp,permitted,yes,no,,,,
+hardened,PC1,DNS-DMZ,dns-tcp,permitted,yes,no,,,,
+hardened,PC1,PC4,icmp,permitted,yes,no,,,,
+hardened,PC1,PC4,http,permitted,yes,no,,,,
+hardened,PC1,PC4,https,permitted,yes,no,,,,
+hardened,PC1,PC5,icmp,permitted,yes,no,,,,
+hardened,PC1,PC5,http,permitted,yes,no,,,,
+hardened,PC1,PC5,https,permitted,yes,no,,,,
+hardened,PC1,WEB-EXT,icmp,permitted,yes,no,,,,
+hardened,PC1,WEB-EXT,http,permitted,yes,no,,,,
+hardened,PC1,WEB-EXT,https,permitted,yes,no,,,,
+hardened,PC1,FW-EDGE-USERS,icmp,permitted,yes,no,,,,
+hardened,PC1,UNUSED-USERS,icmp,permitted,yes,yes,,,,
+hardened,PC1,UNUSED-USERS,ssh,permitted,yes,yes,,,,
+hardened,PC1,UNUSED-USERS,telnet,permitted,yes,yes,,,,
+hardened,PC1,UNUSED-USERS,http,permitted,yes,yes,,,,
+hardened,PC1,UNUSED-USERS,https,permitted,yes,yes,,,,
+hardened,PC1,UNUSED-USERS,rdp,permitted,yes,yes,,,,
+hardened,PC1,UNUSED-USERS,smb,permitted,yes,yes,,,,
+hardened,PC1,UNUSED-USERS,dns-udp,permitted,yes,yes,,,,
+hardened,PC1,UNUSED-USERS,dns-tcp,permitted,yes,yes,,,,
+hardened,PC1,UNUSED-USERS,syslog,permitted,yes,yes,,,,
+hardened,PC1,UNUSED-USERS,snmp,permitted,yes,yes,,,,
+hardened,PC2,DNS-DMZ,dns-udp,permitted,yes,no,,,,
+hardened,PC2,DNS-DMZ,dns-tcp,permitted,yes,no,,,,
+hardened,PC2,PC4,icmp,permitted,yes,no,,,,
+hardened,PC2,PC4,http,permitted,yes,no,,,,
+hardened,PC2,PC4,https,permitted,yes,no,,,,
+hardened,PC2,PC5,icmp,permitted,yes,no,,,,
+hardened,PC2,PC5,http,permitted,yes,no,,,,
+hardened,PC2,PC5,https,permitted,yes,no,,,,
+hardened,PC2,WEB-EXT,icmp,permitted,yes,no,,,,
+hardened,PC2,WEB-EXT,http,permitted,yes,no,,,,
+hardened,PC2,WEB-EXT,https,permitted,yes,no,,,,
+hardened,PC2,FW-EDGE-GUEST,icmp,permitted,yes,no,,,,
+hardened,PC2,UNUSED-GUEST,icmp,permitted,yes,yes,,,,
+hardened,PC2,UNUSED-GUEST,ssh,permitted,yes,yes,,,,
+hardened,PC2,UNUSED-GUEST,telnet,permitted,yes,yes,,,,
+hardened,PC2,UNUSED-GUEST,http,permitted,yes,yes,,,,
+hardened,PC2,UNUSED-GUEST,https,permitted,yes,yes,,,,
+hardened,PC2,UNUSED-GUEST,rdp,permitted,yes,yes,,,,
+hardened,PC2,UNUSED-GUEST,smb,permitted,yes,yes,,,,
+hardened,PC2,UNUSED-GUEST,dns-udp,permitted,yes,yes,,,,
+hardened,PC2,UNUSED-GUEST,dns-tcp,permitted,yes,yes,,,,
+hardened,PC2,UNUSED-GUEST,syslog,permitted,yes,yes,,,,
+hardened,PC2,UNUSED-GUEST,snmp,permitted,yes,yes,,,,
+hardened,PC3,PC0,icmp,permitted,yes,no,,,,
+hardened,PC3,PC1,icmp,permitted,yes,no,,,,
+hardened,PC3,SRV-APP,icmp,permitted,yes,no,,,,
+hardened,PC3,SRV-APP,http,permitted,yes,no,,,,
+hardened,PC3,SRV-APP,https,permitted,yes,no,,,,
+hardened,PC3,SRV-LOG,icmp,permitted,yes,yes,,,,
+hardened,PC3,SRV-LOG,ssh,permitted,yes,yes,,,,
+hardened,PC3,SRV-LOG,telnet,permitted,yes,yes,,,,
+hardened,PC3,SRV-LOG,http,permitted,yes,yes,,,,
+hardened,PC3,SRV-LOG,https,permitted,yes,yes,,,,
+hardened,PC3,SRV-LOG,rdp,permitted,yes,yes,,,,
+hardened,PC3,SRV-LOG,smb,permitted,yes,yes,,,,
+hardened,PC3,SRV-LOG,dns-udp,permitted,yes,yes,,,,
+hardened,PC3,SRV-LOG,dns-tcp,permitted,yes,yes,,,,
+hardened,PC3,SRV-LOG,syslog,permitted,yes,yes,,,,
+hardened,PC3,SRV-LOG,snmp,permitted,yes,yes,,,,
+hardened,PC3,WEB-DMZ,icmp,permitted,yes,no,,,,
+hardened,PC3,WEB-DMZ,http,permitted,yes,no,,,,
+hardened,PC3,WEB-DMZ,https,permitted,yes,no,,,,
+hardened,PC3,DNS-DMZ,icmp,permitted,yes,no,,,,
+hardened,PC3,FW-EDGE,icmp,permitted,yes,no,,,,
+hardened,PC3,FW-EDGE,ssh,permitted,yes,no,,,,
+hardened,PC3,SW-ACCESS,icmp,permitted,yes,no,,,,
+hardened,PC3,SW-ACCESS,ssh,permitted,yes,no,,,,
+hardened,PC3,SW-DMZ,icmp,permitted,yes,no,,,,
+hardened,PC3,SW-DMZ,ssh,permitted,yes,no,,,,
+hardened,PC3,FW-EDGE-USERS,icmp,permitted,yes,no,,,,
+hardened,PC3,UNUSED-USERS,icmp,permitted,yes,no,,,,
+hardened,PC3,UNUSED-MGMT,icmp,permitted,yes,yes,,,,
+hardened,PC3,UNUSED-MGMT,ssh,permitted,yes,yes,,,,
+hardened,PC3,UNUSED-MGMT,telnet,permitted,yes,yes,,,,
+hardened,PC3,UNUSED-MGMT,http,permitted,yes,yes,,,,
+hardened,PC3,UNUSED-MGMT,https,permitted,yes,yes,,,,
+hardened,PC3,UNUSED-MGMT,rdp,permitted,yes,yes,,,,
+hardened,PC3,UNUSED-MGMT,smb,permitted,yes,yes,,,,
+hardened,PC3,UNUSED-MGMT,dns-udp,permitted,yes,yes,,,,
+hardened,PC3,UNUSED-MGMT,dns-tcp,permitted,yes,yes,,,,
+hardened,PC3,UNUSED-MGMT,syslog,permitted,yes,yes,,,,
+hardened,PC3,UNUSED-MGMT,snmp,permitted,yes,yes,,,,
+hardened,SRV-APP,DNS-DMZ,dns-udp,permitted,yes,no,,,,
+hardened,SRV-APP,DNS-DMZ,dns-tcp,permitted,yes,no,,,,
+hardened,SRV-APP,FW-EDGE-SERVERS,icmp,permitted,yes,no,,,,
+hardened,SRV-APP,UNUSED-SERVERS,icmp,permitted,yes,yes,,,,
+hardened,SRV-APP,UNUSED-SERVERS,ssh,permitted,yes,yes,,,,
+hardened,SRV-APP,UNUSED-SERVERS,telnet,permitted,yes,yes,,,,
+hardened,SRV-APP,UNUSED-SERVERS,http,permitted,yes,yes,,,,
+hardened,SRV-APP,UNUSED-SERVERS,https,permitted,yes,yes,,,,
+hardened,SRV-APP,UNUSED-SERVERS,rdp,permitted,yes,yes,,,,
+hardened,SRV-APP,UNUSED-SERVERS,smb,permitted,yes,yes,,,,
+hardened,SRV-APP,UNUSED-SERVERS,dns-udp,permitted,yes,yes,,,,
+hardened,SRV-APP,UNUSED-SERVERS,dns-tcp,permitted,yes,yes,,,,
+hardened,SRV-APP,UNUSED-SERVERS,syslog,permitted,yes,yes,,,,
+hardened,SRV-APP,UNUSED-SERVERS,snmp,permitted,yes,yes,,,,
+hardened,SRV-LOG,PC3,icmp,permitted,yes,yes,,,,
+hardened,SRV-LOG,PC3,ssh,permitted,yes,yes,,,,
+hardened,SRV-LOG,PC3,telnet,permitted,yes,yes,,,,
+hardened,SRV-LOG,PC3,http,permitted,yes,yes,,,,
+hardened,SRV-LOG,PC3,https,permitted,yes,yes,,,,
+hardened,SRV-LOG,PC3,rdp,permitted,yes,yes,,,,
+hardened,SRV-LOG,PC3,smb,permitted,yes,yes,,,,
+hardened,SRV-LOG,PC3,dns-udp,permitted,yes,yes,,,,
+hardened,SRV-LOG,PC3,dns-tcp,permitted,yes,yes,,,,
+hardened,SRV-LOG,PC3,syslog,permitted,yes,yes,,,,
+hardened,SRV-LOG,PC3,snmp,permitted,yes,yes,,,,
+hardened,SRV-LOG,FW-EDGE,icmp,permitted,yes,no,,,,
+hardened,SRV-LOG,SW-ACCESS,icmp,permitted,yes,no,,,,
+hardened,SRV-LOG,UNUSED-MGMT,icmp,permitted,yes,yes,,,,
+hardened,SRV-LOG,UNUSED-MGMT,ssh,permitted,yes,yes,,,,
+hardened,SRV-LOG,UNUSED-MGMT,telnet,permitted,yes,yes,,,,
+hardened,SRV-LOG,UNUSED-MGMT,http,permitted,yes,yes,,,,
+hardened,SRV-LOG,UNUSED-MGMT,https,permitted,yes,yes,,,,
+hardened,SRV-LOG,UNUSED-MGMT,rdp,permitted,yes,yes,,,,
+hardened,SRV-LOG,UNUSED-MGMT,smb,permitted,yes,yes,,,,
+hardened,SRV-LOG,UNUSED-MGMT,dns-udp,permitted,yes,yes,,,,
+hardened,SRV-LOG,UNUSED-MGMT,dns-tcp,permitted,yes,yes,,,,
+hardened,SRV-LOG,UNUSED-MGMT,syslog,permitted,yes,yes,,,,
+hardened,SRV-LOG,UNUSED-MGMT,snmp,permitted,yes,yes,,,,
+hardened,WEB-DMZ,SRV-APP,http,permitted,yes,no,,,,
+hardened,WEB-DMZ,DNS-DMZ,icmp,permitted,yes,yes,,,,
+hardened,WEB-DMZ,DNS-DMZ,ssh,permitted,yes,yes,,,,
+hardened,WEB-DMZ,DNS-DMZ,telnet,permitted,yes,yes,,,,
+hardened,WEB-DMZ,DNS-DMZ,http,permitted,yes,yes,,,,
+hardened,WEB-DMZ,DNS-DMZ,https,permitted,yes,yes,,,,
+hardened,WEB-DMZ,DNS-DMZ,rdp,permitted,yes,yes,,,,
+hardened,WEB-DMZ,DNS-DMZ,smb,permitted,yes,yes,,,,
+hardened,WEB-DMZ,DNS-DMZ,dns-udp,permitted,yes,yes,,,,
+hardened,WEB-DMZ,DNS-DMZ,dns-tcp,permitted,yes,yes,,,,
+hardened,WEB-DMZ,DNS-DMZ,syslog,permitted,yes,yes,,,,
+hardened,WEB-DMZ,DNS-DMZ,snmp,permitted,yes,yes,,,,
+hardened,WEB-DMZ,SW-DMZ,icmp,permitted,yes,no,,,,
+hardened,WEB-DMZ,UNUSED-DMZ,icmp,permitted,yes,yes,,,,
+hardened,WEB-DMZ,UNUSED-DMZ,ssh,permitted,yes,yes,,,,
+hardened,WEB-DMZ,UNUSED-DMZ,telnet,permitted,yes,yes,,,,
+hardened,WEB-DMZ,UNUSED-DMZ,http,permitted,yes,yes,,,,
+hardened,WEB-DMZ,UNUSED-DMZ,https,permitted,yes,yes,,,,
+hardened,WEB-DMZ,UNUSED-DMZ,rdp,permitted,yes,yes,,,,
+hardened,WEB-DMZ,UNUSED-DMZ,smb,permitted,yes,yes,,,,
+hardened,WEB-DMZ,UNUSED-DMZ,dns-udp,permitted,yes,yes,,,,
+hardened,WEB-DMZ,UNUSED-DMZ,dns-tcp,permitted,yes,yes,,,,
+hardened,WEB-DMZ,UNUSED-DMZ,syslog,permitted,yes,yes,,,,
+hardened,WEB-DMZ,UNUSED-DMZ,snmp,permitted,yes,yes,,,,
+hardened,DNS-DMZ,WEB-DMZ,icmp,permitted,yes,yes,,,,
+hardened,DNS-DMZ,WEB-DMZ,ssh,permitted,yes,yes,,,,
+hardened,DNS-DMZ,WEB-DMZ,telnet,permitted,yes,yes,,,,
+hardened,DNS-DMZ,WEB-DMZ,http,permitted,yes,yes,,,,
+hardened,DNS-DMZ,WEB-DMZ,https,permitted,yes,yes,,,,
+hardened,DNS-DMZ,WEB-DMZ,rdp,permitted,yes,yes,,,,
+hardened,DNS-DMZ,WEB-DMZ,smb,permitted,yes,yes,,,,
+hardened,DNS-DMZ,WEB-DMZ,dns-udp,permitted,yes,yes,,,,
+hardened,DNS-DMZ,WEB-DMZ,dns-tcp,permitted,yes,yes,,,,
+hardened,DNS-DMZ,WEB-DMZ,syslog,permitted,yes,yes,,,,
+hardened,DNS-DMZ,WEB-DMZ,snmp,permitted,yes,yes,,,,
+hardened,DNS-DMZ,SW-DMZ,icmp,permitted,yes,no,,,,
+hardened,DNS-DMZ,UNUSED-DMZ,icmp,permitted,yes,yes,,,,
+hardened,DNS-DMZ,UNUSED-DMZ,ssh,permitted,yes,yes,,,,
+hardened,DNS-DMZ,UNUSED-DMZ,telnet,permitted,yes,yes,,,,
+hardened,DNS-DMZ,UNUSED-DMZ,http,permitted,yes,yes,,,,
+hardened,DNS-DMZ,UNUSED-DMZ,https,permitted,yes,yes,,,,
+hardened,DNS-DMZ,UNUSED-DMZ,rdp,permitted,yes,yes,,,,
+hardened,DNS-DMZ,UNUSED-DMZ,smb,permitted,yes,yes,,,,
+hardened,DNS-DMZ,UNUSED-DMZ,dns-udp,permitted,yes,yes,,,,
+hardened,DNS-DMZ,UNUSED-DMZ,dns-tcp,permitted,yes,yes,,,,
+hardened,DNS-DMZ,UNUSED-DMZ,syslog,permitted,yes,yes,,,,
+hardened,DNS-DMZ,UNUSED-DMZ,snmp,permitted,yes,yes,,,,
+hardened,PC4,PC5,icmp,permitted,yes,yes,,,,
+hardened,PC4,PC5,ssh,permitted,yes,yes,,,,
+hardened,PC4,PC5,telnet,permitted,yes,yes,,,,
+hardened,PC4,PC5,http,permitted,yes,yes,,,,
+hardened,PC4,PC5,https,permitted,yes,yes,,,,
+hardened,PC4,PC5,rdp,permitted,yes,yes,,,,
+hardened,PC4,PC5,smb,permitted,yes,yes,,,,
+hardened,PC4,PC5,dns-udp,permitted,yes,yes,,,,
+hardened,PC4,PC5,dns-tcp,permitted,yes,yes,,,,
+hardened,PC4,PC5,syslog,permitted,yes,yes,,,,
+hardened,PC4,PC5,snmp,permitted,yes,yes,,,,
+hardened,PC4,WEB-EXT,icmp,permitted,yes,yes,,,,
+hardened,PC4,WEB-EXT,ssh,permitted,yes,yes,,,,
+hardened,PC4,WEB-EXT,telnet,permitted,yes,yes,,,,
+hardened,PC4,WEB-EXT,http,permitted,yes,yes,,,,
+hardened,PC4,WEB-EXT,https,permitted,yes,yes,,,,
+hardened,PC4,WEB-EXT,rdp,permitted,yes,yes,,,,
+hardened,PC4,WEB-EXT,smb,permitted,yes,yes,,,,
+hardened,PC4,WEB-EXT,dns-udp,permitted,yes,yes,,,,
+hardened,PC4,WEB-EXT,dns-tcp,permitted,yes,yes,,,,
+hardened,PC4,WEB-EXT,syslog,permitted,yes,yes,,,,
+hardened,PC4,WEB-EXT,snmp,permitted,yes,yes,,,,
+hardened,PC4,WEB-DMZ-PUBLIC,http,permitted,yes,no,,,,
+hardened,PC4,WEB-DMZ-PUBLIC,https,permitted,yes,no,,,,
+hardened,PC4,DNS-DMZ-PUBLIC,dns-udp,permitted,yes,no,,,,
+hardened,PC4,DNS-DMZ-PUBLIC,dns-tcp,permitted,yes,no,,,,
+hardened,PC5,PC4,icmp,permitted,yes,yes,,,,
+hardened,PC5,PC4,ssh,permitted,yes,yes,,,,
+hardened,PC5,PC4,telnet,permitted,yes,yes,,,,
+hardened,PC5,PC4,http,permitted,yes,yes,,,,
+hardened,PC5,PC4,https,permitted,yes,yes,,,,
+hardened,PC5,PC4,rdp,permitted,yes,yes,,,,
+hardened,PC5,PC4,smb,permitted,yes,yes,,,,
+hardened,PC5,PC4,dns-udp,permitted,yes,yes,,,,
+hardened,PC5,PC4,dns-tcp,permitted,yes,yes,,,,
+hardened,PC5,PC4,syslog,permitted,yes,yes,,,,
+hardened,PC5,PC4,snmp,permitted,yes,yes,,,,
+hardened,PC5,WEB-EXT,icmp,permitted,yes,yes,,,,
+hardened,PC5,WEB-EXT,ssh,permitted,yes,yes,,,,
+hardened,PC5,WEB-EXT,telnet,permitted,yes,yes,,,,
+hardened,PC5,WEB-EXT,http,permitted,yes,yes,,,,
+hardened,PC5,WEB-EXT,https,permitted,yes,yes,,,,
+hardened,PC5,WEB-EXT,rdp,permitted,yes,yes,,,,
+hardened,PC5,WEB-EXT,smb,permitted,yes,yes,,,,
+hardened,PC5,WEB-EXT,dns-udp,permitted,yes,yes,,,,
+hardened,PC5,WEB-EXT,dns-tcp,permitted,yes,yes,,,,
+hardened,PC5,WEB-EXT,syslog,permitted,yes,yes,,,,
+hardened,PC5,WEB-EXT,snmp,permitted,yes,yes,,,,
+hardened,PC5,WEB-DMZ-PUBLIC,http,permitted,yes,no,,,,
+hardened,PC5,WEB-DMZ-PUBLIC,https,permitted,yes,no,,,,
+hardened,PC5,DNS-DMZ-PUBLIC,dns-udp,permitted,yes,no,,,,
+hardened,PC5,DNS-DMZ-PUBLIC,dns-tcp,permitted,yes,no,,,,
+hardened,WEB-EXT,PC4,icmp,permitted,yes,yes,,,,
+hardened,WEB-EXT,PC4,ssh,permitted,yes,yes,,,,
+hardened,WEB-EXT,PC4,telnet,permitted,yes,yes,,,,
+hardened,WEB-EXT,PC4,http,permitted,yes,yes,,,,
+hardened,WEB-EXT,PC4,https,permitted,yes,yes,,,,
+hardened,WEB-EXT,PC4,rdp,permitted,yes,yes,,,,
+hardened,WEB-EXT,PC4,smb,permitted,yes,yes,,,,
+hardened,WEB-EXT,PC4,dns-udp,permitted,yes,yes,,,,
+hardened,WEB-EXT,PC4,dns-tcp,permitted,yes,yes,,,,
+hardened,WEB-EXT,PC4,syslog,permitted,yes,yes,,,,
+hardened,WEB-EXT,PC4,snmp,permitted,yes,yes,,,,
+hardened,WEB-EXT,PC5,icmp,permitted,yes,yes,,,,
+hardened,WEB-EXT,PC5,ssh,permitted,yes,yes,,,,
+hardened,WEB-EXT,PC5,telnet,permitted,yes,yes,,,,
+hardened,WEB-EXT,PC5,http,permitted,yes,yes,,,,
+hardened,WEB-EXT,PC5,https,permitted,yes,yes,,,,
+hardened,WEB-EXT,PC5,rdp,permitted,yes,yes,,,,
+hardened,WEB-EXT,PC5,smb,permitted,yes,yes,,,,
+hardened,WEB-EXT,PC5,dns-udp,permitted,yes,yes,,,,
+hardened,WEB-EXT,PC5,dns-tcp,permitted,yes,yes,,,,
+hardened,WEB-EXT,PC5,syslog,permitted,yes,yes,,,,
+hardened,WEB-EXT,PC5,snmp,permitted,yes,yes,,,,
+hardened,WEB-EXT,WEB-DMZ-PUBLIC,http,permitted,yes,no,,,,
+hardened,WEB-EXT,WEB-DMZ-PUBLIC,https,permitted,yes,no,,,,
+hardened,WEB-EXT,DNS-DMZ-PUBLIC,dns-udp,permitted,yes,no,,,,
+hardened,WEB-EXT,DNS-DMZ-PUBLIC,dns-tcp,permitted,yes,no,,,,

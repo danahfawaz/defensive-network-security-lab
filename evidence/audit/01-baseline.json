@@ -1,0 +1,2329 @@
+{
+  "schema_version": "1.0",
+  "tool": {
+    "name": "ciscoaudit",
+    "version": "0.1.0"
+  },
+  "title": "Redesigned network, baseline configuration",
+  "generated_at": null,
+  "scope": {
+    "files": [
+      "configs/baseline/FW-EDGE.cfg",
+      "configs/baseline/SW-ACCESS.cfg",
+      "configs/baseline/SW-DMZ.cfg"
+    ],
+    "rules_run": [
+      "ACL-001",
+      "ACL-002",
+      "ACL-003",
+      "ACL-004",
+      "ACL-005",
+      "ACL-006",
+      "ACL-007",
+      "ACL-008",
+      "AUTH-001",
+      "AUTH-002",
+      "AUTH-003",
+      "AUTH-004",
+      "CRED-001",
+      "CRED-002",
+      "CRED-003",
+      "CRED-004",
+      "CRED-005",
+      "INT-001",
+      "INT-002",
+      "L2-001",
+      "L2-002",
+      "L2-003",
+      "L2-004",
+      "L2-005",
+      "L2-006",
+      "L2-007",
+      "L2-008",
+      "L2-009",
+      "L2-010",
+      "L2-011",
+      "L2-012",
+      "LOG-001",
+      "LOG-002",
+      "LOG-003",
+      "MGMT-001",
+      "MGMT-002",
+      "MGMT-003",
+      "MGMT-004",
+      "MGMT-005",
+      "MGMT-006",
+      "MGMT-007",
+      "MGMT-008",
+      "MGMT-009",
+      "MGMT-010",
+      "RTE-001",
+      "RTE-002",
+      "RTE-003",
+      "RTE-004",
+      "SVC-001",
+      "SVC-002",
+      "SVC-003",
+      "SVC-004"
+    ],
+    "min_severity": null
+  },
+  "summary": {
+    "devices": 3,
+    "findings_open": 65,
+    "findings_accepted_risk": 0,
+    "open_by_severity": {
+      "critical": 3,
+      "high": 7,
+      "medium": 33,
+      "low": 22,
+      "info": 0
+    },
+    "accepted_risk_by_severity": {
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 0,
+      "info": 0
+    },
+    "open_by_category": {
+      "Access control": 4,
+      "Access lists": 2,
+      "Credentials": 9,
+      "Interfaces": 1,
+      "Layer 2": 19,
+      "Logging": 9,
+      "Management plane": 17,
+      "Services": 4
+    }
+  },
+  "devices": [
+    {
+      "name": "FW-EDGE",
+      "hostname": "FW-EDGE",
+      "file": "configs/baseline/FW-EDGE.cfg",
+      "type": "router",
+      "model": "1841",
+      "ios_version": "12.4",
+      "open_by_severity": {
+        "critical": 1,
+        "high": 3,
+        "medium": 8,
+        "low": 8,
+        "info": 0
+      },
+      "accepted_risk": 0
+    },
+    {
+      "name": "SW-ACCESS",
+      "hostname": "SW-ACCESS",
+      "file": "configs/baseline/SW-ACCESS.cfg",
+      "type": "switch",
+      "model": "2960-24TT",
+      "ios_version": "15.0",
+      "open_by_severity": {
+        "critical": 1,
+        "high": 2,
+        "medium": 13,
+        "low": 8,
+        "info": 0
+      },
+      "accepted_risk": 0
+    },
+    {
+      "name": "SW-DMZ",
+      "hostname": "SW-DMZ",
+      "file": "configs/baseline/SW-DMZ.cfg",
+      "type": "switch",
+      "model": "2960-24TT",
+      "ios_version": "15.0",
+      "open_by_severity": {
+        "critical": 1,
+        "high": 2,
+        "medium": 12,
+        "low": 6,
+        "info": 0
+      },
+      "accepted_risk": 0
+    }
+  ],
+  "findings": [
+    {
+      "rule_id": "CRED-004",
+      "title": "A well-known or default password is in use",
+      "severity": "critical",
+      "category": "Credentials",
+      "device": "FW-EDGE",
+      "file": "configs/baseline/FW-EDGE.cfg",
+      "object": "credentials",
+      "affected": [
+        "enable password",
+        "line con 0",
+        "line vty 0 4"
+      ],
+      "detail": "Matches the built-in list of well-known passwords (the value is deliberately not shown): enable password, line con 0, line vty 0 4.",
+      "evidence": [
+        {
+          "line": 18,
+          "text": "enable password <redacted>"
+        },
+        {
+          "line": 87,
+          "text": "password <redacted>",
+          "context": "line con 0"
+        },
+        {
+          "line": 93,
+          "text": "password <redacted>",
+          "context": "line vty 0 4"
+        }
+      ],
+      "risk": "Passwords such as 'cisco' or 'admin' are the first guesses of every attacker and scanner. The check works even on hashed values because the salt is stored with the hash.",
+      "remediation": "Replace the credential with a unique passphrase (14+ characters) and rotate anything derived from it.",
+      "references": [
+        "MITRE ATT&CK T1078.001 Valid Accounts: Default Accounts",
+        "MITRE ATT&CK T1110.001 Brute Force: Password Guessing",
+        "NSA, Cisco Password Types: Best Practices"
+      ],
+      "status": "open"
+    },
+    {
+      "rule_id": "CRED-004",
+      "title": "A well-known or default password is in use",
+      "severity": "critical",
+      "category": "Credentials",
+      "device": "SW-ACCESS",
+      "file": "configs/baseline/SW-ACCESS.cfg",
+      "object": "credentials",
+      "affected": [
+        "enable password",
+        "line con 0",
+        "line vty 0 4",
+        "line vty 5 15"
+      ],
+      "detail": "Matches the built-in list of well-known passwords (the value is deliberately not shown): enable password, line con 0, line vty 0 4, line vty 5 15.",
+      "evidence": [
+        {
+          "line": 15,
+          "text": "enable password <redacted>"
+        },
+        {
+          "line": 70,
+          "text": "password <redacted>",
+          "context": "line con 0"
+        },
+        {
+          "line": 74,
+          "text": "password <redacted>",
+          "context": "line vty 0 4"
+        },
+        {
+          "line": 78,
+          "text": "password <redacted>",
+          "context": "line vty 5 15"
+        }
+      ],
+      "risk": "Passwords such as 'cisco' or 'admin' are the first guesses of every attacker and scanner. The check works even on hashed values because the salt is stored with the hash.",
+      "remediation": "Replace the credential with a unique passphrase (14+ characters) and rotate anything derived from it.",
+      "references": [
+        "MITRE ATT&CK T1078.001 Valid Accounts: Default Accounts",
+        "MITRE ATT&CK T1110.001 Brute Force: Password Guessing",
+        "NSA, Cisco Password Types: Best Practices"
+      ],
+      "status": "open"
+    },
+    {
+      "rule_id": "CRED-004",
+      "title": "A well-known or default password is in use",
+      "severity": "critical",
+      "category": "Credentials",
+      "device": "SW-DMZ",
+      "file": "configs/baseline/SW-DMZ.cfg",
+      "object": "credentials",
+      "affected": [
+        "enable password",
+        "line con 0",
+        "line vty 0 4",
+        "line vty 5 15"
+      ],
+      "detail": "Matches the built-in list of well-known passwords (the value is deliberately not shown): enable password, line con 0, line vty 0 4, line vty 5 15.",
+      "evidence": [
+        {
+          "line": 13,
+          "text": "enable password <redacted>"
+        },
+        {
+          "line": 47,
+          "text": "password <redacted>",
+          "context": "line con 0"
+        },
+        {
+          "line": 51,
+          "text": "password <redacted>",
+          "context": "line vty 0 4"
+        },
+        {
+          "line": 55,
+          "text": "password <redacted>",
+          "context": "line vty 5 15"
+        }
+      ],
+      "risk": "Passwords such as 'cisco' or 'admin' are the first guesses of every attacker and scanner. The check works even on hashed values because the salt is stored with the hash.",
+      "remediation": "Replace the credential with a unique passphrase (14+ characters) and rotate anything derived from it.",
+      "references": [
+        "MITRE ATT&CK T1078.001 Valid Accounts: Default Accounts",
+        "MITRE ATT&CK T1110.001 Brute Force: Password Guessing",
+        "NSA, Cisco Password Types: Best Practices"
+      ],
+      "status": "open"
+    },
+    {
+      "rule_id": "CRED-002",
+      "title": "Credentials are stored in clear text or in reversible form",
+      "severity": "high",
+      "category": "Credentials",
+      "device": "FW-EDGE",
+      "file": "configs/baseline/FW-EDGE.cfg",
+      "object": "credentials",
+      "affected": [
+        "enable password",
+        "line con 0",
+        "line vty 0 4"
+      ],
+      "detail": "3 credential(s) are recoverable from the configuration (3 in clear text, 0 type 7): enable password, line con 0, line vty 0 4.",
+      "evidence": [
+        {
+          "line": 18,
+          "text": "enable password <redacted>"
+        },
+        {
+          "line": 87,
+          "text": "password <redacted>",
+          "context": "line con 0"
+        },
+        {
+          "line": 93,
+          "text": "password <redacted>",
+          "context": "line vty 0 4"
+        }
+      ],
+      "risk": "Type 0 is plain text and type 7 is a reversible Vigenere-style encoding that public tools undo instantly. Anyone who can read a configuration backup, a TFTP capture or a screen share recovers the password.",
+      "remediation": "Replace 'enable password' with 'enable secret'; use 'username <name> secret <value>' instead of 'password'; prefer 'login local' to line passwords. Enable 'service password-encryption' only as a second line of defence.",
+      "references": [
+        "MITRE ATT&CK T1552.001 Unsecured Credentials: Credentials In Files",
+        "NSA, Cisco Password Types: Best Practices",
+        "CIS Cisco IOS Benchmark"
+      ],
+      "status": "open"
+    },
+    {
+      "rule_id": "MGMT-001",
+      "title": "Telnet is accepted for remote management",
+      "severity": "high",
+      "category": "Management plane",
+      "device": "FW-EDGE",
+      "file": "configs/baseline/FW-EDGE.cfg",
+      "object": "vty lines",
+      "affected": [
+        "line vty 0 4"
+      ],
+      "detail": "Telnet is permitted on: line vty 0 4 (no 'transport input': IOS default accepts Telnet).",
+      "evidence": [
+        {
+          "line": 92,
+          "text": "line vty 0 4"
+        }
+      ],
+      "risk": "Telnet sends credentials and every command in clear text. Anyone on the path - or an attacker who can sniff or ARP-spoof the segment - captures the administrator's password and can replay the session.",
+      "remediation": "Allow only SSH on the VTY lines: 'line vty 0 15' / 'transport input ssh'.",
+      "references": [
+        "MITRE ATT&CK T1040 Network Sniffing",
+        "Cisco, Guide to Harden Cisco IOS Devices",
+        "CIS Cisco IOS Benchmark",
+        "NSA, Network Infrastructure Security Guide"
+      ],
+      "status": "open"
+    },
+    {
+      "rule_id": "MGMT-005",
+      "title": "HTTP management server is enabled",
+      "severity": "high",
+      "category": "Management plane",
+      "device": "FW-EDGE",
+      "file": "configs/baseline/FW-EDGE.cfg",
+      "object": "global",
+      "affected": [],
+      "detail": "'ip http server' is enabled.",
+      "evidence": [
+        {
+          "line": 79,
+          "text": "ip http server"
+        }
+      ],
+      "risk": "The built-in web server exposes an administration interface over unencrypted HTTP, so credentials and sessions can be sniffed, and the web UI has been affected by several remotely exploitable vulnerabilities.",
+      "remediation": "'no ip http server' (and 'no ip http secure-server' unless the HTTPS UI is actually needed and restricted).",
+      "references": [
+        "MITRE ATT&CK T1040 Network Sniffing",
+        "CIS Cisco IOS Benchmark",
+        "Cisco, Guide to Harden Cisco IOS Devices"
+      ],
+      "status": "open"
+    },
+    {
+      "rule_id": "CRED-002",
+      "title": "Credentials are stored in clear text or in reversible form",
+      "severity": "high",
+      "category": "Credentials",
+      "device": "SW-ACCESS",
+      "file": "configs/baseline/SW-ACCESS.cfg",
+      "object": "credentials",
+      "affected": [
+        "enable password",
+        "line con 0",
+        "line vty 0 4",
+        "line vty 5 15"
+      ],
+      "detail": "4 credential(s) are recoverable from the configuration (4 in clear text, 0 type 7): enable password, line con 0, line vty 0 4, line vty 5 15.",
+      "evidence": [
+        {
+          "line": 15,
+          "text": "enable password <redacted>"
+        },
+        {
+          "line": 70,
+          "text": "password <redacted>",
+          "context": "line con 0"
+        },
+        {
+          "line": 74,
+          "text": "password <redacted>",
+          "context": "line vty 0 4"
+        },
+        {
+          "line": 78,
+          "text": "password <redacted>",
+          "context": "line vty 5 15"
+        }
+      ],
+      "risk": "Type 0 is plain text and type 7 is a reversible Vigenere-style encoding that public tools undo instantly. Anyone who can read a configuration backup, a TFTP capture or a screen share recovers the password.",
+      "remediation": "Replace 'enable password' with 'enable secret'; use 'username <name> secret <value>' instead of 'password'; prefer 'login local' to line passwords. Enable 'service password-encryption' only as a second line of defence.",
+      "references": [
+        "MITRE ATT&CK T1552.001 Unsecured Credentials: Credentials In Files",
+        "NSA, Cisco Password Types: Best Practices",
+        "CIS Cisco IOS Benchmark"
+      ],
+      "status": "open"
+    },
+    {
+      "rule_id": "MGMT-001",
+      "title": "Telnet is accepted for remote management",
+      "severity": "high",
+      "category": "Management plane",
+      "device": "SW-ACCESS",
+      "file": "configs/baseline/SW-ACCESS.cfg",
+      "object": "vty lines",
+      "affected": [
+        "line vty 0 4",
+        "line vty 5 15"
+      ],
+      "detail": "Telnet is permitted on: line vty 0 4 (no 'transport input': IOS default accepts Telnet); line vty 5 15 (no 'transport input': IOS default accepts Telnet).",
+      "evidence": [
+        {
+          "line": 73,
+          "text": "line vty 0 4"
+        },
+        {
+          "line": 77,
+          "text": "line vty 5 15"
+        }
+      ],
+      "risk": "Telnet sends credentials and every command in clear text. Anyone on the path - or an attacker who can sniff or ARP-spoof the segment - captures the administrator's password and can replay the session.",
+      "remediation": "Allow only SSH on the VTY lines: 'line vty 0 15' / 'transport input ssh'.",
+      "references": [
+        "MITRE ATT&CK T1040 Network Sniffing",
+        "Cisco, Guide to Harden Cisco IOS Devices",
+        "CIS Cisco IOS Benchmark",
+        "NSA, Network Infrastructure Security Guide"
+      ],
+      "status": "open"
+    },
+    {
+      "rule_id": "CRED-002",
+      "title": "Credentials are stored in clear text or in reversible form",
+      "severity": "high",
+      "category": "Credentials",
+      "device": "SW-DMZ",
+      "file": "configs/baseline/SW-DMZ.cfg",
+      "object": "credentials",
+      "affected": [
+        "enable password",
+        "line con 0",
+        "line vty 0 4",
+        "line vty 5 15"
+      ],
+      "detail": "4 credential(s) are recoverable from the configuration (4 in clear text, 0 type 7): enable password, line con 0, line vty 0 4, line vty 5 15.",
+      "evidence": [
+        {
+          "line": 13,
+          "text": "enable password <redacted>"
+        },
+        {
+          "line": 47,
+          "text": "password <redacted>",
+          "context": "line con 0"
+        },
+        {
+          "line": 51,
+          "text": "password <redacted>",
+          "context": "line vty 0 4"
+        },
+        {
+          "line": 55,
+          "text": "password <redacted>",
+          "context": "line vty 5 15"
+        }
+      ],
+      "risk": "Type 0 is plain text and type 7 is a reversible Vigenere-style encoding that public tools undo instantly. Anyone who can read a configuration backup, a TFTP capture or a screen share recovers the password.",
+      "remediation": "Replace 'enable password' with 'enable secret'; use 'username <name> secret <value>' instead of 'password'; prefer 'login local' to line passwords. Enable 'service password-encryption' only as a second line of defence.",
+      "references": [
+        "MITRE ATT&CK T1552.001 Unsecured Credentials: Credentials In Files",
+        "NSA, Cisco Password Types: Best Practices",
+        "CIS Cisco IOS Benchmark"
+      ],
+      "status": "open"
+    },
+    {
+      "rule_id": "MGMT-001",
+      "title": "Telnet is accepted for remote management",
+      "severity": "high",
+      "category": "Management plane",
+      "device": "SW-DMZ",
+      "file": "configs/baseline/SW-DMZ.cfg",
+      "object": "vty lines",
+      "affected": [
+        "line vty 0 4",
+        "line vty 5 15"
+      ],
+      "detail": "Telnet is permitted on: line vty 0 4 (no 'transport input': IOS default accepts Telnet); line vty 5 15 (no 'transport input': IOS default accepts Telnet).",
+      "evidence": [
+        {
+          "line": 50,
+          "text": "line vty 0 4"
+        },
+        {
+          "line": 54,
+          "text": "line vty 5 15"
+        }
+      ],
+      "risk": "Telnet sends credentials and every command in clear text. Anyone on the path - or an attacker who can sniff or ARP-spoof the segment - captures the administrator's password and can replay the session.",
+      "remediation": "Allow only SSH on the VTY lines: 'line vty 0 15' / 'transport input ssh'.",
+      "references": [
+        "MITRE ATT&CK T1040 Network Sniffing",
+        "Cisco, Guide to Harden Cisco IOS Devices",
+        "CIS Cisco IOS Benchmark",
+        "NSA, Network Infrastructure Security Guide"
+      ],
+      "status": "open"
+    },
+    {
+      "rule_id": "ACL-001",
+      "title": "ACL contains a 'permit any any' entry",
+      "severity": "medium",
+      "category": "Access lists",
+      "device": "FW-EDGE",
+      "file": "configs/baseline/FW-EDGE.cfg",
+      "object": "ACL 101",
+      "affected": [
+        "101 seq 20"
+      ],
+      "detail": "'access-list 101 permit ip any any' permits all traffic after some deny entries (blocklist style).",
+      "evidence": [
+        {
+          "line": 84,
+          "text": "access-list 101 permit ip any any"
+        }
+      ],
+      "risk": "An unrestricted permit turns an ACL into a blocklist: everything not explicitly denied above it is allowed, including new services, spoofed sources and lateral movement. As the first matching entry it disables the ACL.",
+      "remediation": "Replace it with the specific flows that are needed and finish with an explicit 'deny ip any any log'.",
+      "references": [
+        "Cisco, Guide to Harden Cisco IOS Devices",
+        "NSA, Network Infrastructure Security Guide"
+      ],
+      "status": "open"
+    },
+    {
+      "rule_id": "AUTH-002",
+      "title": "Console or AUX line has no authentication",
+      "severity": "medium",
+      "category": "Access control",
+      "device": "FW-EDGE",
+      "file": "configs/baseline/FW-EDGE.cfg",
+      "object": "console/aux lines",
+      "affected": [
+        "line aux 0"
+      ],
+      "detail": "No 'login' method is configured on: line aux 0.",
+      "evidence": [
+        {
+          "line": 90,
+          "text": "line aux 0"
+        }
+      ],
+      "risk": "A line without 'login' gives an unauthenticated exec session to anyone with physical access, a serial console server or a modem on the AUX port. Out-of-band paths bypass every network-based control.",
+      "remediation": "Console: 'line con 0' / 'login local' / 'exec-timeout 5 0' / 'logging synchronous'. AUX: disable it ('line aux 0' / 'no exec' / 'transport input none') unless a modem is genuinely required.",
+      "references": [
+        "Cisco, Guide to Harden Cisco IOS Devices",
+        "CIS Cisco IOS Benchmark"
+      ],
+      "status": "open"
+    },
+    {
+      "rule_id": "AUTH-003",
+      "title": "VTY lines use one shared line password instead of per-user accounts",
+      "severity": "medium",
+      "category": "Access control",
+      "device": "FW-EDGE",
+      "file": "configs/baseline/FW-EDGE.cfg",
+      "object": "vty lines",
+      "affected": [
+        "line vty 0 4"
+      ],
+      "detail": "A line password is used for authentication on: line vty 0 4.",
+      "evidence": [
+        {
+          "line": 94,
+          "text": "login",
+          "context": "line vty 0 4"
+        },
+        {
+          "line": 93,
+          "text": "password <redacted>",
+          "context": "line vty 0 4"
+        }
+      ],
+      "risk": "A single password shared by every administrator leaves no per-person audit trail, cannot be revoked for one person without changing it for all, and is easy to guess, share or leak.",
+      "remediation": "Use 'login local' with one 'username ... secret ...' per administrator (or AAA with TACACS+/RADIUS).",
+      "references": [
+        "Cisco, Guide to Harden Cisco IOS Devices",
+        "NSA, Network Infrastructure Security Guide"
+      ],
+      "status": "open"
+    },
+    {
+      "rule_id": "CRED-005",
+      "title": "'service password-encryption' is not enabled",
+      "severity": "medium",
+      "category": "Credentials",
+      "device": "FW-EDGE",
+      "file": "configs/baseline/FW-EDGE.cfg",
+      "object": "global",
+      "affected": [],
+      "detail": "'service password-encryption' is off (explicitly disabled) and 3 credential(s) are stored in clear text.",
+      "evidence": [
+        {
+          "line": 14,
+          "text": "no service password-encryption"
+        }
+      ],
+      "risk": "Line and username passwords that are not otherwise hashed appear in clear text in 'show running-config'. The service adds type 7 obfuscation, which is weak, but it stops casual disclosure by shoulder-surfing or a pasted screenshot.",
+      "remediation": "'service password-encryption', and store credentials with 'secret' so they are hashed in the first place.",
+      "references": [
+        "CIS Cisco IOS Benchmark",
+        "Cisco, Guide to Harden Cisco IOS Devices"
+      ],
+      "status": "open"
+    },
+    {
+      "rule_id": "LOG-001",
+      "title": "No remote syslog server",
+      "severity": "medium",
+      "category": "Logging",
+      "device": "FW-EDGE",
+      "file": "configs/baseline/FW-EDGE.cfg",
+      "object": "global",
+      "affected": [],
+      "detail": "No 'logging host <address>' is configured.",
+      "evidence": [],
+      "risk": "Without an off-box log destination the only evidence lives in volatile device memory: a reload, a full buffer or an attacker erases it, and nothing can be correlated or alerted on centrally.",
+      "remediation": "'logging host <syslog-server>' with 'logging trap informational' and a stable 'logging source-interface'.",
+      "references": [
+        "CIS Cisco IOS Benchmark",
+        "Cisco, Guide to Harden Cisco IOS Devices",
+        "NSA, Network Infrastructure Security Guide"
+      ],
+      "status": "open"
+    },
+    {
+      "rule_id": "MGMT-002",
+      "title": "VTY access is not restricted to management hosts",
+      "severity": "medium",
+      "category": "Management plane",
+      "device": "FW-EDGE",
+      "file": "configs/baseline/FW-EDGE.cfg",
+      "object": "vty lines",
+      "affected": [
+        "line vty 0 4"
+      ],
+      "detail": "No effective source restriction on: line vty 0 4.",
+      "evidence": [
+        {
+          "line": 92,
+          "text": "line vty 0 4"
+        }
+      ],
+      "risk": "Without an 'access-class', every host that can route to any interface of the device may attempt to log in or exploit the management services. A management ACL shrinks that audience to a few administrator addresses.",
+      "remediation": "Define 'ip access-list standard VTY-MGMT' permitting only the admin host(s) and a final 'deny any log', then apply 'access-class VTY-MGMT in' on every VTY line.",
+      "references": [
+        "Cisco, Guide to Harden Cisco IOS Devices",
+        "CIS Cisco IOS Benchmark",
+        "NSA, Network Infrastructure Security Guide"
+      ],
+      "status": "open"
+    },
+    {
+      "rule_id": "MGMT-006",
+      "title": "AUX port is enabled",
+      "severity": "medium",
+      "category": "Management plane",
+      "device": "FW-EDGE",
+      "file": "configs/baseline/FW-EDGE.cfg",
+      "object": "aux line",
+      "affected": [
+        "line aux 0"
+      ],
+      "detail": "The AUX line is not disabled ('no exec' / 'transport input none').",
+      "evidence": [
+        {
+          "line": 90,
+          "text": "line aux 0"
+        }
+      ],
+      "risk": "The AUX port is an out-of-band exec path that is easy to forget. If a modem or terminal server is attached it bypasses every network control, and an unauthenticated AUX line is an open door.",
+      "remediation": "'line aux 0' / 'no exec' / 'transport input none' / 'transport output none'.",
+      "references": [
+        "CIS Cisco IOS Benchmark",
+        "Cisco, Guide to Harden Cisco IOS Devices"
+      ],
+      "status": "open"
+    },
+    {
+      "rule_id": "MGMT-010",
+      "title": "SSH version 2 is not enforced",
+      "severity": "medium",
+      "category": "Management plane",
+      "device": "FW-EDGE",
+      "file": "configs/baseline/FW-EDGE.cfg",
+      "object": "global",
+      "affected": [],
+      "detail": "'ip ssh version 2' is not configured (RSA key presence cannot be verified from a running-config).",
+      "evidence": [],
+      "risk": "Unless 'ip ssh version 2' is set, IOS also accepts the legacy SSH-1 protocol, which has known cryptographic weaknesses. If SSH is not configured at all, administrators fall back to Telnet.",
+      "remediation": "Set a domain name, generate an RSA key of at least 2048 bits ('crypto key generate rsa modulus 2048') and enforce 'ip ssh version 2'; add 'ip ssh time-out 60' and 'ip ssh authentication-retries 3'.",
+      "references": [
+        "MITRE ATT&CK T1021.004 Remote Services: SSH",
+        "CIS Cisco IOS Benchmark",
+        "Cisco, Guide to Harden Cisco IOS Devices"
+      ],
+      "status": "open"
+    },
+    {
+      "rule_id": "AUTH-003",
+      "title": "VTY lines use one shared line password instead of per-user accounts",
+      "severity": "medium",
+      "category": "Access control",
+      "device": "SW-ACCESS",
+      "file": "configs/baseline/SW-ACCESS.cfg",
+      "object": "vty lines",
+      "affected": [
+        "line vty 0 4",
+        "line vty 5 15"
+      ],
+      "detail": "A line password is used for authentication on: line vty 0 4, line vty 5 15.",
+      "evidence": [
+        {
+          "line": 75,
+          "text": "login",
+          "context": "line vty 0 4"
+        },
+        {
+          "line": 79,
+          "text": "login",
+          "context": "line vty 5 15"
+        },
+        {
+          "line": 74,
+          "text": "password <redacted>",
+          "context": "line vty 0 4"
+        },
+        {
+          "line": 78,
+          "text": "password <redacted>",
+          "context": "line vty 5 15"
+        }
+      ],
+      "risk": "A single password shared by every administrator leaves no per-person audit trail, cannot be revoked for one person without changing it for all, and is easy to guess, share or leak.",
+      "remediation": "Use 'login local' with one 'username ... secret ...' per administrator (or AAA with TACACS+/RADIUS).",
+      "references": [
+        "Cisco, Guide to Harden Cisco IOS Devices",
+        "NSA, Network Infrastructure Security Guide"
+      ],
+      "status": "open"
+    },
+    {
+      "rule_id": "CRED-005",
+      "title": "'service password-encryption' is not enabled",
+      "severity": "medium",
+      "category": "Credentials",
+      "device": "SW-ACCESS",
+      "file": "configs/baseline/SW-ACCESS.cfg",
+      "object": "global",
+      "affected": [],
+      "detail": "'service password-encryption' is off (explicitly disabled) and 4 credential(s) are stored in clear text.",
+      "evidence": [
+        {
+          "line": 11,
+          "text": "no service password-encryption"
+        }
+      ],
+      "risk": "Line and username passwords that are not otherwise hashed appear in clear text in 'show running-config'. The service adds type 7 obfuscation, which is weak, but it stops casual disclosure by shoulder-surfing or a pasted screenshot.",
+      "remediation": "'service password-encryption', and store credentials with 'secret' so they are hashed in the first place.",
+      "references": [
+        "CIS Cisco IOS Benchmark",
+        "Cisco, Guide to Harden Cisco IOS Devices"
+      ],
+      "status": "open"
+    },
+    {
+      "rule_id": "L2-001",
+      "title": "Switch ports negotiate trunking (DTP dynamic mode)",
+      "severity": "medium",
+      "category": "Layer 2",
+      "device": "SW-ACCESS",
+      "file": "configs/baseline/SW-ACCESS.cfg",
+      "object": "interfaces",
+      "affected": [
+        "FastEthernet0/8",
+        "FastEthernet0/9",
+        "FastEthernet0/10",
+        "FastEthernet0/11",
+        "FastEthernet0/12",
+        "FastEthernet0/13",
+        "FastEthernet0/14",
+        "FastEthernet0/15",
+        "FastEthernet0/16",
+        "FastEthernet0/17",
+        "FastEthernet0/18",
+        "FastEthernet0/19",
+        "FastEthernet0/20",
+        "FastEthernet0/21",
+        "FastEthernet0/22",
+        "FastEthernet0/23",
+        "FastEthernet0/24",
+        "GigabitEthernet0/1",
+        "GigabitEthernet0/2"
+      ],
+      "detail": "19 enabled port(s) are in dynamic mode: FastEthernet0/8, FastEthernet0/9, FastEthernet0/10, FastEthernet0/11, FastEthernet0/12 and 14 more.",
+      "evidence": [
+        {
+          "line": 56,
+          "text": "interface range FastEthernet0/8 - 24"
+        },
+        {
+          "line": 58,
+          "text": "interface range GigabitEthernet0/1 - 2"
+        }
+      ],
+      "risk": "A port left in dynamic auto/desirable mode will turn itself into an 802.1Q trunk if the device on the other end asks it to. An attacker's host (or a rogue switch) then receives every VLAN the trunk carries.",
+      "remediation": "Set 'switchport mode access' on every end-user port and 'switchport mode trunk' + 'switchport nonegotiate' on uplinks.",
+      "references": [
+        "Cisco, Guide to Harden Cisco IOS Devices",
+        "CIS Cisco IOS Benchmark",
+        "NSA, Network Infrastructure Security Guide"
+      ],
+      "status": "open"
+    },
+    {
+      "rule_id": "L2-003",
+      "title": "Trunk native VLAN is the default VLAN 1",
+      "severity": "medium",
+      "category": "Layer 2",
+      "device": "SW-ACCESS",
+      "file": "configs/baseline/SW-ACCESS.cfg",
+      "object": "interfaces",
+      "affected": [
+        "FastEthernet0/3"
+      ],
+      "detail": "1 trunk(s) use native VLAN 1: FastEthernet0/3.",
+      "evidence": [
+        {
+          "line": 37,
+          "text": "interface FastEthernet0/3"
+        }
+      ],
+      "risk": "Native-VLAN frames cross a trunk untagged. A host in the native VLAN can double-tag frames so that the first switch strips the outer tag and the second delivers the packet into another VLAN (VLAN hopping).",
+      "remediation": "Use an unused VLAN as native VLAN on every trunk: 'switchport trunk native vlan 999' (no ports or SVI in it).",
+      "references": [
+        "Cisco, Guide to Harden Cisco IOS Devices",
+        "CIS Cisco IOS Benchmark",
+        "NSA, Network Infrastructure Security Guide"
+      ],
+      "status": "open"
+    },
+    {
+      "rule_id": "L2-005",
+      "title": "Port security is not enabled on edge ports",
+      "severity": "medium",
+      "category": "Layer 2",
+      "device": "SW-ACCESS",
+      "file": "configs/baseline/SW-ACCESS.cfg",
+      "object": "interfaces",
+      "affected": [
+        "FastEthernet0/1",
+        "FastEthernet0/2",
+        "FastEthernet0/4",
+        "FastEthernet0/5",
+        "FastEthernet0/6",
+        "FastEthernet0/7",
+        "FastEthernet0/8",
+        "FastEthernet0/9",
+        "FastEthernet0/10",
+        "FastEthernet0/11",
+        "FastEthernet0/12",
+        "FastEthernet0/13",
+        "FastEthernet0/14",
+        "FastEthernet0/15",
+        "FastEthernet0/16",
+        "FastEthernet0/17",
+        "FastEthernet0/18",
+        "FastEthernet0/19",
+        "FastEthernet0/20",
+        "FastEthernet0/21",
+        "FastEthernet0/22",
+        "FastEthernet0/23",
+        "FastEthernet0/24",
+        "GigabitEthernet0/1",
+        "GigabitEthernet0/2"
+      ],
+      "detail": "25 edge-capable port(s) lack port security: FastEthernet0/1, FastEthernet0/2, FastEthernet0/4, FastEthernet0/5, FastEthernet0/6 and 20 more.",
+      "evidence": [
+        {
+          "line": 29,
+          "text": "interface FastEthernet0/1"
+        },
+        {
+          "line": 33,
+          "text": "interface FastEthernet0/2"
+        },
+        {
+          "line": 40,
+          "text": "interface FastEthernet0/4"
+        },
+        {
+          "line": 44,
+          "text": "interface FastEthernet0/5"
+        },
+        {
+          "line": 48,
+          "text": "interface FastEthernet0/6"
+        },
+        {
+          "line": 52,
+          "text": "interface FastEthernet0/7"
+        },
+        {
+          "line": 56,
+          "text": "interface range FastEthernet0/8 - 24"
+        },
+        {
+          "line": 58,
+          "text": "interface range GigabitEthernet0/1 - 2"
+        }
+      ],
+      "risk": "Without port security anyone can plug an unknown device into a live port, or flood the switch with spoofed source MACs until its CAM table overflows and it forwards traffic like a hub, exposing other users' frames.",
+      "remediation": "On access ports: 'switchport mode access', 'switchport port-security', 'switchport port-security maximum 2', 'switchport port-security mac-address sticky', 'switchport port-security violation restrict' (or shutdown).",
+      "references": [
+        "MITRE ATT&CK T1200 Hardware Additions",
+        "MITRE ATT&CK T1557 Adversary-in-the-Middle",
+        "Cisco, Guide to Harden Cisco IOS Devices",
+        "CIS Cisco IOS Benchmark"
+      ],
+      "status": "open"
+    },
+    {
+      "rule_id": "L2-006",
+      "title": "PortFast with BPDU Guard is missing on edge ports",
+      "severity": "medium",
+      "category": "Layer 2",
+      "device": "SW-ACCESS",
+      "file": "configs/baseline/SW-ACCESS.cfg",
+      "object": "interfaces",
+      "affected": [
+        "FastEthernet0/1",
+        "FastEthernet0/2",
+        "FastEthernet0/4",
+        "FastEthernet0/5",
+        "FastEthernet0/6",
+        "FastEthernet0/7",
+        "FastEthernet0/8",
+        "FastEthernet0/9",
+        "FastEthernet0/10",
+        "FastEthernet0/11",
+        "FastEthernet0/12",
+        "FastEthernet0/13",
+        "FastEthernet0/14",
+        "FastEthernet0/15",
+        "FastEthernet0/16",
+        "FastEthernet0/17",
+        "FastEthernet0/18",
+        "FastEthernet0/19",
+        "FastEthernet0/20",
+        "FastEthernet0/21",
+        "FastEthernet0/22",
+        "FastEthernet0/23",
+        "FastEthernet0/24",
+        "GigabitEthernet0/1",
+        "GigabitEthernet0/2"
+      ],
+      "detail": "25 edge-capable port(s) lack PortFast + BPDU Guard: FastEthernet0/1, FastEthernet0/2, FastEthernet0/4, FastEthernet0/5, FastEthernet0/6 and 20 more.",
+      "evidence": [
+        {
+          "line": 29,
+          "text": "interface FastEthernet0/1"
+        },
+        {
+          "line": 33,
+          "text": "interface FastEthernet0/2"
+        },
+        {
+          "line": 40,
+          "text": "interface FastEthernet0/4"
+        },
+        {
+          "line": 44,
+          "text": "interface FastEthernet0/5"
+        },
+        {
+          "line": 48,
+          "text": "interface FastEthernet0/6"
+        },
+        {
+          "line": 52,
+          "text": "interface FastEthernet0/7"
+        },
+        {
+          "line": 56,
+          "text": "interface range FastEthernet0/8 - 24"
+        },
+        {
+          "line": 58,
+          "text": "interface range GigabitEthernet0/1 - 2"
+        }
+      ],
+      "risk": "A switch (or a host running a bridging tool) plugged into an edge port can send BPDUs, win the root-bridge election and pull traffic through itself, or trigger repeated reconvergence and an outage.",
+      "remediation": "'spanning-tree portfast' + 'spanning-tree bpduguard enable' per port, or 'spanning-tree portfast default' + 'spanning-tree portfast bpduguard default' globally.",
+      "references": [
+        "Cisco, Guide to Harden Cisco IOS Devices",
+        "CIS Cisco IOS Benchmark",
+        "NSA, Network Infrastructure Security Guide"
+      ],
+      "status": "open"
+    },
+    {
+      "rule_id": "L2-007",
+      "title": "Unused ports are enabled",
+      "severity": "medium",
+      "category": "Layer 2",
+      "device": "SW-ACCESS",
+      "file": "configs/baseline/SW-ACCESS.cfg",
+      "object": "interfaces",
+      "affected": [
+        "FastEthernet0/8",
+        "FastEthernet0/9",
+        "FastEthernet0/10",
+        "FastEthernet0/11",
+        "FastEthernet0/12",
+        "FastEthernet0/13",
+        "FastEthernet0/14",
+        "FastEthernet0/15",
+        "FastEthernet0/16",
+        "FastEthernet0/17",
+        "FastEthernet0/18",
+        "FastEthernet0/19",
+        "FastEthernet0/20",
+        "FastEthernet0/21",
+        "FastEthernet0/22",
+        "FastEthernet0/23",
+        "FastEthernet0/24",
+        "GigabitEthernet0/1",
+        "GigabitEthernet0/2"
+      ],
+      "detail": "19 port(s) are up with default configuration: FastEthernet0/8, FastEthernet0/9, FastEthernet0/10, FastEthernet0/11, FastEthernet0/12 and 14 more.",
+      "evidence": [
+        {
+          "line": 56,
+          "text": "interface range FastEthernet0/8 - 24"
+        },
+        {
+          "line": 58,
+          "text": "interface range GigabitEthernet0/1 - 2"
+        }
+      ],
+      "risk": "A live, unconfigured port is an open door for anyone with physical access: plug in and you are on the network (usually in VLAN 1).",
+      "remediation": "'shutdown' every unused port and park it in an unused VLAN ('switchport access vlan 999').",
+      "references": [
+        "MITRE ATT&CK T1200 Hardware Additions",
+        "CIS Cisco IOS Benchmark",
+        "NSA, Network Infrastructure Security Guide"
+      ],
+      "status": "open"
+    },
+    {
+      "rule_id": "L2-008",
+      "title": "Active ports use the default VLAN 1",
+      "severity": "medium",
+      "category": "Layer 2",
+      "device": "SW-ACCESS",
+      "file": "configs/baseline/SW-ACCESS.cfg",
+      "object": "interfaces",
+      "affected": [
+        "FastEthernet0/8",
+        "FastEthernet0/9",
+        "FastEthernet0/10",
+        "FastEthernet0/11",
+        "FastEthernet0/12",
+        "FastEthernet0/13",
+        "FastEthernet0/14",
+        "FastEthernet0/15",
+        "FastEthernet0/16",
+        "FastEthernet0/17",
+        "FastEthernet0/18",
+        "FastEthernet0/19",
+        "FastEthernet0/20",
+        "FastEthernet0/21",
+        "FastEthernet0/22",
+        "FastEthernet0/23",
+        "FastEthernet0/24",
+        "GigabitEthernet0/1",
+        "GigabitEthernet0/2"
+      ],
+      "detail": "19 active port(s) are in VLAN 1: FastEthernet0/8, FastEthernet0/9, FastEthernet0/10, FastEthernet0/11, FastEthernet0/12 and 14 more.",
+      "evidence": [
+        {
+          "line": 56,
+          "text": "interface range FastEthernet0/8 - 24"
+        },
+        {
+          "line": 58,
+          "text": "interface range GigabitEthernet0/1 - 2"
+        }
+      ],
+      "risk": "VLAN 1 cannot be deleted and carries control-plane protocols (CDP, VTP, DTP, STP). Placing users there removes any segmentation and exposes those protocols to them.",
+      "remediation": "Assign end-user ports to purpose-built VLANs ('switchport access vlan 10') and keep VLAN 1 empty.",
+      "references": [
+        "Cisco, Guide to Harden Cisco IOS Devices",
+        "CIS Cisco IOS Benchmark",
+        "NSA, Network Infrastructure Security Guide"
+      ],
+      "status": "open"
+    },
+    {
+      "rule_id": "L2-011",
+      "title": "DHCP snooping is not enabled",
+      "severity": "medium",
+      "category": "Layer 2",
+      "device": "SW-ACCESS",
+      "file": "configs/baseline/SW-ACCESS.cfg",
+      "object": "global",
+      "affected": [],
+      "detail": "'ip dhcp snooping' is not enabled.",
+      "evidence": [],
+      "risk": "Any port can answer DHCP requests. A rogue DHCP server hands clients its own default gateway or DNS server (a man-in-the-middle position) or exhausts the address pool (denial of service), and the switch has no binding table that ties each IP address to a port - which Dynamic ARP Inspection also needs.",
+      "remediation": "'ip dhcp snooping' and 'ip dhcp snooping vlan <ids>'; mark only the uplink toward the real DHCP server with 'ip dhcp snooping trust'; rate-limit client ports with 'ip dhcp snooping limit rate 15'.",
+      "references": [
+        "MITRE ATT&CK T1557 Adversary-in-the-Middle",
+        "Cisco, Guide to Harden Cisco IOS Devices",
+        "NSA, Network Infrastructure Security Guide"
+      ],
+      "status": "open"
+    },
+    {
+      "rule_id": "L2-012",
+      "title": "Dynamic ARP Inspection is not enabled",
+      "severity": "medium",
+      "category": "Layer 2",
+      "device": "SW-ACCESS",
+      "file": "configs/baseline/SW-ACCESS.cfg",
+      "object": "global",
+      "affected": [],
+      "detail": "'ip arp inspection vlan' is not configured.",
+      "evidence": [],
+      "risk": "Without Dynamic ARP Inspection any host can poison its neighbours' ARP caches (ARP spoofing) and sit between them and their gateway, reading or altering traffic that never leaves the VLAN, which no router ACL can see.",
+      "remediation": "'ip arp inspection vlan <ids>' on VLANs whose hosts get their addresses through DHCP snooping; trust only uplinks ('ip arp inspection trust'); use ARP ACLs for statically addressed hosts.",
+      "references": [
+        "MITRE ATT&CK T1557.002 Adversary-in-the-Middle: ARP Cache Poisoning",
+        "Cisco, Guide to Harden Cisco IOS Devices",
+        "NSA, Network Infrastructure Security Guide"
+      ],
+      "status": "open"
+    },
+    {
+      "rule_id": "LOG-001",
+      "title": "No remote syslog server",
+      "severity": "medium",
+      "category": "Logging",
+      "device": "SW-ACCESS",
+      "file": "configs/baseline/SW-ACCESS.cfg",
+      "object": "global",
+      "affected": [],
+      "detail": "No 'logging host <address>' is configured.",
+      "evidence": [],
+      "risk": "Without an off-box log destination the only evidence lives in volatile device memory: a reload, a full buffer or an attacker erases it, and nothing can be correlated or alerted on centrally.",
+      "remediation": "'logging host <syslog-server>' with 'logging trap informational' and a stable 'logging source-interface'.",
+      "references": [
+        "CIS Cisco IOS Benchmark",
+        "Cisco, Guide to Harden Cisco IOS Devices",
+        "NSA, Network Infrastructure Security Guide"
+      ],
+      "status": "open"
+    },
+    {
+      "rule_id": "MGMT-002",
+      "title": "VTY access is not restricted to management hosts",
+      "severity": "medium",
+      "category": "Management plane",
+      "device": "SW-ACCESS",
+      "file": "configs/baseline/SW-ACCESS.cfg",
+      "object": "vty lines",
+      "affected": [
+        "line vty 0 4",
+        "line vty 5 15"
+      ],
+      "detail": "No effective source restriction on: line vty 0 4; line vty 5 15.",
+      "evidence": [
+        {
+          "line": 73,
+          "text": "line vty 0 4"
+        },
+        {
+          "line": 77,
+          "text": "line vty 5 15"
+        }
+      ],
+      "risk": "Without an 'access-class', every host that can route to any interface of the device may attempt to log in or exploit the management services. A management ACL shrinks that audience to a few administrator addresses.",
+      "remediation": "Define 'ip access-list standard VTY-MGMT' permitting only the admin host(s) and a final 'deny any log', then apply 'access-class VTY-MGMT in' on every VTY line.",
+      "references": [
+        "Cisco, Guide to Harden Cisco IOS Devices",
+        "CIS Cisco IOS Benchmark",
+        "NSA, Network Infrastructure Security Guide"
+      ],
+      "status": "open"
+    },
+    {
+      "rule_id": "MGMT-010",
+      "title": "SSH version 2 is not enforced",
+      "severity": "medium",
+      "category": "Management plane",
+      "device": "SW-ACCESS",
+      "file": "configs/baseline/SW-ACCESS.cfg",
+      "object": "global",
+      "affected": [],
+      "detail": "'ip ssh version 2' is not configured (RSA key presence cannot be verified from a running-config).",
+      "evidence": [],
+      "risk": "Unless 'ip ssh version 2' is set, IOS also accepts the legacy SSH-1 protocol, which has known cryptographic weaknesses. If SSH is not configured at all, administrators fall back to Telnet.",
+      "remediation": "Set a domain name, generate an RSA key of at least 2048 bits ('crypto key generate rsa modulus 2048') and enforce 'ip ssh version 2'; add 'ip ssh time-out 60' and 'ip ssh authentication-retries 3'.",
+      "references": [
+        "MITRE ATT&CK T1021.004 Remote Services: SSH",
+        "CIS Cisco IOS Benchmark",
+        "Cisco, Guide to Harden Cisco IOS Devices"
+      ],
+      "status": "open"
+    },
+    {
+      "rule_id": "AUTH-003",
+      "title": "VTY lines use one shared line password instead of per-user accounts",
+      "severity": "medium",
+      "category": "Access control",
+      "device": "SW-DMZ",
+      "file": "configs/baseline/SW-DMZ.cfg",
+      "object": "vty lines",
+      "affected": [
+        "line vty 0 4",
+        "line vty 5 15"
+      ],
+      "detail": "A line password is used for authentication on: line vty 0 4, line vty 5 15.",
+      "evidence": [
+        {
+          "line": 52,
+          "text": "login",
+          "context": "line vty 0 4"
+        },
+        {
+          "line": 56,
+          "text": "login",
+          "context": "line vty 5 15"
+        },
+        {
+          "line": 51,
+          "text": "password <redacted>",
+          "context": "line vty 0 4"
+        },
+        {
+          "line": 55,
+          "text": "password <redacted>",
+          "context": "line vty 5 15"
+        }
+      ],
+      "risk": "A single password shared by every administrator leaves no per-person audit trail, cannot be revoked for one person without changing it for all, and is easy to guess, share or leak.",
+      "remediation": "Use 'login local' with one 'username ... secret ...' per administrator (or AAA with TACACS+/RADIUS).",
+      "references": [
+        "Cisco, Guide to Harden Cisco IOS Devices",
+        "NSA, Network Infrastructure Security Guide"
+      ],
+      "status": "open"
+    },
+    {
+      "rule_id": "CRED-005",
+      "title": "'service password-encryption' is not enabled",
+      "severity": "medium",
+      "category": "Credentials",
+      "device": "SW-DMZ",
+      "file": "configs/baseline/SW-DMZ.cfg",
+      "object": "global",
+      "affected": [],
+      "detail": "'service password-encryption' is off (explicitly disabled) and 4 credential(s) are stored in clear text.",
+      "evidence": [
+        {
+          "line": 9,
+          "text": "no service password-encryption"
+        }
+      ],
+      "risk": "Line and username passwords that are not otherwise hashed appear in clear text in 'show running-config'. The service adds type 7 obfuscation, which is weak, but it stops casual disclosure by shoulder-surfing or a pasted screenshot.",
+      "remediation": "'service password-encryption', and store credentials with 'secret' so they are hashed in the first place.",
+      "references": [
+        "CIS Cisco IOS Benchmark",
+        "Cisco, Guide to Harden Cisco IOS Devices"
+      ],
+      "status": "open"
+    },
+    {
+      "rule_id": "L2-001",
+      "title": "Switch ports negotiate trunking (DTP dynamic mode)",
+      "severity": "medium",
+      "category": "Layer 2",
+      "device": "SW-DMZ",
+      "file": "configs/baseline/SW-DMZ.cfg",
+      "object": "interfaces",
+      "affected": [
+        "FastEthernet0/4",
+        "FastEthernet0/5",
+        "FastEthernet0/6",
+        "FastEthernet0/7",
+        "FastEthernet0/8",
+        "FastEthernet0/9",
+        "FastEthernet0/10",
+        "FastEthernet0/11",
+        "FastEthernet0/12",
+        "FastEthernet0/13",
+        "FastEthernet0/14",
+        "FastEthernet0/15",
+        "FastEthernet0/16",
+        "FastEthernet0/17",
+        "FastEthernet0/18",
+        "FastEthernet0/19",
+        "FastEthernet0/20",
+        "FastEthernet0/21",
+        "FastEthernet0/22",
+        "FastEthernet0/23",
+        "FastEthernet0/24",
+        "GigabitEthernet0/1",
+        "GigabitEthernet0/2"
+      ],
+      "detail": "23 enabled port(s) are in dynamic mode: FastEthernet0/4, FastEthernet0/5, FastEthernet0/6, FastEthernet0/7, FastEthernet0/8 and 18 more.",
+      "evidence": [
+        {
+          "line": 33,
+          "text": "interface range FastEthernet0/4 - 24"
+        },
+        {
+          "line": 35,
+          "text": "interface range GigabitEthernet0/1 - 2"
+        }
+      ],
+      "risk": "A port left in dynamic auto/desirable mode will turn itself into an 802.1Q trunk if the device on the other end asks it to. An attacker's host (or a rogue switch) then receives every VLAN the trunk carries.",
+      "remediation": "Set 'switchport mode access' on every end-user port and 'switchport mode trunk' + 'switchport nonegotiate' on uplinks.",
+      "references": [
+        "Cisco, Guide to Harden Cisco IOS Devices",
+        "CIS Cisco IOS Benchmark",
+        "NSA, Network Infrastructure Security Guide"
+      ],
+      "status": "open"
+    },
+    {
+      "rule_id": "L2-005",
+      "title": "Port security is not enabled on edge ports",
+      "severity": "medium",
+      "category": "Layer 2",
+      "device": "SW-DMZ",
+      "file": "configs/baseline/SW-DMZ.cfg",
+      "object": "interfaces",
+      "affected": [
+        "FastEthernet0/1",
+        "FastEthernet0/2",
+        "FastEthernet0/3",
+        "FastEthernet0/4",
+        "FastEthernet0/5",
+        "FastEthernet0/6",
+        "FastEthernet0/7",
+        "FastEthernet0/8",
+        "FastEthernet0/9",
+        "FastEthernet0/10",
+        "FastEthernet0/11",
+        "FastEthernet0/12",
+        "FastEthernet0/13",
+        "FastEthernet0/14",
+        "FastEthernet0/15",
+        "FastEthernet0/16",
+        "FastEthernet0/17",
+        "FastEthernet0/18",
+        "FastEthernet0/19",
+        "FastEthernet0/20",
+        "FastEthernet0/21",
+        "FastEthernet0/22",
+        "FastEthernet0/23",
+        "FastEthernet0/24",
+        "GigabitEthernet0/1",
+        "GigabitEthernet0/2"
+      ],
+      "detail": "26 edge-capable port(s) lack port security: FastEthernet0/1, FastEthernet0/2, FastEthernet0/3, FastEthernet0/4, FastEthernet0/5 and 21 more.",
+      "evidence": [
+        {
+          "line": 21,
+          "text": "interface FastEthernet0/1"
+        },
+        {
+          "line": 25,
+          "text": "interface FastEthernet0/2"
+        },
+        {
+          "line": 29,
+          "text": "interface FastEthernet0/3"
+        },
+        {
+          "line": 33,
+          "text": "interface range FastEthernet0/4 - 24"
+        },
+        {
+          "line": 35,
+          "text": "interface range GigabitEthernet0/1 - 2"
+        }
+      ],
+      "risk": "Without port security anyone can plug an unknown device into a live port, or flood the switch with spoofed source MACs until its CAM table overflows and it forwards traffic like a hub, exposing other users' frames.",
+      "remediation": "On access ports: 'switchport mode access', 'switchport port-security', 'switchport port-security maximum 2', 'switchport port-security mac-address sticky', 'switchport port-security violation restrict' (or shutdown).",
+      "references": [
+        "MITRE ATT&CK T1200 Hardware Additions",
+        "MITRE ATT&CK T1557 Adversary-in-the-Middle",
+        "Cisco, Guide to Harden Cisco IOS Devices",
+        "CIS Cisco IOS Benchmark"
+      ],
+      "status": "open"
+    },
+    {
+      "rule_id": "L2-006",
+      "title": "PortFast with BPDU Guard is missing on edge ports",
+      "severity": "medium",
+      "category": "Layer 2",
+      "device": "SW-DMZ",
+      "file": "configs/baseline/SW-DMZ.cfg",
+      "object": "interfaces",
+      "affected": [
+        "FastEthernet0/1",
+        "FastEthernet0/2",
+        "FastEthernet0/3",
+        "FastEthernet0/4",
+        "FastEthernet0/5",
+        "FastEthernet0/6",
+        "FastEthernet0/7",
+        "FastEthernet0/8",
+        "FastEthernet0/9",
+        "FastEthernet0/10",
+        "FastEthernet0/11",
+        "FastEthernet0/12",
+        "FastEthernet0/13",
+        "FastEthernet0/14",
+        "FastEthernet0/15",
+        "FastEthernet0/16",
+        "FastEthernet0/17",
+        "FastEthernet0/18",
+        "FastEthernet0/19",
+        "FastEthernet0/20",
+        "FastEthernet0/21",
+        "FastEthernet0/22",
+        "FastEthernet0/23",
+        "FastEthernet0/24",
+        "GigabitEthernet0/1",
+        "GigabitEthernet0/2"
+      ],
+      "detail": "26 edge-capable port(s) lack PortFast + BPDU Guard: FastEthernet0/1, FastEthernet0/2, FastEthernet0/3, FastEthernet0/4, FastEthernet0/5 and 21 more.",
+      "evidence": [
+        {
+          "line": 21,
+          "text": "interface FastEthernet0/1"
+        },
+        {
+          "line": 25,
+          "text": "interface FastEthernet0/2"
+        },
+        {
+          "line": 29,
+          "text": "interface FastEthernet0/3"
+        },
+        {
+          "line": 33,
+          "text": "interface range FastEthernet0/4 - 24"
+        },
+        {
+          "line": 35,
+          "text": "interface range GigabitEthernet0/1 - 2"
+        }
+      ],
+      "risk": "A switch (or a host running a bridging tool) plugged into an edge port can send BPDUs, win the root-bridge election and pull traffic through itself, or trigger repeated reconvergence and an outage.",
+      "remediation": "'spanning-tree portfast' + 'spanning-tree bpduguard enable' per port, or 'spanning-tree portfast default' + 'spanning-tree portfast bpduguard default' globally.",
+      "references": [
+        "Cisco, Guide to Harden Cisco IOS Devices",
+        "CIS Cisco IOS Benchmark",
+        "NSA, Network Infrastructure Security Guide"
+      ],
+      "status": "open"
+    },
+    {
+      "rule_id": "L2-007",
+      "title": "Unused ports are enabled",
+      "severity": "medium",
+      "category": "Layer 2",
+      "device": "SW-DMZ",
+      "file": "configs/baseline/SW-DMZ.cfg",
+      "object": "interfaces",
+      "affected": [
+        "FastEthernet0/4",
+        "FastEthernet0/5",
+        "FastEthernet0/6",
+        "FastEthernet0/7",
+        "FastEthernet0/8",
+        "FastEthernet0/9",
+        "FastEthernet0/10",
+        "FastEthernet0/11",
+        "FastEthernet0/12",
+        "FastEthernet0/13",
+        "FastEthernet0/14",
+        "FastEthernet0/15",
+        "FastEthernet0/16",
+        "FastEthernet0/17",
+        "FastEthernet0/18",
+        "FastEthernet0/19",
+        "FastEthernet0/20",
+        "FastEthernet0/21",
+        "FastEthernet0/22",
+        "FastEthernet0/23",
+        "FastEthernet0/24",
+        "GigabitEthernet0/1",
+        "GigabitEthernet0/2"
+      ],
+      "detail": "23 port(s) are up with default configuration: FastEthernet0/4, FastEthernet0/5, FastEthernet0/6, FastEthernet0/7, FastEthernet0/8 and 18 more.",
+      "evidence": [
+        {
+          "line": 33,
+          "text": "interface range FastEthernet0/4 - 24"
+        },
+        {
+          "line": 35,
+          "text": "interface range GigabitEthernet0/1 - 2"
+        }
+      ],
+      "risk": "A live, unconfigured port is an open door for anyone with physical access: plug in and you are on the network (usually in VLAN 1).",
+      "remediation": "'shutdown' every unused port and park it in an unused VLAN ('switchport access vlan 999').",
+      "references": [
+        "MITRE ATT&CK T1200 Hardware Additions",
+        "CIS Cisco IOS Benchmark",
+        "NSA, Network Infrastructure Security Guide"
+      ],
+      "status": "open"
+    },
+    {
+      "rule_id": "L2-008",
+      "title": "Active ports use the default VLAN 1",
+      "severity": "medium",
+      "category": "Layer 2",
+      "device": "SW-DMZ",
+      "file": "configs/baseline/SW-DMZ.cfg",
+      "object": "interfaces",
+      "affected": [
+        "FastEthernet0/4",
+        "FastEthernet0/5",
+        "FastEthernet0/6",
+        "FastEthernet0/7",
+        "FastEthernet0/8",
+        "FastEthernet0/9",
+        "FastEthernet0/10",
+        "FastEthernet0/11",
+        "FastEthernet0/12",
+        "FastEthernet0/13",
+        "FastEthernet0/14",
+        "FastEthernet0/15",
+        "FastEthernet0/16",
+        "FastEthernet0/17",
+        "FastEthernet0/18",
+        "FastEthernet0/19",
+        "FastEthernet0/20",
+        "FastEthernet0/21",
+        "FastEthernet0/22",
+        "FastEthernet0/23",
+        "FastEthernet0/24",
+        "GigabitEthernet0/1",
+        "GigabitEthernet0/2"
+      ],
+      "detail": "23 active port(s) are in VLAN 1: FastEthernet0/4, FastEthernet0/5, FastEthernet0/6, FastEthernet0/7, FastEthernet0/8 and 18 more.",
+      "evidence": [
+        {
+          "line": 33,
+          "text": "interface range FastEthernet0/4 - 24"
+        },
+        {
+          "line": 35,
+          "text": "interface range GigabitEthernet0/1 - 2"
+        }
+      ],
+      "risk": "VLAN 1 cannot be deleted and carries control-plane protocols (CDP, VTP, DTP, STP). Placing users there removes any segmentation and exposes those protocols to them.",
+      "remediation": "Assign end-user ports to purpose-built VLANs ('switchport access vlan 10') and keep VLAN 1 empty.",
+      "references": [
+        "Cisco, Guide to Harden Cisco IOS Devices",
+        "CIS Cisco IOS Benchmark",
+        "NSA, Network Infrastructure Security Guide"
+      ],
+      "status": "open"
+    },
+    {
+      "rule_id": "L2-011",
+      "title": "DHCP snooping is not enabled",
+      "severity": "medium",
+      "category": "Layer 2",
+      "device": "SW-DMZ",
+      "file": "configs/baseline/SW-DMZ.cfg",
+      "object": "global",
+      "affected": [],
+      "detail": "'ip dhcp snooping' is not enabled.",
+      "evidence": [],
+      "risk": "Any port can answer DHCP requests. A rogue DHCP server hands clients its own default gateway or DNS server (a man-in-the-middle position) or exhausts the address pool (denial of service), and the switch has no binding table that ties each IP address to a port - which Dynamic ARP Inspection also needs.",
+      "remediation": "'ip dhcp snooping' and 'ip dhcp snooping vlan <ids>'; mark only the uplink toward the real DHCP server with 'ip dhcp snooping trust'; rate-limit client ports with 'ip dhcp snooping limit rate 15'.",
+      "references": [
+        "MITRE ATT&CK T1557 Adversary-in-the-Middle",
+        "Cisco, Guide to Harden Cisco IOS Devices",
+        "NSA, Network Infrastructure Security Guide"
+      ],
+      "status": "open"
+    },
+    {
+      "rule_id": "L2-012",
+      "title": "Dynamic ARP Inspection is not enabled",
+      "severity": "medium",
+      "category": "Layer 2",
+      "device": "SW-DMZ",
+      "file": "configs/baseline/SW-DMZ.cfg",
+      "object": "global",
+      "affected": [],
+      "detail": "'ip arp inspection vlan' is not configured.",
+      "evidence": [],
+      "risk": "Without Dynamic ARP Inspection any host can poison its neighbours' ARP caches (ARP spoofing) and sit between them and their gateway, reading or altering traffic that never leaves the VLAN, which no router ACL can see.",
+      "remediation": "'ip arp inspection vlan <ids>' on VLANs whose hosts get their addresses through DHCP snooping; trust only uplinks ('ip arp inspection trust'); use ARP ACLs for statically addressed hosts.",
+      "references": [
+        "MITRE ATT&CK T1557.002 Adversary-in-the-Middle: ARP Cache Poisoning",
+        "Cisco, Guide to Harden Cisco IOS Devices",
+        "NSA, Network Infrastructure Security Guide"
+      ],
+      "status": "open"
+    },
+    {
+      "rule_id": "LOG-001",
+      "title": "No remote syslog server",
+      "severity": "medium",
+      "category": "Logging",
+      "device": "SW-DMZ",
+      "file": "configs/baseline/SW-DMZ.cfg",
+      "object": "global",
+      "affected": [],
+      "detail": "No 'logging host <address>' is configured.",
+      "evidence": [],
+      "risk": "Without an off-box log destination the only evidence lives in volatile device memory: a reload, a full buffer or an attacker erases it, and nothing can be correlated or alerted on centrally.",
+      "remediation": "'logging host <syslog-server>' with 'logging trap informational' and a stable 'logging source-interface'.",
+      "references": [
+        "CIS Cisco IOS Benchmark",
+        "Cisco, Guide to Harden Cisco IOS Devices",
+        "NSA, Network Infrastructure Security Guide"
+      ],
+      "status": "open"
+    },
+    {
+      "rule_id": "MGMT-002",
+      "title": "VTY access is not restricted to management hosts",
+      "severity": "medium",
+      "category": "Management plane",
+      "device": "SW-DMZ",
+      "file": "configs/baseline/SW-DMZ.cfg",
+      "object": "vty lines",
+      "affected": [
+        "line vty 0 4",
+        "line vty 5 15"
+      ],
+      "detail": "No effective source restriction on: line vty 0 4; line vty 5 15.",
+      "evidence": [
+        {
+          "line": 50,
+          "text": "line vty 0 4"
+        },
+        {
+          "line": 54,
+          "text": "line vty 5 15"
+        }
+      ],
+      "risk": "Without an 'access-class', every host that can route to any interface of the device may attempt to log in or exploit the management services. A management ACL shrinks that audience to a few administrator addresses.",
+      "remediation": "Define 'ip access-list standard VTY-MGMT' permitting only the admin host(s) and a final 'deny any log', then apply 'access-class VTY-MGMT in' on every VTY line.",
+      "references": [
+        "Cisco, Guide to Harden Cisco IOS Devices",
+        "CIS Cisco IOS Benchmark",
+        "NSA, Network Infrastructure Security Guide"
+      ],
+      "status": "open"
+    },
+    {
+      "rule_id": "MGMT-010",
+      "title": "SSH version 2 is not enforced",
+      "severity": "medium",
+      "category": "Management plane",
+      "device": "SW-DMZ",
+      "file": "configs/baseline/SW-DMZ.cfg",
+      "object": "global",
+      "affected": [],
+      "detail": "'ip ssh version 2' is not configured (RSA key presence cannot be verified from a running-config).",
+      "evidence": [],
+      "risk": "Unless 'ip ssh version 2' is set, IOS also accepts the legacy SSH-1 protocol, which has known cryptographic weaknesses. If SSH is not configured at all, administrators fall back to Telnet.",
+      "remediation": "Set a domain name, generate an RSA key of at least 2048 bits ('crypto key generate rsa modulus 2048') and enforce 'ip ssh version 2'; add 'ip ssh time-out 60' and 'ip ssh authentication-retries 3'.",
+      "references": [
+        "MITRE ATT&CK T1021.004 Remote Services: SSH",
+        "CIS Cisco IOS Benchmark",
+        "Cisco, Guide to Harden Cisco IOS Devices"
+      ],
+      "status": "open"
+    },
+    {
+      "rule_id": "ACL-002",
+      "title": "Interface ACL does not end with a logged 'deny ip any any'",
+      "severity": "low",
+      "category": "Access lists",
+      "device": "FW-EDGE",
+      "file": "configs/baseline/FW-EDGE.cfg",
+      "object": "ACL 101",
+      "affected": [
+        "FastEthernet0/0.30 in"
+      ],
+      "detail": "ACL 101 has no explicit final 'deny ip any any'; drops rely on the silent implicit deny.",
+      "evidence": [
+        {
+          "line": 84,
+          "text": "access-list 101 permit ip any any"
+        }
+      ],
+      "risk": "Packets dropped by the implicit deny at the end of an ACL are never logged, so scans and policy violations stay invisible to monitoring.",
+      "remediation": "End every interface ACL with 'deny ip any any log' (mind log rate limits on busy interfaces).",
+      "references": [
+        "Cisco, Guide to Harden Cisco IOS Devices",
+        "NSA, Network Infrastructure Security Guide"
+      ],
+      "status": "open"
+    },
+    {
+      "rule_id": "INT-001",
+      "title": "Proxy ARP is enabled on routed interfaces",
+      "severity": "low",
+      "category": "Interfaces",
+      "device": "FW-EDGE",
+      "file": "configs/baseline/FW-EDGE.cfg",
+      "object": "interfaces",
+      "affected": [
+        "FastEthernet0/0.10",
+        "FastEthernet0/0.20",
+        "FastEthernet0/0.30",
+        "FastEthernet0/0.99",
+        "FastEthernet0/1",
+        "Ethernet0/1/0"
+      ],
+      "detail": "Proxy ARP is active (default) on 6 routed interface(s).",
+      "evidence": [
+        {
+          "line": 35,
+          "text": "interface FastEthernet0/0.10"
+        },
+        {
+          "line": 40,
+          "text": "interface FastEthernet0/0.20"
+        },
+        {
+          "line": 45,
+          "text": "interface FastEthernet0/0.30"
+        },
+        {
+          "line": 51,
+          "text": "interface FastEthernet0/0.99"
+        },
+        {
+          "line": 56,
+          "text": "interface FastEthernet0/1"
+        },
+        {
+          "line": 63,
+          "text": "interface Ethernet0/1/0"
+        }
+      ],
+      "risk": "With proxy ARP the router answers ARP requests on behalf of other subnets. This masks misconfigured masks, lets hosts without a gateway reach other segments through the router, and widens the effect of ARP spoofing.",
+      "remediation": "'no ip proxy-arp' on every routed interface or subinterface.",
+      "references": [
+        "CIS Cisco IOS Benchmark",
+        "Cisco, Guide to Harden Cisco IOS Devices"
+      ],
+      "status": "open"
+    },
+    {
+      "rule_id": "LOG-002",
+      "title": "Log messages carry no date and time",
+      "severity": "low",
+      "category": "Logging",
+      "device": "FW-EDGE",
+      "file": "configs/baseline/FW-EDGE.cfg",
+      "object": "global",
+      "affected": [],
+      "detail": "'service timestamps log datetime' is not enabled.",
+      "evidence": [
+        {
+          "line": 12,
+          "text": "no service timestamps log datetime msec"
+        }
+      ],
+      "risk": "Messages stamped only with uptime cannot be ordered against other systems' logs, so events cannot be correlated during an investigation.",
+      "remediation": "'service timestamps log datetime msec' and 'service timestamps debug datetime msec'.",
+      "references": [
+        "CIS Cisco IOS Benchmark"
+      ],
+      "status": "open"
+    },
+    {
+      "rule_id": "LOG-003",
+      "title": "No time source (NTP) is configured",
+      "severity": "low",
+      "category": "Logging",
+      "device": "FW-EDGE",
+      "file": "configs/baseline/FW-EDGE.cfg",
+      "object": "global",
+      "affected": [],
+      "detail": "Neither 'ntp server' nor 'ntp peer' is configured.",
+      "evidence": [],
+      "risk": "Timestamps are only useful if every device agrees on the time; without NTP, clocks drift and logs cannot be correlated.",
+      "remediation": "'ntp server <address>' (ideally authenticated with 'ntp authenticate' and 'ntp trusted-key').",
+      "references": [
+        "CIS Cisco IOS Benchmark",
+        "NSA, Network Infrastructure Security Guide"
+      ],
+      "status": "open"
+    },
+    {
+      "rule_id": "MGMT-004",
+      "title": "No login banner",
+      "severity": "low",
+      "category": "Management plane",
+      "device": "FW-EDGE",
+      "file": "configs/baseline/FW-EDGE.cfg",
+      "object": "global",
+      "affected": [],
+      "detail": "Neither 'banner login' nor 'banner motd' is configured.",
+      "evidence": [],
+      "risk": "Without a warning banner there is no notice that access is restricted and monitored, which weakens the basis for enforcing the acceptable-use policy. (Wording should come from your organisation's legal team.)",
+      "remediation": "Configure 'banner login' (or 'banner motd') with an authorised-use notice that reveals no device details.",
+      "references": [
+        "CIS Cisco IOS Benchmark",
+        "Cisco, Guide to Harden Cisco IOS Devices"
+      ],
+      "status": "open"
+    },
+    {
+      "rule_id": "MGMT-009",
+      "title": "AAA is not enabled (local-only authentication)",
+      "severity": "low",
+      "category": "Management plane",
+      "device": "FW-EDGE",
+      "file": "configs/baseline/FW-EDGE.cfg",
+      "object": "global",
+      "affected": [],
+      "detail": "'aaa new-model' is not configured; only local accounts and line passwords exist.",
+      "evidence": [],
+      "risk": "Without AAA there is no central account lifecycle, command authorisation or accounting: every device keeps its own accounts and nothing records who ran which command.",
+      "remediation": "Enable 'aaa new-model', authenticate against TACACS+/RADIUS with a local fallback ('aaa authentication login default group tacacs+ local'), and add command accounting.",
+      "references": [
+        "CIS Cisco IOS Benchmark",
+        "NSA, Network Infrastructure Security Guide"
+      ],
+      "status": "open"
+    },
+    {
+      "rule_id": "SVC-001",
+      "title": "CDP is running",
+      "severity": "low",
+      "category": "Services",
+      "device": "FW-EDGE",
+      "file": "configs/baseline/FW-EDGE.cfg",
+      "object": "cdp",
+      "affected": [
+        "FastEthernet0/0",
+        "FastEthernet0/1",
+        "Ethernet0/1/0"
+      ],
+      "detail": "CDP is globally enabled (no 'no cdp run') and active on 3 up interface(s).",
+      "evidence": [
+        {
+          "line": 29,
+          "text": "interface FastEthernet0/0"
+        },
+        {
+          "line": 56,
+          "text": "interface FastEthernet0/1"
+        },
+        {
+          "line": 63,
+          "text": "interface Ethernet0/1/0"
+        }
+      ],
+      "risk": "CDP advertises the model, IOS version, interface names and management addresses to anything on the link, in clear text and without authentication. Attackers use it for reconnaissance, and CDP parsers have been affected by remotely exploitable bugs. The exposure matters most on ports that face users.",
+      "remediation": "'no cdp run' globally, or 'no cdp enable' on every interface that does not face a trusted neighbour.",
+      "references": [
+        "MITRE ATT&CK T1016 System Network Configuration Discovery",
+        "CIS Cisco IOS Benchmark",
+        "NSA, Network Infrastructure Security Guide"
+      ],
+      "status": "open"
+    },
+    {
+      "rule_id": "SVC-002",
+      "title": "IP source routing is enabled",
+      "severity": "low",
+      "category": "Services",
+      "device": "FW-EDGE",
+      "file": "configs/baseline/FW-EDGE.cfg",
+      "object": "global",
+      "affected": [],
+      "detail": "'no ip source-route' is not configured (IOS processes source-routed packets by default).",
+      "evidence": [],
+      "risk": "Source-routed packets let the sender dictate the path they take, which can bypass routing-based controls and help spoofing or firewall evasion.",
+      "remediation": "'no ip source-route'.",
+      "references": [
+        "CIS Cisco IOS Benchmark",
+        "Cisco, Guide to Harden Cisco IOS Devices"
+      ],
+      "status": "open"
+    },
+    {
+      "rule_id": "L2-002",
+      "title": "Trunk ports still send DTP frames",
+      "severity": "low",
+      "category": "Layer 2",
+      "device": "SW-ACCESS",
+      "file": "configs/baseline/SW-ACCESS.cfg",
+      "object": "interfaces",
+      "affected": [
+        "FastEthernet0/3"
+      ],
+      "detail": "1 trunk(s) lack 'switchport nonegotiate': FastEthernet0/3.",
+      "evidence": [
+        {
+          "line": 37,
+          "text": "interface FastEthernet0/3"
+        }
+      ],
+      "risk": "A static trunk without 'switchport nonegotiate' keeps advertising DTP, which leaks the link's role and invites negotiation attempts.",
+      "remediation": "Add 'switchport nonegotiate' to every static trunk.",
+      "references": [
+        "Cisco, Guide to Harden Cisco IOS Devices",
+        "CIS Cisco IOS Benchmark"
+      ],
+      "status": "open"
+    },
+    {
+      "rule_id": "L2-004",
+      "title": "Trunk carries every VLAN",
+      "severity": "low",
+      "category": "Layer 2",
+      "device": "SW-ACCESS",
+      "file": "configs/baseline/SW-ACCESS.cfg",
+      "object": "interfaces",
+      "affected": [
+        "FastEthernet0/3"
+      ],
+      "detail": "1 trunk(s) allow all VLANs: FastEthernet0/3.",
+      "evidence": [
+        {
+          "line": 37,
+          "text": "interface FastEthernet0/3"
+        }
+      ],
+      "risk": "A trunk that allows all VLANs widens broadcast domains and extends the reach of VLAN-hopping and spanning-tree attacks to VLANs that do not belong on that link.",
+      "remediation": "Prune each trunk: 'switchport trunk allowed vlan 10,20,99'.",
+      "references": [
+        "Cisco, Guide to Harden Cisco IOS Devices",
+        "CIS Cisco IOS Benchmark"
+      ],
+      "status": "open"
+    },
+    {
+      "rule_id": "L2-010",
+      "title": "VTP is not in transparent or off mode",
+      "severity": "low",
+      "category": "Layer 2",
+      "device": "SW-ACCESS",
+      "file": "configs/baseline/SW-ACCESS.cfg",
+      "object": "global",
+      "affected": [],
+      "detail": "No 'vtp mode transparent' or 'vtp mode off' (the default is server mode).",
+      "evidence": [],
+      "risk": "In VTP server or client mode, a switch advertising a higher revision number overwrites the VLAN database of every switch in the domain - by accident or on purpose - deleting VLANs and causing an outage.",
+      "remediation": "'vtp mode transparent' (or 'vtp mode off' where supported) and manage VLANs per switch.",
+      "references": [
+        "Cisco, Guide to Harden Cisco IOS Devices",
+        "CIS Cisco IOS Benchmark"
+      ],
+      "status": "open"
+    },
+    {
+      "rule_id": "LOG-002",
+      "title": "Log messages carry no date and time",
+      "severity": "low",
+      "category": "Logging",
+      "device": "SW-ACCESS",
+      "file": "configs/baseline/SW-ACCESS.cfg",
+      "object": "global",
+      "affected": [],
+      "detail": "'service timestamps log datetime' is not enabled.",
+      "evidence": [
+        {
+          "line": 9,
+          "text": "no service timestamps log datetime msec"
+        }
+      ],
+      "risk": "Messages stamped only with uptime cannot be ordered against other systems' logs, so events cannot be correlated during an investigation.",
+      "remediation": "'service timestamps log datetime msec' and 'service timestamps debug datetime msec'.",
+      "references": [
+        "CIS Cisco IOS Benchmark"
+      ],
+      "status": "open"
+    },
+    {
+      "rule_id": "LOG-003",
+      "title": "No time source (NTP) is configured",
+      "severity": "low",
+      "category": "Logging",
+      "device": "SW-ACCESS",
+      "file": "configs/baseline/SW-ACCESS.cfg",
+      "object": "global",
+      "affected": [],
+      "detail": "Neither 'ntp server' nor 'ntp peer' is configured.",
+      "evidence": [],
+      "risk": "Timestamps are only useful if every device agrees on the time; without NTP, clocks drift and logs cannot be correlated.",
+      "remediation": "'ntp server <address>' (ideally authenticated with 'ntp authenticate' and 'ntp trusted-key').",
+      "references": [
+        "CIS Cisco IOS Benchmark",
+        "NSA, Network Infrastructure Security Guide"
+      ],
+      "status": "open"
+    },
+    {
+      "rule_id": "MGMT-004",
+      "title": "No login banner",
+      "severity": "low",
+      "category": "Management plane",
+      "device": "SW-ACCESS",
+      "file": "configs/baseline/SW-ACCESS.cfg",
+      "object": "global",
+      "affected": [],
+      "detail": "Neither 'banner login' nor 'banner motd' is configured.",
+      "evidence": [],
+      "risk": "Without a warning banner there is no notice that access is restricted and monitored, which weakens the basis for enforcing the acceptable-use policy. (Wording should come from your organisation's legal team.)",
+      "remediation": "Configure 'banner login' (or 'banner motd') with an authorised-use notice that reveals no device details.",
+      "references": [
+        "CIS Cisco IOS Benchmark",
+        "Cisco, Guide to Harden Cisco IOS Devices"
+      ],
+      "status": "open"
+    },
+    {
+      "rule_id": "MGMT-009",
+      "title": "AAA is not enabled (local-only authentication)",
+      "severity": "low",
+      "category": "Management plane",
+      "device": "SW-ACCESS",
+      "file": "configs/baseline/SW-ACCESS.cfg",
+      "object": "global",
+      "affected": [],
+      "detail": "'aaa new-model' is not configured; only local accounts and line passwords exist.",
+      "evidence": [],
+      "risk": "Without AAA there is no central account lifecycle, command authorisation or accounting: every device keeps its own accounts and nothing records who ran which command.",
+      "remediation": "Enable 'aaa new-model', authenticate against TACACS+/RADIUS with a local fallback ('aaa authentication login default group tacacs+ local'), and add command accounting.",
+      "references": [
+        "CIS Cisco IOS Benchmark",
+        "NSA, Network Infrastructure Security Guide"
+      ],
+      "status": "open"
+    },
+    {
+      "rule_id": "SVC-001",
+      "title": "CDP is running",
+      "severity": "low",
+      "category": "Services",
+      "device": "SW-ACCESS",
+      "file": "configs/baseline/SW-ACCESS.cfg",
+      "object": "cdp",
+      "affected": [
+        "FastEthernet0/1",
+        "FastEthernet0/2",
+        "FastEthernet0/3",
+        "FastEthernet0/4",
+        "FastEthernet0/5",
+        "FastEthernet0/6",
+        "FastEthernet0/7",
+        "FastEthernet0/8",
+        "FastEthernet0/9",
+        "FastEthernet0/10",
+        "FastEthernet0/11",
+        "FastEthernet0/12",
+        "FastEthernet0/13",
+        "FastEthernet0/14",
+        "FastEthernet0/15",
+        "FastEthernet0/16",
+        "FastEthernet0/17",
+        "FastEthernet0/18",
+        "FastEthernet0/19",
+        "FastEthernet0/20",
+        "FastEthernet0/21",
+        "FastEthernet0/22",
+        "FastEthernet0/23",
+        "FastEthernet0/24",
+        "GigabitEthernet0/1",
+        "GigabitEthernet0/2"
+      ],
+      "detail": "CDP is globally enabled (no 'no cdp run') and active on 26 up interface(s).",
+      "evidence": [
+        {
+          "line": 29,
+          "text": "interface FastEthernet0/1"
+        },
+        {
+          "line": 33,
+          "text": "interface FastEthernet0/2"
+        },
+        {
+          "line": 37,
+          "text": "interface FastEthernet0/3"
+        },
+        {
+          "line": 40,
+          "text": "interface FastEthernet0/4"
+        },
+        {
+          "line": 44,
+          "text": "interface FastEthernet0/5"
+        },
+        {
+          "line": 48,
+          "text": "interface FastEthernet0/6"
+        },
+        {
+          "line": 52,
+          "text": "interface FastEthernet0/7"
+        },
+        {
+          "line": 56,
+          "text": "interface range FastEthernet0/8 - 24"
+        }
+      ],
+      "risk": "CDP advertises the model, IOS version, interface names and management addresses to anything on the link, in clear text and without authentication. Attackers use it for reconnaissance, and CDP parsers have been affected by remotely exploitable bugs. The exposure matters most on ports that face users.",
+      "remediation": "'no cdp run' globally, or 'no cdp enable' on every interface that does not face a trusted neighbour.",
+      "references": [
+        "MITRE ATT&CK T1016 System Network Configuration Discovery",
+        "CIS Cisco IOS Benchmark",
+        "NSA, Network Infrastructure Security Guide"
+      ],
+      "status": "open"
+    },
+    {
+      "rule_id": "L2-010",
+      "title": "VTP is not in transparent or off mode",
+      "severity": "low",
+      "category": "Layer 2",
+      "device": "SW-DMZ",
+      "file": "configs/baseline/SW-DMZ.cfg",
+      "object": "global",
+      "affected": [],
+      "detail": "No 'vtp mode transparent' or 'vtp mode off' (the default is server mode).",
+      "evidence": [],
+      "risk": "In VTP server or client mode, a switch advertising a higher revision number overwrites the VLAN database of every switch in the domain - by accident or on purpose - deleting VLANs and causing an outage.",
+      "remediation": "'vtp mode transparent' (or 'vtp mode off' where supported) and manage VLANs per switch.",
+      "references": [
+        "Cisco, Guide to Harden Cisco IOS Devices",
+        "CIS Cisco IOS Benchmark"
+      ],
+      "status": "open"
+    },
+    {
+      "rule_id": "LOG-002",
+      "title": "Log messages carry no date and time",
+      "severity": "low",
+      "category": "Logging",
+      "device": "SW-DMZ",
+      "file": "configs/baseline/SW-DMZ.cfg",
+      "object": "global",
+      "affected": [],
+      "detail": "'service timestamps log datetime' is not enabled.",
+      "evidence": [
+        {
+          "line": 7,
+          "text": "no service timestamps log datetime msec"
+        }
+      ],
+      "risk": "Messages stamped only with uptime cannot be ordered against other systems' logs, so events cannot be correlated during an investigation.",
+      "remediation": "'service timestamps log datetime msec' and 'service timestamps debug datetime msec'.",
+      "references": [
+        "CIS Cisco IOS Benchmark"
+      ],
+      "status": "open"
+    },
+    {
+      "rule_id": "LOG-003",
+      "title": "No time source (NTP) is configured",
+      "severity": "low",
+      "category": "Logging",
+      "device": "SW-DMZ",
+      "file": "configs/baseline/SW-DMZ.cfg",
+      "object": "global",
+      "affected": [],
+      "detail": "Neither 'ntp server' nor 'ntp peer' is configured.",
+      "evidence": [],
+      "risk": "Timestamps are only useful if every device agrees on the time; without NTP, clocks drift and logs cannot be correlated.",
+      "remediation": "'ntp server <address>' (ideally authenticated with 'ntp authenticate' and 'ntp trusted-key').",
+      "references": [
+        "CIS Cisco IOS Benchmark",
+        "NSA, Network Infrastructure Security Guide"
+      ],
+      "status": "open"
+    },
+    {
+      "rule_id": "MGMT-004",
+      "title": "No login banner",
+      "severity": "low",
+      "category": "Management plane",
+      "device": "SW-DMZ",
+      "file": "configs/baseline/SW-DMZ.cfg",
+      "object": "global",
+      "affected": [],
+      "detail": "Neither 'banner login' nor 'banner motd' is configured.",
+      "evidence": [],
+      "risk": "Without a warning banner there is no notice that access is restricted and monitored, which weakens the basis for enforcing the acceptable-use policy. (Wording should come from your organisation's legal team.)",
+      "remediation": "Configure 'banner login' (or 'banner motd') with an authorised-use notice that reveals no device details.",
+      "references": [
+        "CIS Cisco IOS Benchmark",
+        "Cisco, Guide to Harden Cisco IOS Devices"
+      ],
+      "status": "open"
+    },
+    {
+      "rule_id": "MGMT-009",
+      "title": "AAA is not enabled (local-only authentication)",
+      "severity": "low",
+      "category": "Management plane",
+      "device": "SW-DMZ",
+      "file": "configs/baseline/SW-DMZ.cfg",
+      "object": "global",
+      "affected": [],
+      "detail": "'aaa new-model' is not configured; only local accounts and line passwords exist.",
+      "evidence": [],
+      "risk": "Without AAA there is no central account lifecycle, command authorisation or accounting: every device keeps its own accounts and nothing records who ran which command.",
+      "remediation": "Enable 'aaa new-model', authenticate against TACACS+/RADIUS with a local fallback ('aaa authentication login default group tacacs+ local'), and add command accounting.",
+      "references": [
+        "CIS Cisco IOS Benchmark",
+        "NSA, Network Infrastructure Security Guide"
+      ],
+      "status": "open"
+    },
+    {
+      "rule_id": "SVC-001",
+      "title": "CDP is running",
+      "severity": "low",
+      "category": "Services",
+      "device": "SW-DMZ",
+      "file": "configs/baseline/SW-DMZ.cfg",
+      "object": "cdp",
+      "affected": [
+        "FastEthernet0/1",
+        "FastEthernet0/2",
+        "FastEthernet0/3",
+        "FastEthernet0/4",
+        "FastEthernet0/5",
+        "FastEthernet0/6",
+        "FastEthernet0/7",
+        "FastEthernet0/8",
+        "FastEthernet0/9",
+        "FastEthernet0/10",
+        "FastEthernet0/11",
+        "FastEthernet0/12",
+        "FastEthernet0/13",
+        "FastEthernet0/14",
+        "FastEthernet0/15",
+        "FastEthernet0/16",
+        "FastEthernet0/17",
+        "FastEthernet0/18",
+        "FastEthernet0/19",
+        "FastEthernet0/20",
+        "FastEthernet0/21",
+        "FastEthernet0/22",
+        "FastEthernet0/23",
+        "FastEthernet0/24",
+        "GigabitEthernet0/1",
+        "GigabitEthernet0/2"
+      ],
+      "detail": "CDP is globally enabled (no 'no cdp run') and active on 26 up interface(s).",
+      "evidence": [
+        {
+          "line": 21,
+          "text": "interface FastEthernet0/1"
+        },
+        {
+          "line": 25,
+          "text": "interface FastEthernet0/2"
+        },
+        {
+          "line": 29,
+          "text": "interface FastEthernet0/3"
+        },
+        {
+          "line": 33,
+          "text": "interface range FastEthernet0/4 - 24"
+        },
+        {
+          "line": 35,
+          "text": "interface range GigabitEthernet0/1 - 2"
+        }
+      ],
+      "risk": "CDP advertises the model, IOS version, interface names and management addresses to anything on the link, in clear text and without authentication. Attackers use it for reconnaissance, and CDP parsers have been affected by remotely exploitable bugs. The exposure matters most on ports that face users.",
+      "remediation": "'no cdp run' globally, or 'no cdp enable' on every interface that does not face a trusted neighbour.",
+      "references": [
+        "MITRE ATT&CK T1016 System Network Configuration Discovery",
+        "CIS Cisco IOS Benchmark",
+        "NSA, Network Infrastructure Security Guide"
+      ],
+      "status": "open"
+    }
+  ],
+  "warnings": []
+}
