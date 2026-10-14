@@ -8,7 +8,7 @@ This page lists what the project does **not** do or prove. It exists so that nob
 |---|---|
 | The auditor finds the insecure settings it has rules for | **Verified** by 300+ unit tests, including tests against deliberately broken configurations |
 | The hardened configuration files implement the written policy | **Verified by simulation**: 115 scenarios and the 3 146-probe matrix are computed from the configuration text |
-| Packet Tracer 9.0 accepts every command in the hardened configurations | **Not verified.** 20 lines are marked `[PT-VERIFY]` ([list](generated/pt-verify.md)); the rest were written from standard IOS syntax and the original lab's exported configurations |
+| Packet Tracer 9.0 accepts every command in the hardened configurations | **Not verified.** 20 groups of lines are marked `[PT-VERIFY]` ([list](generated/pt-verify.md)); the rest were written from standard IOS syntax and the original lab's exported configurations |
 | Packet Tracer enforces the ACLs, NAT, port security, DHCP snooping, DAI as the simulator assumes | **Not verified.** The 9 `X-nn` scenarios and the whole [test plan](pt-test-plan.md) are *pending* |
 | Screenshots | None are committed. They are added only after the test plan has been run in Packet Tracer |
 
@@ -32,6 +32,8 @@ Models: ingress ACL, static destination NAT, PAT, routing (connected, static, `N
 
 Does **not** model: TCP state or flags beyond the `established` match, fragments, ICMP errors, ARP and DHCP exchanges, host firewalls and services (a server answering is assumed), ACL logging, QoS, spanning tree, port security, DHCP snooping, DAI. Layer-2 controls are judged by the auditor from configuration text only.
 
+ACL entries the model cannot judge (TCP flag matches such as `syn`, `fragments`, `time-range`, DSCP/precedence, or syntax it does not parse) make the simulator **stop with an error** instead of skipping them, because skipping a `deny` would give a false "permitted" or "blocked". The hardened configurations use none of them.
+
 Same-subnet traffic is treated as switched and never filtered. If a destination address has no owner the simulator says so and stops; it does not guess.
 
 ## 4. The auditor (`ciscoaudit audit`)
@@ -40,6 +42,12 @@ Same-subnet traffic is treated as switched and never filtered. If a destination 
 * Judges configuration text, not running state: it cannot tell whether an interface is really up, whether a key pair exists (exported configurations do not contain RSA keys), or whether a feature works.
 * Rules and severities are the author's interpretation of public guidance (see [auditor](auditor.md)); they are not the CIS Benchmark and do not replace a commercial scanner.
 * Redaction removes secrets from reports, but `type 7` strings are reversible by design. The auditor decodes them only to judge their strength and flags them.
+
+## 4a. Behaviours worth knowing about
+
+* `login block-for 120 attempts 3 within 60` on FW-EDGE throttles brute-force attempts but also locks the administrator out for two minutes after three failed logins (`login quiet-mode access-class` could exempt the management host; not used because it is another unverified line).
+* `ACL-001` (permit any any) reports only ACLs that are *applied*; an unapplied one is reported as `ACL-005` (low).
+* `tests/fixtures/secrets_router.cfg` contains the well-known Cisco example strings (`cisco`, `0822455D0A16`). They are synthetic; a secret scanner will flag them and should allow-list the file.
 
 ## 5. Secrets and personal data
 

@@ -45,7 +45,7 @@ The exact list of flows the organisation wants is written once, with a reason fo
 | Segmentation | VLANs per zone; one routed enforcement point | FW-EDGE subinterfaces, SW-ACCESS/SW-DMZ | design-check, scenarios B-nn |
 | Traffic filtering | Default-deny inbound extended ACLs with logged final deny | FW-EDGE | audit rules ACL-001/002; scenarios P-nn (allowed) and B-nn (blocked) |
 | Anti-spoofing | Own-subnet source in every inbound ACL; bogon and own-public-address denies on the outside | FW-EDGE | scenarios S-nn |
-| Remote management | SSH v2 only, `login local`, per-user account, `VTY-ADMIN` (administrator host only), 5-minute time-out, login throttling, no HTTP server | all audited devices | MGMT-001/002/003/005/010, scenarios M-nn |
+| Remote management | SSH v2 only, `login local` with a local `admin` account (one shared account per device), `VTY-ADMIN` (administrator host only), 5-minute time-out, login throttling, no HTTP server | all audited devices | MGMT-001/002/003/005/010, scenarios M-nn |
 | Credentials | `enable secret`, hashed local accounts, `service password-encryption`, no defaults | all | CRED-001..005 |
 | Layer 2 | DTP off, native VLAN 999, allowed-VLAN trunks, VTP transparent, port security (sticky, maximum 1), PortFast + BPDU Guard, unused ports shut and parked, DHCP snooping + DAI on the Guest VLAN | switches | L2-001..012, scenarios L-nn |
 | Hardening | CDP off, no source routing, no proxy ARP/redirects/unreachables where set, AUX off | all | SVC-001..004, INT-001/002 |

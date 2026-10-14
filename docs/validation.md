@@ -50,7 +50,7 @@ Hand-picked attacks show that *those* attacks fail. They cannot show that nothin
 * *Unexpected block* = a listed flow does not work as a round trip (a broken service).
 * Traffic inside one VLAN never meets the firewall; it is counted separately and documented as a limitation (220 of the 307 permitted hardened probes).
 
-This is how two real defects were found in the first hardened draft: replies to the administrator's ping and the NTP reply to the firewall were blocked, and several ICMP rules were written for a whole subnet. Both were fixed in the configuration (see the Git history).
+The simulator and the matrix found real defects in the first hardened draft, all fixed in the configuration (see the Git history): the replies to the administrator's ping and the NTP reply to the firewall were blocked (found by the scenarios and the simulator), and several ICMP rules were written for a whole subnet, one of them letting Users ping the firewall's outside address and the DMZ switch (found by the matrix).
 
 ## Do the tests really test anything?
 

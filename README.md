@@ -12,7 +12,7 @@ It started as a flat university lab (four routers, three switches, no passwords,
 |---|---|
 | Auditor (52 rules), parser, ACL model, waivers, reports | **Tested**: 300+ unit tests, including tests against deliberately broken configurations |
 | Hardened configurations implement the written policy | **Verified by simulation**: 124 scenarios and a 3 146-probe reachability matrix, computed from the configuration text by this repository's policy simulator |
-| Packet Tracer accepts and enforces the configurations | **Not yet verified.** The tests were not run in Packet Tracer; 20 configuration lines are marked `[PT-VERIFY]`, and the Packet Tracer column of every report says *pending*. The generated [test plan](docs/pt-test-plan.md) and [build guide](docs/packet-tracer-build.md) are how to close this gap. |
+| Packet Tracer accepts and enforces the configurations | **Not yet verified.** The tests were not run in Packet Tracer; 20 groups of configuration lines are marked `[PT-VERIFY]` (the rest is standard IOS syntax that has not been run in Packet Tracer either), and the Packet Tracer column of every report says *pending*. The generated [test plan](docs/pt-test-plan.md) and [build guide](docs/packet-tracer-build.md) are how to close this gap. |
 | Screenshots | **None are committed**, because none have been taken. Real tool output is shown below as text. |
 
 The simulator says what the *configuration* does. It is not Packet Tracer, and its results are not presented as Packet Tracer results. See [docs/validation.md](docs/validation.md) and [docs/limitations.md](docs/limitations.md).
@@ -21,7 +21,7 @@ The simulator says what the *configuration* does. It is not Packet Tracer, and i
 
 | Audit of | Open findings | Critical | High | Medium | Low | Accepted risk |
 |---|---:|---:|---:|---:|---:|---:|
-| Original university lab (7 devices) | 150 | 0 | 18 | 65 | 67 | 0 |
+| Original university lab (7 devices) ¹ | 150 | 0 | 18 | 65 | 67 | 0 |
 | Redesigned network, **baseline** configuration | 65 | 3 | 7 | 33 | 22 | 0 |
 | Redesigned network, **hardened** configuration | **0** | 0 | 0 | 0 | 0 | 5 (documented, expiring) |
 
@@ -30,6 +30,8 @@ The simulator says what the *configuration* does. It is not Packet Tracer, and i
 | Scenarios (business flows, attacks, spoofing, management, Layer 2, hygiene, limitations) | 115 passed, 0 failed, 9 pending Packet Tracer |
 | Reachability matrix: probes that disagree with the written policy | 0 of 3 146 (the baseline lets 1 447 probes cross zones; the hardened network 87) |
 | Mutation tests: validators fail when a control is removed | yes: see `tests/test_scenarios.py`, `tests/test_matrix.py` |
+
+¹ Of the 150 original findings, 85 belong to devices that the new design no longer has (Router2, Router3, Router4, Switch2); `compare` reports them as *left scope*, not as fixed. See [`evidence/audit/compare-original-to-hardened.md`](evidence/audit/compare-original-to-hardened.md).
 
 Full outputs: [`evidence/`](evidence/README.md).
 
@@ -44,7 +46,7 @@ Full outputs: [`evidence/`](evidence/README.md).
 | DMZ | 50 · 172.16.50.0/24 | Public web (80/443) and DNS (53) via static NAT; one controlled flow to the app server |
 | Internet (simulated) | 198.51.100.0/24 | A legitimate client and an attacker (`PC5`) |
 
-Controls: one enforcement point (FW-EDGE) with default-deny inbound ACLs and logged denies; anti-spoofing; static NAT + PAT; SSH-only management restricted by an access class; per-user accounts and hashed secrets; DTP off, native VLAN 999, port security, BPDU Guard, parked unused ports, DHCP snooping and ARP inspection on the guest VLAN; syslog and NTP. Details: [docs/architecture.md](docs/architecture.md). Threats and how each is tested: [docs/threat-model.md](docs/threat-model.md).
+Controls: one enforcement point (FW-EDGE) with default-deny inbound ACLs and logged denies; anti-spoofing; static NAT + PAT; SSH-only management restricted by an access class; a local administrator account and hashed secrets; DTP off, native VLAN 999, port security, BPDU Guard, parked unused ports, DHCP snooping and ARP inspection on the guest VLAN; syslog and NTP. Details: [docs/architecture.md](docs/architecture.md). Threats and how each is tested: [docs/threat-model.md](docs/threat-model.md).
 
 ## Quick start
 
@@ -63,7 +65,7 @@ python -m ciscoaudit rules                              # what is checked
 make all                                                # everything above plus the unit tests and the consistency checks
 ```
 
-### Example: auditing the baseline firewall
+### Example: auditing the baseline firewall (excerpt of the real output)
 
 ```text
 $ python -m ciscoaudit audit configs/baseline/FW-EDGE.cfg -v
@@ -79,7 +81,7 @@ MEDIUM   ACL-001   FW-EDGE: ACL contains a 'permit any any' entry
           'access-list 101 permit ip any any' permits all traffic after some deny entries (blocklist style).
 ```
 
-### Example: why an attack fails
+### Example: why an attack fails (excerpt of the real output)
 
 ```text
 $ python -m ciscoaudit trace "PC5 -> 203.0.113.9 tcp/22" --state hardened
@@ -108,7 +110,7 @@ M-01  management  hard PASS    blocked (vty @ SW-ACCESS)       Non-administrator
 ## The auditor
 
 * 52 rules in nine categories (access control, credentials, management plane, access lists, Layer 2, services, routing, logging, interfaces), each with a risk statement, remediation and references ([catalogue](docs/generated/rules.md), [sources](docs/references.md)).
-* Structured output: text, JSON, Markdown, CSV; secrets are redacted before they enter any finding.
+* Structured output: text, JSON, Markdown, CSV; known credential forms (see `tests/test_redact.py`) are redacted before they enter any finding.
 * Accepted risks are **waivers** that keep the finding visible, require a reason and expire.
 * `compare` shows what a remediation changed and refuses to count a decommissioned device as a fix.
 * Standard library + PyYAML. Design and testing: [docs/auditor.md](docs/auditor.md).
@@ -118,7 +120,7 @@ M-01  management  hard PASS    blocked (vty @ SW-ACCESS)       Non-administrator
 1. `design-check`: the configurations implement `topology/topology.yaml`.
 2. `audit`: no open findings on the hardened configurations.
 3. `validate`: each named business flow works and each named attack fails *for the stated reason* (which ACL, on which device).
-4. `matrix`: nothing else gets through; probes include unused addresses so subnet-wide rules are caught.
+4. `matrix`: nothing else gets through *among the 11 probed services and 27 probed addresses* (same-VLAN traffic is out of scope); probes include unused addresses so subnet-wide rules are caught.
 5. Packet Tracer: **pending**; generated plan and a results sheet with `pt-compare` to measure agreement with the simulator.
 
 ## Repository layout

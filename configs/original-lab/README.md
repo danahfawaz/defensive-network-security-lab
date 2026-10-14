@@ -2,7 +2,7 @@
 
 These seven files are the device configurations of the original university
 networking lab, extracted from its Packet Tracer 9.0 file. They are the input of
-the first audit (`evidence/audit/00-original-lab/`) and show where the project
+the first audit (`evidence/audit/00-original-lab.md`) and show where the project
 started:
 
 * 4x Cisco 1841 routers running RIPv1 over `192.168.0.0/16` (/24 networks);

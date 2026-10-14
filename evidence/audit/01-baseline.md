@@ -81,7 +81,7 @@
 
 **Remediation.** Allow only SSH on the VTY lines: 'line vty 0 15' / 'transport input ssh'.
 
-**References.** MITRE ATT&CK T1040 Network Sniffing; Cisco, Guide to Harden Cisco IOS Devices; CIS Cisco IOS Benchmark; NSA, Network Infrastructure Security Guide
+**References.** MITRE ATT&CK T1040 Network Sniffing; Cisco, Harden IOS Devices; CIS Cisco IOS Benchmark; NSA, Network Infrastructure Security Guide
 
 - **FW-EDGE** - `vty lines`: Telnet is permitted on: line vty 0 4 (no 'transport input': IOS default accepts Telnet).
   - `L92 line vty 0 4`
@@ -100,7 +100,7 @@
 
 **Remediation.** 'no ip http server' (and 'no ip http secure-server' unless the HTTPS UI is actually needed and restricted).
 
-**References.** MITRE ATT&CK T1040 Network Sniffing; CIS Cisco IOS Benchmark; Cisco, Guide to Harden Cisco IOS Devices
+**References.** MITRE ATT&CK T1040 Network Sniffing; CIS Cisco IOS Benchmark; Cisco, Harden IOS Devices
 
 - **FW-EDGE** - `global`: 'ip http server' is enabled.
   - `L79 ip http server`
@@ -113,7 +113,7 @@
 
 **Remediation.** Replace it with the specific flows that are needed and finish with an explicit 'deny ip any any log'.
 
-**References.** Cisco, Guide to Harden Cisco IOS Devices; NSA, Network Infrastructure Security Guide
+**References.** Cisco, Harden IOS Devices; NSA, Network Infrastructure Security Guide
 
 - **FW-EDGE** - `ACL 101`: 'access-list 101 permit ip any any' permits all traffic after some deny entries (blocklist style).
   - `L84 access-list 101 permit ip any any`
@@ -126,7 +126,7 @@
 
 **Remediation.** Console: 'line con 0' / 'login local' / 'exec-timeout 5 0' / 'logging synchronous'. AUX: disable it ('line aux 0' / 'no exec' / 'transport input none') unless a modem is genuinely required.
 
-**References.** Cisco, Guide to Harden Cisco IOS Devices; CIS Cisco IOS Benchmark
+**References.** Cisco, Harden IOS Devices; CIS Cisco IOS Benchmark
 
 - **FW-EDGE** - `console/aux lines`: No 'login' method is configured on: line aux 0.
   - `L90 line aux 0`
@@ -139,7 +139,7 @@
 
 **Remediation.** Use 'login local' with one 'username ... secret ...' per administrator (or AAA with TACACS+/RADIUS).
 
-**References.** Cisco, Guide to Harden Cisco IOS Devices; NSA, Network Infrastructure Security Guide
+**References.** Cisco, Harden IOS Devices; NSA, Network Infrastructure Security Guide
 
 - **FW-EDGE** - `vty lines`: A line password is used for authentication on: line vty 0 4.
   - `L94 [line vty 0 4] login`
@@ -163,7 +163,7 @@
 
 **Remediation.** 'service password-encryption', and store credentials with 'secret' so they are hashed in the first place.
 
-**References.** CIS Cisco IOS Benchmark; Cisco, Guide to Harden Cisco IOS Devices
+**References.** CIS Cisco IOS Benchmark; Cisco, Harden IOS Devices
 
 - **FW-EDGE** - `global`: 'service password-encryption' is off (explicitly disabled) and 3 credential(s) are stored in clear text.
   - `L14 no service password-encryption`
@@ -180,7 +180,7 @@
 
 **Remediation.** Set 'switchport mode access' on every end-user port and 'switchport mode trunk' + 'switchport nonegotiate' on uplinks.
 
-**References.** Cisco, Guide to Harden Cisco IOS Devices; CIS Cisco IOS Benchmark; NSA, Network Infrastructure Security Guide
+**References.** Cisco, Harden IOS Devices; CIS Cisco IOS Benchmark; NSA, Network Infrastructure Security Guide
 
 - **SW-ACCESS** - `interfaces`: 19 enabled port(s) are in dynamic mode: FastEthernet0/8, FastEthernet0/9, FastEthernet0/10, FastEthernet0/11, FastEthernet0/12 and 14 more.
   - `L56 interface range FastEthernet0/8 - 24`
@@ -197,7 +197,7 @@
 
 **Remediation.** Use an unused VLAN as native VLAN on every trunk: 'switchport trunk native vlan 999' (no ports or SVI in it).
 
-**References.** Cisco, Guide to Harden Cisco IOS Devices; CIS Cisco IOS Benchmark; NSA, Network Infrastructure Security Guide
+**References.** Cisco, Harden IOS Devices; CIS Cisco IOS Benchmark; NSA, Network Infrastructure Security Guide
 
 - **SW-ACCESS** - `interfaces`: 1 trunk(s) use native VLAN 1: FastEthernet0/3.
   - `L37 interface FastEthernet0/3`
@@ -210,7 +210,7 @@
 
 **Remediation.** On access ports: 'switchport mode access', 'switchport port-security', 'switchport port-security maximum 2', 'switchport port-security mac-address sticky', 'switchport port-security violation restrict' (or shutdown).
 
-**References.** MITRE ATT&CK T1200 Hardware Additions; MITRE ATT&CK T1557 Adversary-in-the-Middle; Cisco, Guide to Harden Cisco IOS Devices; CIS Cisco IOS Benchmark
+**References.** MITRE ATT&CK T1200 Hardware Additions; MITRE ATT&CK T1557 Adversary-in-the-Middle; Cisco, Harden IOS Devices; CIS Cisco IOS Benchmark
 
 - **SW-ACCESS** - `interfaces`: 25 edge-capable port(s) lack port security: FastEthernet0/1, FastEthernet0/2, FastEthernet0/4, FastEthernet0/5, FastEthernet0/6 and 20 more.
   - `L29 interface FastEthernet0/1`
@@ -236,7 +236,7 @@
 
 **Remediation.** 'spanning-tree portfast' + 'spanning-tree bpduguard enable' per port, or 'spanning-tree portfast default' + 'spanning-tree portfast bpduguard default' globally.
 
-**References.** Cisco, Guide to Harden Cisco IOS Devices; CIS Cisco IOS Benchmark; NSA, Network Infrastructure Security Guide
+**References.** Cisco, Harden IOS Devices; CIS Cisco IOS Benchmark; NSA, Network Infrastructure Security Guide
 
 - **SW-ACCESS** - `interfaces`: 25 edge-capable port(s) lack PortFast + BPDU Guard: FastEthernet0/1, FastEthernet0/2, FastEthernet0/4, FastEthernet0/5, FastEthernet0/6 and 20 more.
   - `L29 interface FastEthernet0/1`
@@ -279,7 +279,7 @@
 
 **Remediation.** Assign end-user ports to purpose-built VLANs ('switchport access vlan 10') and keep VLAN 1 empty.
 
-**References.** Cisco, Guide to Harden Cisco IOS Devices; CIS Cisco IOS Benchmark; NSA, Network Infrastructure Security Guide
+**References.** Cisco, Harden IOS Devices; CIS Cisco IOS Benchmark; NSA, Network Infrastructure Security Guide
 
 - **SW-ACCESS** - `interfaces`: 19 active port(s) are in VLAN 1: FastEthernet0/8, FastEthernet0/9, FastEthernet0/10, FastEthernet0/11, FastEthernet0/12 and 14 more.
   - `L56 interface range FastEthernet0/8 - 24`
@@ -296,7 +296,7 @@
 
 **Remediation.** 'ip dhcp snooping' and 'ip dhcp snooping vlan <ids>'; mark only the uplink toward the real DHCP server with 'ip dhcp snooping trust'; rate-limit client ports with 'ip dhcp snooping limit rate 15'.
 
-**References.** MITRE ATT&CK T1557 Adversary-in-the-Middle; Cisco, Guide to Harden Cisco IOS Devices; NSA, Network Infrastructure Security Guide
+**References.** MITRE ATT&CK T1557 Adversary-in-the-Middle; Cisco, Harden IOS Devices; NSA, Network Infrastructure Security Guide
 
 - **SW-ACCESS** - `global`: 'ip dhcp snooping' is not enabled.
 - **SW-DMZ** - `global`: 'ip dhcp snooping' is not enabled.
@@ -309,7 +309,7 @@
 
 **Remediation.** 'ip arp inspection vlan <ids>' on VLANs whose hosts get their addresses through DHCP snooping; trust only uplinks ('ip arp inspection trust'); use ARP ACLs for statically addressed hosts.
 
-**References.** MITRE ATT&CK T1557.002 Adversary-in-the-Middle: ARP Cache Poisoning; Cisco, Guide to Harden Cisco IOS Devices; NSA, Network Infrastructure Security Guide
+**References.** MITRE ATT&CK T1557.002 Adversary-in-the-Middle: ARP Cache Poisoning; Cisco, Harden IOS Devices; NSA, Network Infrastructure Security Guide
 
 - **SW-ACCESS** - `global`: 'ip arp inspection vlan' is not configured.
 - **SW-DMZ** - `global`: 'ip arp inspection vlan' is not configured.
@@ -322,7 +322,7 @@
 
 **Remediation.** 'logging host <syslog-server>' with 'logging trap informational' and a stable 'logging source-interface'.
 
-**References.** CIS Cisco IOS Benchmark; Cisco, Guide to Harden Cisco IOS Devices; NSA, Network Infrastructure Security Guide
+**References.** CIS Cisco IOS Benchmark; Cisco, Harden IOS Devices; NSA, Network Infrastructure Security Guide
 
 - **FW-EDGE** - `global`: No 'logging host <address>' is configured.
 - **SW-ACCESS** - `global`: No 'logging host <address>' is configured.
@@ -336,7 +336,7 @@
 
 **Remediation.** Define 'ip access-list standard VTY-MGMT' permitting only the admin host(s) and a final 'deny any log', then apply 'access-class VTY-MGMT in' on every VTY line.
 
-**References.** Cisco, Guide to Harden Cisco IOS Devices; CIS Cisco IOS Benchmark; NSA, Network Infrastructure Security Guide
+**References.** Cisco, Harden IOS Devices; CIS Cisco IOS Benchmark; NSA, Network Infrastructure Security Guide
 
 - **FW-EDGE** - `vty lines`: No effective source restriction on: line vty 0 4.
   - `L92 line vty 0 4`
@@ -355,7 +355,7 @@
 
 **Remediation.** 'line aux 0' / 'no exec' / 'transport input none' / 'transport output none'.
 
-**References.** CIS Cisco IOS Benchmark; Cisco, Guide to Harden Cisco IOS Devices
+**References.** CIS Cisco IOS Benchmark; Cisco, Harden IOS Devices
 
 - **FW-EDGE** - `aux line`: The AUX line is not disabled ('no exec' / 'transport input none').
   - `L90 line aux 0`
@@ -368,7 +368,7 @@
 
 **Remediation.** Set a domain name, generate an RSA key of at least 2048 bits ('crypto key generate rsa modulus 2048') and enforce 'ip ssh version 2'; add 'ip ssh time-out 60' and 'ip ssh authentication-retries 3'.
 
-**References.** MITRE ATT&CK T1021.004 Remote Services: SSH; CIS Cisco IOS Benchmark; Cisco, Guide to Harden Cisco IOS Devices
+**References.** MITRE ATT&CK T1021.004 Remote Services: SSH; CIS Cisco IOS Benchmark; Cisco, Harden IOS Devices
 
 - **FW-EDGE** - `global`: 'ip ssh version 2' is not configured (RSA key presence cannot be verified from a running-config).
 - **SW-ACCESS** - `global`: 'ip ssh version 2' is not configured (RSA key presence cannot be verified from a running-config).
@@ -382,7 +382,7 @@
 
 **Remediation.** End every interface ACL with 'deny ip any any log' (mind log rate limits on busy interfaces).
 
-**References.** Cisco, Guide to Harden Cisco IOS Devices; NSA, Network Infrastructure Security Guide
+**References.** Cisco, Harden IOS Devices; NSA, Network Infrastructure Security Guide
 
 - **FW-EDGE** - `ACL 101`: ACL 101 has no explicit final 'deny ip any any'; drops rely on the silent implicit deny.
   - `L84 access-list 101 permit ip any any`
@@ -395,7 +395,7 @@
 
 **Remediation.** 'no ip proxy-arp' on every routed interface or subinterface.
 
-**References.** CIS Cisco IOS Benchmark; Cisco, Guide to Harden Cisco IOS Devices
+**References.** CIS Cisco IOS Benchmark; Cisco, Harden IOS Devices
 
 - **FW-EDGE** - `interfaces`: Proxy ARP is active (default) on 6 routed interface(s).
   - `L35 interface FastEthernet0/0.10`
@@ -413,7 +413,7 @@
 
 **Remediation.** Add 'switchport nonegotiate' to every static trunk.
 
-**References.** Cisco, Guide to Harden Cisco IOS Devices; CIS Cisco IOS Benchmark
+**References.** Cisco, Harden IOS Devices; CIS Cisco IOS Benchmark
 
 - **SW-ACCESS** - `interfaces`: 1 trunk(s) lack 'switchport nonegotiate': FastEthernet0/3.
   - `L37 interface FastEthernet0/3`
@@ -426,7 +426,7 @@
 
 **Remediation.** Prune each trunk: 'switchport trunk allowed vlan 10,20,99'.
 
-**References.** Cisco, Guide to Harden Cisco IOS Devices; CIS Cisco IOS Benchmark
+**References.** Cisco, Harden IOS Devices; CIS Cisco IOS Benchmark
 
 - **SW-ACCESS** - `interfaces`: 1 trunk(s) allow all VLANs: FastEthernet0/3.
   - `L37 interface FastEthernet0/3`
@@ -439,7 +439,7 @@
 
 **Remediation.** 'vtp mode transparent' (or 'vtp mode off' where supported) and manage VLANs per switch.
 
-**References.** Cisco, Guide to Harden Cisco IOS Devices; CIS Cisco IOS Benchmark
+**References.** Cisco, Harden IOS Devices; CIS Cisco IOS Benchmark
 
 - **SW-ACCESS** - `global`: No 'vtp mode transparent' or 'vtp mode off' (the default is server mode).
 - **SW-DMZ** - `global`: No 'vtp mode transparent' or 'vtp mode off' (the default is server mode).
@@ -483,7 +483,7 @@
 
 **Remediation.** Configure 'banner login' (or 'banner motd') with an authorised-use notice that reveals no device details.
 
-**References.** CIS Cisco IOS Benchmark; Cisco, Guide to Harden Cisco IOS Devices
+**References.** CIS Cisco IOS Benchmark; Cisco, Harden IOS Devices
 
 - **FW-EDGE** - `global`: Neither 'banner login' nor 'banner motd' is configured.
 - **SW-ACCESS** - `global`: Neither 'banner login' nor 'banner motd' is configured.
@@ -541,6 +541,6 @@
 
 **Remediation.** 'no ip source-route'.
 
-**References.** CIS Cisco IOS Benchmark; Cisco, Guide to Harden Cisco IOS Devices
+**References.** CIS Cisco IOS Benchmark; Cisco, Harden IOS Devices
 
 - **FW-EDGE** - `global`: 'no ip source-route' is not configured (IOS processes source-routed packets by default).

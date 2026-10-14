@@ -35,7 +35,7 @@
 
 **Remediation.** Set a strong, unique secret: 'enable secret <value>' (stored as a hash). Do not use 'enable password'.
 
-**References.** CIS Cisco IOS Benchmark; Cisco, Guide to Harden Cisco IOS Devices; NSA, Cisco Password Types: Best Practices
+**References.** CIS Cisco IOS Benchmark; Cisco, Harden IOS Devices; NSA, Cisco Password Types: Best Practices
 
 - **Router1** - `global`: Neither 'enable secret' nor 'enable password' is configured.
 - **Router2** - `global`: Neither 'enable secret' nor 'enable password' is configured.
@@ -53,7 +53,7 @@
 
 **Remediation.** Allow only SSH on the VTY lines: 'line vty 0 15' / 'transport input ssh'.
 
-**References.** MITRE ATT&CK T1040 Network Sniffing; Cisco, Guide to Harden Cisco IOS Devices; CIS Cisco IOS Benchmark; NSA, Network Infrastructure Security Guide
+**References.** MITRE ATT&CK T1040 Network Sniffing; Cisco, Harden IOS Devices; CIS Cisco IOS Benchmark; NSA, Network Infrastructure Security Guide
 
 - **Router1** - `vty lines`: Telnet is permitted on: line vty 0 4 (no 'transport input': IOS default accepts Telnet).
   - `L87 line vty 0 4`
@@ -81,7 +81,7 @@
 
 **Remediation.** RIPv2: 'key chain' + 'ip rip authentication mode md5' + 'ip rip authentication key-chain'. OSPF: 'area <n> authentication message-digest' (or per-interface) with 'ip ospf message-digest-key'. Also make user-facing interfaces passive.
 
-**References.** MITRE ATT&CK T1557 Adversary-in-the-Middle; Cisco, Guide to Harden Cisco IOS Devices; CIS Cisco IOS Benchmark; NSA, Network Infrastructure Security Guide
+**References.** MITRE ATT&CK T1557 Adversary-in-the-Middle; Cisco, Harden IOS Devices; CIS Cisco IOS Benchmark; NSA, Network Infrastructure Security Guide
 
 - **Router1** - `router rip`: 'router rip' sends and accepts unauthenticated updates on 3 interface(s). RIPv1 cannot authenticate at all.
   - `L64 router rip`
@@ -109,7 +109,7 @@
 
 **Remediation.** Define zone policy ACLs and apply them with 'ip access-group <name> in' on the interface closest to the source.
 
-**References.** NSA, Network Infrastructure Security Guide; Cisco, Guide to Harden Cisco IOS Devices
+**References.** NSA, Network Infrastructure Security Guide; Cisco, Harden IOS Devices
 
 - **Router1** - `interfaces`: 3 routed interfaces, none with 'ip access-group'.
 - **Router2** - `interfaces`: 2 routed interfaces, none with 'ip access-group'.
@@ -124,7 +124,7 @@
 
 **Remediation.** Console: 'line con 0' / 'login local' / 'exec-timeout 5 0' / 'logging synchronous'. AUX: disable it ('line aux 0' / 'no exec' / 'transport input none') unless a modem is genuinely required.
 
-**References.** Cisco, Guide to Harden Cisco IOS Devices; CIS Cisco IOS Benchmark
+**References.** Cisco, Harden IOS Devices; CIS Cisco IOS Benchmark
 
 - **Router1** - `console/aux lines`: No 'login' method is configured on: line con 0, line aux 0.
   - `L83 line con 0`
@@ -153,7 +153,7 @@
 
 **Remediation.** Set 'switchport mode access' on every end-user port and 'switchport mode trunk' + 'switchport nonegotiate' on uplinks.
 
-**References.** Cisco, Guide to Harden Cisco IOS Devices; CIS Cisco IOS Benchmark; NSA, Network Infrastructure Security Guide
+**References.** Cisco, Harden IOS Devices; CIS Cisco IOS Benchmark; NSA, Network Infrastructure Security Guide
 
 - **Switch0** - `interfaces`: 26 enabled port(s) are in dynamic mode: FastEthernet0/1, FastEthernet0/2, FastEthernet0/3, FastEthernet0/4, FastEthernet0/5 and 21 more.
   - `L23 interface FastEthernet0/1`
@@ -191,7 +191,7 @@
 
 **Remediation.** On access ports: 'switchport mode access', 'switchport port-security', 'switchport port-security maximum 2', 'switchport port-security mac-address sticky', 'switchport port-security violation restrict' (or shutdown).
 
-**References.** MITRE ATT&CK T1200 Hardware Additions; MITRE ATT&CK T1557 Adversary-in-the-Middle; Cisco, Guide to Harden Cisco IOS Devices; CIS Cisco IOS Benchmark
+**References.** MITRE ATT&CK T1200 Hardware Additions; MITRE ATT&CK T1557 Adversary-in-the-Middle; Cisco, Harden IOS Devices; CIS Cisco IOS Benchmark
 
 - **Switch0** - `interfaces`: 26 edge-capable port(s) lack port security: FastEthernet0/1, FastEthernet0/2, FastEthernet0/3, FastEthernet0/4, FastEthernet0/5 and 21 more.
   - `L23 interface FastEthernet0/1`
@@ -229,7 +229,7 @@
 
 **Remediation.** 'spanning-tree portfast' + 'spanning-tree bpduguard enable' per port, or 'spanning-tree portfast default' + 'spanning-tree portfast bpduguard default' globally.
 
-**References.** Cisco, Guide to Harden Cisco IOS Devices; CIS Cisco IOS Benchmark; NSA, Network Infrastructure Security Guide
+**References.** Cisco, Harden IOS Devices; CIS Cisco IOS Benchmark; NSA, Network Infrastructure Security Guide
 
 - **Switch0** - `interfaces`: 26 edge-capable port(s) lack PortFast + BPDU Guard: FastEthernet0/1, FastEthernet0/2, FastEthernet0/3, FastEthernet0/4, FastEthernet0/5 and 21 more.
   - `L23 interface FastEthernet0/1`
@@ -305,7 +305,7 @@
 
 **Remediation.** Assign end-user ports to purpose-built VLANs ('switchport access vlan 10') and keep VLAN 1 empty.
 
-**References.** Cisco, Guide to Harden Cisco IOS Devices; CIS Cisco IOS Benchmark; NSA, Network Infrastructure Security Guide
+**References.** Cisco, Harden IOS Devices; CIS Cisco IOS Benchmark; NSA, Network Infrastructure Security Guide
 
 - **Switch0** - `interfaces`: 26 active port(s) are in VLAN 1: FastEthernet0/1, FastEthernet0/2, FastEthernet0/3, FastEthernet0/4, FastEthernet0/5 and 21 more.
   - `L23 interface FastEthernet0/1`
@@ -343,7 +343,7 @@
 
 **Remediation.** 'ip dhcp snooping' and 'ip dhcp snooping vlan <ids>'; mark only the uplink toward the real DHCP server with 'ip dhcp snooping trust'; rate-limit client ports with 'ip dhcp snooping limit rate 15'.
 
-**References.** MITRE ATT&CK T1557 Adversary-in-the-Middle; Cisco, Guide to Harden Cisco IOS Devices; NSA, Network Infrastructure Security Guide
+**References.** MITRE ATT&CK T1557 Adversary-in-the-Middle; Cisco, Harden IOS Devices; NSA, Network Infrastructure Security Guide
 
 - **Switch0** - `global`: 'ip dhcp snooping' is not enabled.
 - **Switch1** - `global`: 'ip dhcp snooping' is not enabled.
@@ -357,7 +357,7 @@
 
 **Remediation.** 'ip arp inspection vlan <ids>' on VLANs whose hosts get their addresses through DHCP snooping; trust only uplinks ('ip arp inspection trust'); use ARP ACLs for statically addressed hosts.
 
-**References.** MITRE ATT&CK T1557.002 Adversary-in-the-Middle: ARP Cache Poisoning; Cisco, Guide to Harden Cisco IOS Devices; NSA, Network Infrastructure Security Guide
+**References.** MITRE ATT&CK T1557.002 Adversary-in-the-Middle: ARP Cache Poisoning; Cisco, Harden IOS Devices; NSA, Network Infrastructure Security Guide
 
 - **Switch0** - `global`: 'ip arp inspection vlan' is not configured.
 - **Switch1** - `global`: 'ip arp inspection vlan' is not configured.
@@ -371,7 +371,7 @@
 
 **Remediation.** 'logging host <syslog-server>' with 'logging trap informational' and a stable 'logging source-interface'.
 
-**References.** CIS Cisco IOS Benchmark; Cisco, Guide to Harden Cisco IOS Devices; NSA, Network Infrastructure Security Guide
+**References.** CIS Cisco IOS Benchmark; Cisco, Harden IOS Devices; NSA, Network Infrastructure Security Guide
 
 - **Router1** - `global`: No 'logging host <address>' is configured.
 - **Router2** - `global`: No 'logging host <address>' is configured.
@@ -389,7 +389,7 @@
 
 **Remediation.** Define 'ip access-list standard VTY-MGMT' permitting only the admin host(s) and a final 'deny any log', then apply 'access-class VTY-MGMT in' on every VTY line.
 
-**References.** Cisco, Guide to Harden Cisco IOS Devices; CIS Cisco IOS Benchmark; NSA, Network Infrastructure Security Guide
+**References.** Cisco, Harden IOS Devices; CIS Cisco IOS Benchmark; NSA, Network Infrastructure Security Guide
 
 - **Router1** - `vty lines`: No effective source restriction on: line vty 0 4.
   - `L87 line vty 0 4`
@@ -417,7 +417,7 @@
 
 **Remediation.** 'line aux 0' / 'no exec' / 'transport input none' / 'transport output none'.
 
-**References.** CIS Cisco IOS Benchmark; Cisco, Guide to Harden Cisco IOS Devices
+**References.** CIS Cisco IOS Benchmark; Cisco, Harden IOS Devices
 
 - **Router1** - `aux line`: The AUX line is not disabled ('no exec' / 'transport input none').
   - `L85 line aux 0`
@@ -436,7 +436,7 @@
 
 **Remediation.** Set a domain name, generate an RSA key of at least 2048 bits ('crypto key generate rsa modulus 2048') and enforce 'ip ssh version 2'; add 'ip ssh time-out 60' and 'ip ssh authentication-retries 3'.
 
-**References.** MITRE ATT&CK T1021.004 Remote Services: SSH; CIS Cisco IOS Benchmark; Cisco, Guide to Harden Cisco IOS Devices
+**References.** MITRE ATT&CK T1021.004 Remote Services: SSH; CIS Cisco IOS Benchmark; Cisco, Harden IOS Devices
 
 - **Router1** - `global`: 'ip ssh version 2' is not configured (RSA key presence cannot be verified from a running-config).
 - **Router2** - `global`: 'ip ssh version 2' is not configured (RSA key presence cannot be verified from a running-config).
@@ -454,7 +454,7 @@
 
 **Remediation.** 'router rip' / 'version 2' / 'no auto-summary' with authentication, or migrate to OSPF.
 
-**References.** Cisco, Guide to Harden Cisco IOS Devices; NSA, Network Infrastructure Security Guide
+**References.** Cisco, Harden IOS Devices; NSA, Network Infrastructure Security Guide
 
 - **Router1** - `router rip`: No 'version 2' under 'router rip': the process sends RIPv1 (classful) updates.
   - `L64 router rip`
@@ -473,7 +473,7 @@
 
 **Remediation.** Use 'passive-interface default' under the routing process, then 'no passive-interface <link>' only on interfaces that face routers.
 
-**References.** Cisco, Guide to Harden Cisco IOS Devices; NSA, Network Infrastructure Security Guide; CIS Cisco IOS Benchmark
+**References.** Cisco, Harden IOS Devices; NSA, Network Infrastructure Security Guide; CIS Cisco IOS Benchmark
 
 - **Router1** - `router rip`: 'router rip' has no 'passive-interface' statement; it is active on 3 interface(s).
   - `L64 router rip`
@@ -492,7 +492,7 @@
 
 **Remediation.** Switch the line to 'login local' and create per-user accounts with 'username ... secret ...'.
 
-**References.** Cisco, Guide to Harden Cisco IOS Devices
+**References.** Cisco, Harden IOS Devices
 
 - **Router1** - `lines without credentials`: 'login' is set but no 'password' exists on: line vty 0 4.
   - `L88 [line vty 0 4] login`
@@ -520,7 +520,7 @@
 
 **Remediation.** 'service password-encryption', and store credentials with 'secret' so they are hashed in the first place.
 
-**References.** CIS Cisco IOS Benchmark; Cisco, Guide to Harden Cisco IOS Devices
+**References.** CIS Cisco IOS Benchmark; Cisco, Harden IOS Devices
 
 - **Router1** - `global`: 'service password-encryption' is off (explicitly disabled); no clear-text credentials are present right now.
   - `L11 no service password-encryption`
@@ -545,7 +545,7 @@
 
 **Remediation.** 'no ip proxy-arp' on every routed interface or subinterface.
 
-**References.** CIS Cisco IOS Benchmark; Cisco, Guide to Harden Cisco IOS Devices
+**References.** CIS Cisco IOS Benchmark; Cisco, Harden IOS Devices
 
 - **Router1** - `interfaces`: Proxy ARP is active (default) on 3 routed interface(s).
   - `L45 interface FastEthernet0/0`
@@ -569,7 +569,7 @@
 
 **Remediation.** 'vtp mode transparent' (or 'vtp mode off' where supported) and manage VLANs per switch.
 
-**References.** Cisco, Guide to Harden Cisco IOS Devices; CIS Cisco IOS Benchmark
+**References.** Cisco, Harden IOS Devices; CIS Cisco IOS Benchmark
 
 - **Switch0** - `global`: No 'vtp mode transparent' or 'vtp mode off' (the default is server mode).
 - **Switch1** - `global`: No 'vtp mode transparent' or 'vtp mode off' (the default is server mode).
@@ -626,7 +626,7 @@
 
 **Remediation.** Configure 'banner login' (or 'banner motd') with an authorised-use notice that reveals no device details.
 
-**References.** CIS Cisco IOS Benchmark; Cisco, Guide to Harden Cisco IOS Devices
+**References.** CIS Cisco IOS Benchmark; Cisco, Harden IOS Devices
 
 - **Router1** - `global`: Neither 'banner login' nor 'banner motd' is configured.
 - **Router2** - `global`: Neither 'banner login' nor 'banner motd' is configured.
@@ -713,7 +713,7 @@
 
 **Remediation.** 'no ip source-route'.
 
-**References.** CIS Cisco IOS Benchmark; Cisco, Guide to Harden Cisco IOS Devices
+**References.** CIS Cisco IOS Benchmark; Cisco, Harden IOS Devices
 
 - **Router1** - `global`: 'no ip source-route' is not configured (IOS processes source-routed packets by default).
 - **Router2** - `global`: 'no ip source-route' is not configured (IOS processes source-routed packets by default).

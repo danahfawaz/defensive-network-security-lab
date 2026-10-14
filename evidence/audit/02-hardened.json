@@ -154,7 +154,7 @@
       "remediation": "'ip dhcp snooping' and 'ip dhcp snooping vlan <ids>'; mark only the uplink toward the real DHCP server with 'ip dhcp snooping trust'; rate-limit client ports with 'ip dhcp snooping limit rate 15'.",
       "references": [
         "MITRE ATT&CK T1557 Adversary-in-the-Middle",
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "NSA, Network Infrastructure Security Guide"
       ],
       "status": "accepted-risk",
@@ -175,7 +175,7 @@
       "remediation": "'ip arp inspection vlan <ids>' on VLANs whose hosts get their addresses through DHCP snooping; trust only uplinks ('ip arp inspection trust'); use ARP ACLs for statically addressed hosts.",
       "references": [
         "MITRE ATT&CK T1557.002 Adversary-in-the-Middle: ARP Cache Poisoning",
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "NSA, Network Infrastructure Security Guide"
       ],
       "status": "accepted-risk",

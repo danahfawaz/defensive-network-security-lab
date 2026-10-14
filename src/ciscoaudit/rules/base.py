@@ -9,7 +9,7 @@ from ..model import Evidence, Severity
 from ..parser import ConfigLine, DeviceConfig
 
 # Reference documents are named, not linked, so they cannot rot; docs/ lists them with URLs.
-REF_CISCO_HARDEN = "Cisco, Guide to Harden Cisco IOS Devices"
+REF_CISCO_HARDEN = "Cisco, Harden IOS Devices"
 REF_CIS_IOS = "CIS Cisco IOS Benchmark"
 REF_NSA_NIG = "NSA, Network Infrastructure Security Guide"
 REF_NSA_PWD = "NSA, Cisco Password Types: Best Practices"

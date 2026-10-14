@@ -232,7 +232,7 @@
       "remediation": "Set a strong, unique secret: 'enable secret <value>' (stored as a hash). Do not use 'enable password'.",
       "references": [
         "CIS Cisco IOS Benchmark",
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "NSA, Cisco Password Types: Best Practices"
       ],
       "status": "open"
@@ -259,7 +259,7 @@
       "remediation": "Allow only SSH on the VTY lines: 'line vty 0 15' / 'transport input ssh'.",
       "references": [
         "MITRE ATT&CK T1040 Network Sniffing",
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "CIS Cisco IOS Benchmark",
         "NSA, Network Infrastructure Security Guide"
       ],
@@ -301,7 +301,7 @@
       "remediation": "RIPv2: 'key chain' + 'ip rip authentication mode md5' + 'ip rip authentication key-chain'. OSPF: 'area <n> authentication message-digest' (or per-interface) with 'ip ospf message-digest-key'. Also make user-facing interfaces passive.",
       "references": [
         "MITRE ATT&CK T1557 Adversary-in-the-Middle",
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "CIS Cisco IOS Benchmark",
         "NSA, Network Infrastructure Security Guide"
       ],
@@ -322,7 +322,7 @@
       "remediation": "Set a strong, unique secret: 'enable secret <value>' (stored as a hash). Do not use 'enable password'.",
       "references": [
         "CIS Cisco IOS Benchmark",
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "NSA, Cisco Password Types: Best Practices"
       ],
       "status": "open"
@@ -349,7 +349,7 @@
       "remediation": "Allow only SSH on the VTY lines: 'line vty 0 15' / 'transport input ssh'.",
       "references": [
         "MITRE ATT&CK T1040 Network Sniffing",
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "CIS Cisco IOS Benchmark",
         "NSA, Network Infrastructure Security Guide"
       ],
@@ -386,7 +386,7 @@
       "remediation": "RIPv2: 'key chain' + 'ip rip authentication mode md5' + 'ip rip authentication key-chain'. OSPF: 'area <n> authentication message-digest' (or per-interface) with 'ip ospf message-digest-key'. Also make user-facing interfaces passive.",
       "references": [
         "MITRE ATT&CK T1557 Adversary-in-the-Middle",
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "CIS Cisco IOS Benchmark",
         "NSA, Network Infrastructure Security Guide"
       ],
@@ -407,7 +407,7 @@
       "remediation": "Set a strong, unique secret: 'enable secret <value>' (stored as a hash). Do not use 'enable password'.",
       "references": [
         "CIS Cisco IOS Benchmark",
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "NSA, Cisco Password Types: Best Practices"
       ],
       "status": "open"
@@ -434,7 +434,7 @@
       "remediation": "Allow only SSH on the VTY lines: 'line vty 0 15' / 'transport input ssh'.",
       "references": [
         "MITRE ATT&CK T1040 Network Sniffing",
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "CIS Cisco IOS Benchmark",
         "NSA, Network Infrastructure Security Guide"
       ],
@@ -471,7 +471,7 @@
       "remediation": "RIPv2: 'key chain' + 'ip rip authentication mode md5' + 'ip rip authentication key-chain'. OSPF: 'area <n> authentication message-digest' (or per-interface) with 'ip ospf message-digest-key'. Also make user-facing interfaces passive.",
       "references": [
         "MITRE ATT&CK T1557 Adversary-in-the-Middle",
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "CIS Cisco IOS Benchmark",
         "NSA, Network Infrastructure Security Guide"
       ],
@@ -492,7 +492,7 @@
       "remediation": "Set a strong, unique secret: 'enable secret <value>' (stored as a hash). Do not use 'enable password'.",
       "references": [
         "CIS Cisco IOS Benchmark",
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "NSA, Cisco Password Types: Best Practices"
       ],
       "status": "open"
@@ -519,7 +519,7 @@
       "remediation": "Allow only SSH on the VTY lines: 'line vty 0 15' / 'transport input ssh'.",
       "references": [
         "MITRE ATT&CK T1040 Network Sniffing",
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "CIS Cisco IOS Benchmark",
         "NSA, Network Infrastructure Security Guide"
       ],
@@ -556,7 +556,7 @@
       "remediation": "RIPv2: 'key chain' + 'ip rip authentication mode md5' + 'ip rip authentication key-chain'. OSPF: 'area <n> authentication message-digest' (or per-interface) with 'ip ospf message-digest-key'. Also make user-facing interfaces passive.",
       "references": [
         "MITRE ATT&CK T1557 Adversary-in-the-Middle",
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "CIS Cisco IOS Benchmark",
         "NSA, Network Infrastructure Security Guide"
       ],
@@ -577,7 +577,7 @@
       "remediation": "Set a strong, unique secret: 'enable secret <value>' (stored as a hash). Do not use 'enable password'.",
       "references": [
         "CIS Cisco IOS Benchmark",
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "NSA, Cisco Password Types: Best Practices"
       ],
       "status": "open"
@@ -609,7 +609,7 @@
       "remediation": "Allow only SSH on the VTY lines: 'line vty 0 15' / 'transport input ssh'.",
       "references": [
         "MITRE ATT&CK T1040 Network Sniffing",
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "CIS Cisco IOS Benchmark",
         "NSA, Network Infrastructure Security Guide"
       ],
@@ -630,7 +630,7 @@
       "remediation": "Set a strong, unique secret: 'enable secret <value>' (stored as a hash). Do not use 'enable password'.",
       "references": [
         "CIS Cisco IOS Benchmark",
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "NSA, Cisco Password Types: Best Practices"
       ],
       "status": "open"
@@ -662,7 +662,7 @@
       "remediation": "Allow only SSH on the VTY lines: 'line vty 0 15' / 'transport input ssh'.",
       "references": [
         "MITRE ATT&CK T1040 Network Sniffing",
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "CIS Cisco IOS Benchmark",
         "NSA, Network Infrastructure Security Guide"
       ],
@@ -683,7 +683,7 @@
       "remediation": "Set a strong, unique secret: 'enable secret <value>' (stored as a hash). Do not use 'enable password'.",
       "references": [
         "CIS Cisco IOS Benchmark",
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "NSA, Cisco Password Types: Best Practices"
       ],
       "status": "open"
@@ -715,7 +715,7 @@
       "remediation": "Allow only SSH on the VTY lines: 'line vty 0 15' / 'transport input ssh'.",
       "references": [
         "MITRE ATT&CK T1040 Network Sniffing",
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "CIS Cisco IOS Benchmark",
         "NSA, Network Infrastructure Security Guide"
       ],
@@ -740,7 +740,7 @@
       "remediation": "Define zone policy ACLs and apply them with 'ip access-group <name> in' on the interface closest to the source.",
       "references": [
         "NSA, Network Infrastructure Security Guide",
-        "Cisco, Guide to Harden Cisco IOS Devices"
+        "Cisco, Harden IOS Devices"
       ],
       "status": "open"
     },
@@ -770,7 +770,7 @@
       "risk": "A line without 'login' gives an unauthenticated exec session to anyone with physical access, a serial console server or a modem on the AUX port. Out-of-band paths bypass every network-based control.",
       "remediation": "Console: 'line con 0' / 'login local' / 'exec-timeout 5 0' / 'logging synchronous'. AUX: disable it ('line aux 0' / 'no exec' / 'transport input none') unless a modem is genuinely required.",
       "references": [
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "CIS Cisco IOS Benchmark"
       ],
       "status": "open"
@@ -790,7 +790,7 @@
       "remediation": "'logging host <syslog-server>' with 'logging trap informational' and a stable 'logging source-interface'.",
       "references": [
         "CIS Cisco IOS Benchmark",
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "NSA, Network Infrastructure Security Guide"
       ],
       "status": "open"
@@ -816,7 +816,7 @@
       "risk": "Without an 'access-class', every host that can route to any interface of the device may attempt to log in or exploit the management services. A management ACL shrinks that audience to a few administrator addresses.",
       "remediation": "Define 'ip access-list standard VTY-MGMT' permitting only the admin host(s) and a final 'deny any log', then apply 'access-class VTY-MGMT in' on every VTY line.",
       "references": [
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "CIS Cisco IOS Benchmark",
         "NSA, Network Infrastructure Security Guide"
       ],
@@ -844,7 +844,7 @@
       "remediation": "'line aux 0' / 'no exec' / 'transport input none' / 'transport output none'.",
       "references": [
         "CIS Cisco IOS Benchmark",
-        "Cisco, Guide to Harden Cisco IOS Devices"
+        "Cisco, Harden IOS Devices"
       ],
       "status": "open"
     },
@@ -864,7 +864,7 @@
       "references": [
         "MITRE ATT&CK T1021.004 Remote Services: SSH",
         "CIS Cisco IOS Benchmark",
-        "Cisco, Guide to Harden Cisco IOS Devices"
+        "Cisco, Harden IOS Devices"
       ],
       "status": "open"
     },
@@ -887,7 +887,7 @@
       "risk": "RIPv1 is classful (updates carry no subnet masks, so VLSM designs cannot be expressed), broadcasts its updates and has no authentication, so any host on the segment can spoof a neighbour.",
       "remediation": "'router rip' / 'version 2' / 'no auto-summary' with authentication, or migrate to OSPF.",
       "references": [
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "NSA, Network Infrastructure Security Guide"
       ],
       "status": "open"
@@ -915,7 +915,7 @@
       "risk": "Without passive interfaces the router sends and accepts routing updates on user-facing segments too, so a host there can learn the topology, form adjacencies or inject routes.",
       "remediation": "Use 'passive-interface default' under the routing process, then 'no passive-interface <link>' only on interfaces that face routers.",
       "references": [
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "NSA, Network Infrastructure Security Guide",
         "CIS Cisco IOS Benchmark"
       ],
@@ -939,7 +939,7 @@
       "remediation": "Define zone policy ACLs and apply them with 'ip access-group <name> in' on the interface closest to the source.",
       "references": [
         "NSA, Network Infrastructure Security Guide",
-        "Cisco, Guide to Harden Cisco IOS Devices"
+        "Cisco, Harden IOS Devices"
       ],
       "status": "open"
     },
@@ -969,7 +969,7 @@
       "risk": "A line without 'login' gives an unauthenticated exec session to anyone with physical access, a serial console server or a modem on the AUX port. Out-of-band paths bypass every network-based control.",
       "remediation": "Console: 'line con 0' / 'login local' / 'exec-timeout 5 0' / 'logging synchronous'. AUX: disable it ('line aux 0' / 'no exec' / 'transport input none') unless a modem is genuinely required.",
       "references": [
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "CIS Cisco IOS Benchmark"
       ],
       "status": "open"
@@ -989,7 +989,7 @@
       "remediation": "'logging host <syslog-server>' with 'logging trap informational' and a stable 'logging source-interface'.",
       "references": [
         "CIS Cisco IOS Benchmark",
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "NSA, Network Infrastructure Security Guide"
       ],
       "status": "open"
@@ -1015,7 +1015,7 @@
       "risk": "Without an 'access-class', every host that can route to any interface of the device may attempt to log in or exploit the management services. A management ACL shrinks that audience to a few administrator addresses.",
       "remediation": "Define 'ip access-list standard VTY-MGMT' permitting only the admin host(s) and a final 'deny any log', then apply 'access-class VTY-MGMT in' on every VTY line.",
       "references": [
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "CIS Cisco IOS Benchmark",
         "NSA, Network Infrastructure Security Guide"
       ],
@@ -1043,7 +1043,7 @@
       "remediation": "'line aux 0' / 'no exec' / 'transport input none' / 'transport output none'.",
       "references": [
         "CIS Cisco IOS Benchmark",
-        "Cisco, Guide to Harden Cisco IOS Devices"
+        "Cisco, Harden IOS Devices"
       ],
       "status": "open"
     },
@@ -1063,7 +1063,7 @@
       "references": [
         "MITRE ATT&CK T1021.004 Remote Services: SSH",
         "CIS Cisco IOS Benchmark",
-        "Cisco, Guide to Harden Cisco IOS Devices"
+        "Cisco, Harden IOS Devices"
       ],
       "status": "open"
     },
@@ -1086,7 +1086,7 @@
       "risk": "RIPv1 is classful (updates carry no subnet masks, so VLSM designs cannot be expressed), broadcasts its updates and has no authentication, so any host on the segment can spoof a neighbour.",
       "remediation": "'router rip' / 'version 2' / 'no auto-summary' with authentication, or migrate to OSPF.",
       "references": [
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "NSA, Network Infrastructure Security Guide"
       ],
       "status": "open"
@@ -1113,7 +1113,7 @@
       "risk": "Without passive interfaces the router sends and accepts routing updates on user-facing segments too, so a host there can learn the topology, form adjacencies or inject routes.",
       "remediation": "Use 'passive-interface default' under the routing process, then 'no passive-interface <link>' only on interfaces that face routers.",
       "references": [
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "NSA, Network Infrastructure Security Guide",
         "CIS Cisco IOS Benchmark"
       ],
@@ -1137,7 +1137,7 @@
       "remediation": "Define zone policy ACLs and apply them with 'ip access-group <name> in' on the interface closest to the source.",
       "references": [
         "NSA, Network Infrastructure Security Guide",
-        "Cisco, Guide to Harden Cisco IOS Devices"
+        "Cisco, Harden IOS Devices"
       ],
       "status": "open"
     },
@@ -1167,7 +1167,7 @@
       "risk": "A line without 'login' gives an unauthenticated exec session to anyone with physical access, a serial console server or a modem on the AUX port. Out-of-band paths bypass every network-based control.",
       "remediation": "Console: 'line con 0' / 'login local' / 'exec-timeout 5 0' / 'logging synchronous'. AUX: disable it ('line aux 0' / 'no exec' / 'transport input none') unless a modem is genuinely required.",
       "references": [
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "CIS Cisco IOS Benchmark"
       ],
       "status": "open"
@@ -1187,7 +1187,7 @@
       "remediation": "'logging host <syslog-server>' with 'logging trap informational' and a stable 'logging source-interface'.",
       "references": [
         "CIS Cisco IOS Benchmark",
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "NSA, Network Infrastructure Security Guide"
       ],
       "status": "open"
@@ -1213,7 +1213,7 @@
       "risk": "Without an 'access-class', every host that can route to any interface of the device may attempt to log in or exploit the management services. A management ACL shrinks that audience to a few administrator addresses.",
       "remediation": "Define 'ip access-list standard VTY-MGMT' permitting only the admin host(s) and a final 'deny any log', then apply 'access-class VTY-MGMT in' on every VTY line.",
       "references": [
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "CIS Cisco IOS Benchmark",
         "NSA, Network Infrastructure Security Guide"
       ],
@@ -1241,7 +1241,7 @@
       "remediation": "'line aux 0' / 'no exec' / 'transport input none' / 'transport output none'.",
       "references": [
         "CIS Cisco IOS Benchmark",
-        "Cisco, Guide to Harden Cisco IOS Devices"
+        "Cisco, Harden IOS Devices"
       ],
       "status": "open"
     },
@@ -1261,7 +1261,7 @@
       "references": [
         "MITRE ATT&CK T1021.004 Remote Services: SSH",
         "CIS Cisco IOS Benchmark",
-        "Cisco, Guide to Harden Cisco IOS Devices"
+        "Cisco, Harden IOS Devices"
       ],
       "status": "open"
     },
@@ -1284,7 +1284,7 @@
       "risk": "RIPv1 is classful (updates carry no subnet masks, so VLSM designs cannot be expressed), broadcasts its updates and has no authentication, so any host on the segment can spoof a neighbour.",
       "remediation": "'router rip' / 'version 2' / 'no auto-summary' with authentication, or migrate to OSPF.",
       "references": [
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "NSA, Network Infrastructure Security Guide"
       ],
       "status": "open"
@@ -1311,7 +1311,7 @@
       "risk": "Without passive interfaces the router sends and accepts routing updates on user-facing segments too, so a host there can learn the topology, form adjacencies or inject routes.",
       "remediation": "Use 'passive-interface default' under the routing process, then 'no passive-interface <link>' only on interfaces that face routers.",
       "references": [
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "NSA, Network Infrastructure Security Guide",
         "CIS Cisco IOS Benchmark"
       ],
@@ -1335,7 +1335,7 @@
       "remediation": "Define zone policy ACLs and apply them with 'ip access-group <name> in' on the interface closest to the source.",
       "references": [
         "NSA, Network Infrastructure Security Guide",
-        "Cisco, Guide to Harden Cisco IOS Devices"
+        "Cisco, Harden IOS Devices"
       ],
       "status": "open"
     },
@@ -1365,7 +1365,7 @@
       "risk": "A line without 'login' gives an unauthenticated exec session to anyone with physical access, a serial console server or a modem on the AUX port. Out-of-band paths bypass every network-based control.",
       "remediation": "Console: 'line con 0' / 'login local' / 'exec-timeout 5 0' / 'logging synchronous'. AUX: disable it ('line aux 0' / 'no exec' / 'transport input none') unless a modem is genuinely required.",
       "references": [
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "CIS Cisco IOS Benchmark"
       ],
       "status": "open"
@@ -1385,7 +1385,7 @@
       "remediation": "'logging host <syslog-server>' with 'logging trap informational' and a stable 'logging source-interface'.",
       "references": [
         "CIS Cisco IOS Benchmark",
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "NSA, Network Infrastructure Security Guide"
       ],
       "status": "open"
@@ -1411,7 +1411,7 @@
       "risk": "Without an 'access-class', every host that can route to any interface of the device may attempt to log in or exploit the management services. A management ACL shrinks that audience to a few administrator addresses.",
       "remediation": "Define 'ip access-list standard VTY-MGMT' permitting only the admin host(s) and a final 'deny any log', then apply 'access-class VTY-MGMT in' on every VTY line.",
       "references": [
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "CIS Cisco IOS Benchmark",
         "NSA, Network Infrastructure Security Guide"
       ],
@@ -1439,7 +1439,7 @@
       "remediation": "'line aux 0' / 'no exec' / 'transport input none' / 'transport output none'.",
       "references": [
         "CIS Cisco IOS Benchmark",
-        "Cisco, Guide to Harden Cisco IOS Devices"
+        "Cisco, Harden IOS Devices"
       ],
       "status": "open"
     },
@@ -1459,7 +1459,7 @@
       "references": [
         "MITRE ATT&CK T1021.004 Remote Services: SSH",
         "CIS Cisco IOS Benchmark",
-        "Cisco, Guide to Harden Cisco IOS Devices"
+        "Cisco, Harden IOS Devices"
       ],
       "status": "open"
     },
@@ -1482,7 +1482,7 @@
       "risk": "RIPv1 is classful (updates carry no subnet masks, so VLSM designs cannot be expressed), broadcasts its updates and has no authentication, so any host on the segment can spoof a neighbour.",
       "remediation": "'router rip' / 'version 2' / 'no auto-summary' with authentication, or migrate to OSPF.",
       "references": [
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "NSA, Network Infrastructure Security Guide"
       ],
       "status": "open"
@@ -1509,7 +1509,7 @@
       "risk": "Without passive interfaces the router sends and accepts routing updates on user-facing segments too, so a host there can learn the topology, form adjacencies or inject routes.",
       "remediation": "Use 'passive-interface default' under the routing process, then 'no passive-interface <link>' only on interfaces that face routers.",
       "references": [
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "NSA, Network Infrastructure Security Guide",
         "CIS Cisco IOS Benchmark"
       ],
@@ -1536,7 +1536,7 @@
       "risk": "A line without 'login' gives an unauthenticated exec session to anyone with physical access, a serial console server or a modem on the AUX port. Out-of-band paths bypass every network-based control.",
       "remediation": "Console: 'line con 0' / 'login local' / 'exec-timeout 5 0' / 'logging synchronous'. AUX: disable it ('line aux 0' / 'no exec' / 'transport input none') unless a modem is genuinely required.",
       "references": [
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "CIS Cisco IOS Benchmark"
       ],
       "status": "open"
@@ -1615,7 +1615,7 @@
       "risk": "A port left in dynamic auto/desirable mode will turn itself into an 802.1Q trunk if the device on the other end asks it to. An attacker's host (or a rogue switch) then receives every VLAN the trunk carries.",
       "remediation": "Set 'switchport mode access' on every end-user port and 'switchport mode trunk' + 'switchport nonegotiate' on uplinks.",
       "references": [
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "CIS Cisco IOS Benchmark",
         "NSA, Network Infrastructure Security Guide"
       ],
@@ -1697,7 +1697,7 @@
       "references": [
         "MITRE ATT&CK T1200 Hardware Additions",
         "MITRE ATT&CK T1557 Adversary-in-the-Middle",
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "CIS Cisco IOS Benchmark"
       ],
       "status": "open"
@@ -1776,7 +1776,7 @@
       "risk": "A switch (or a host running a bridging tool) plugged into an edge port can send BPDUs, win the root-bridge election and pull traffic through itself, or trigger repeated reconvergence and an outage.",
       "remediation": "'spanning-tree portfast' + 'spanning-tree bpduguard enable' per port, or 'spanning-tree portfast default' + 'spanning-tree portfast bpduguard default' globally.",
       "references": [
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "CIS Cisco IOS Benchmark",
         "NSA, Network Infrastructure Security Guide"
       ],
@@ -1936,7 +1936,7 @@
       "risk": "VLAN 1 cannot be deleted and carries control-plane protocols (CDP, VTP, DTP, STP). Placing users there removes any segmentation and exposes those protocols to them.",
       "remediation": "Assign end-user ports to purpose-built VLANs ('switchport access vlan 10') and keep VLAN 1 empty.",
       "references": [
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "CIS Cisco IOS Benchmark",
         "NSA, Network Infrastructure Security Guide"
       ],
@@ -1957,7 +1957,7 @@
       "remediation": "'ip dhcp snooping' and 'ip dhcp snooping vlan <ids>'; mark only the uplink toward the real DHCP server with 'ip dhcp snooping trust'; rate-limit client ports with 'ip dhcp snooping limit rate 15'.",
       "references": [
         "MITRE ATT&CK T1557 Adversary-in-the-Middle",
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "NSA, Network Infrastructure Security Guide"
       ],
       "status": "open"
@@ -1977,7 +1977,7 @@
       "remediation": "'ip arp inspection vlan <ids>' on VLANs whose hosts get their addresses through DHCP snooping; trust only uplinks ('ip arp inspection trust'); use ARP ACLs for statically addressed hosts.",
       "references": [
         "MITRE ATT&CK T1557.002 Adversary-in-the-Middle: ARP Cache Poisoning",
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "NSA, Network Infrastructure Security Guide"
       ],
       "status": "open"
@@ -1997,7 +1997,7 @@
       "remediation": "'logging host <syslog-server>' with 'logging trap informational' and a stable 'logging source-interface'.",
       "references": [
         "CIS Cisco IOS Benchmark",
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "NSA, Network Infrastructure Security Guide"
       ],
       "status": "open"
@@ -2028,7 +2028,7 @@
       "risk": "Without an 'access-class', every host that can route to any interface of the device may attempt to log in or exploit the management services. A management ACL shrinks that audience to a few administrator addresses.",
       "remediation": "Define 'ip access-list standard VTY-MGMT' permitting only the admin host(s) and a final 'deny any log', then apply 'access-class VTY-MGMT in' on every VTY line.",
       "references": [
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "CIS Cisco IOS Benchmark",
         "NSA, Network Infrastructure Security Guide"
       ],
@@ -2050,7 +2050,7 @@
       "references": [
         "MITRE ATT&CK T1021.004 Remote Services: SSH",
         "CIS Cisco IOS Benchmark",
-        "Cisco, Guide to Harden Cisco IOS Devices"
+        "Cisco, Harden IOS Devices"
       ],
       "status": "open"
     },
@@ -2075,7 +2075,7 @@
       "risk": "A line without 'login' gives an unauthenticated exec session to anyone with physical access, a serial console server or a modem on the AUX port. Out-of-band paths bypass every network-based control.",
       "remediation": "Console: 'line con 0' / 'login local' / 'exec-timeout 5 0' / 'logging synchronous'. AUX: disable it ('line aux 0' / 'no exec' / 'transport input none') unless a modem is genuinely required.",
       "references": [
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "CIS Cisco IOS Benchmark"
       ],
       "status": "open"
@@ -2154,7 +2154,7 @@
       "risk": "A port left in dynamic auto/desirable mode will turn itself into an 802.1Q trunk if the device on the other end asks it to. An attacker's host (or a rogue switch) then receives every VLAN the trunk carries.",
       "remediation": "Set 'switchport mode access' on every end-user port and 'switchport mode trunk' + 'switchport nonegotiate' on uplinks.",
       "references": [
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "CIS Cisco IOS Benchmark",
         "NSA, Network Infrastructure Security Guide"
       ],
@@ -2236,7 +2236,7 @@
       "references": [
         "MITRE ATT&CK T1200 Hardware Additions",
         "MITRE ATT&CK T1557 Adversary-in-the-Middle",
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "CIS Cisco IOS Benchmark"
       ],
       "status": "open"
@@ -2315,7 +2315,7 @@
       "risk": "A switch (or a host running a bridging tool) plugged into an edge port can send BPDUs, win the root-bridge election and pull traffic through itself, or trigger repeated reconvergence and an outage.",
       "remediation": "'spanning-tree portfast' + 'spanning-tree bpduguard enable' per port, or 'spanning-tree portfast default' + 'spanning-tree portfast bpduguard default' globally.",
       "references": [
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "CIS Cisco IOS Benchmark",
         "NSA, Network Infrastructure Security Guide"
       ],
@@ -2475,7 +2475,7 @@
       "risk": "VLAN 1 cannot be deleted and carries control-plane protocols (CDP, VTP, DTP, STP). Placing users there removes any segmentation and exposes those protocols to them.",
       "remediation": "Assign end-user ports to purpose-built VLANs ('switchport access vlan 10') and keep VLAN 1 empty.",
       "references": [
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "CIS Cisco IOS Benchmark",
         "NSA, Network Infrastructure Security Guide"
       ],
@@ -2496,7 +2496,7 @@
       "remediation": "'ip dhcp snooping' and 'ip dhcp snooping vlan <ids>'; mark only the uplink toward the real DHCP server with 'ip dhcp snooping trust'; rate-limit client ports with 'ip dhcp snooping limit rate 15'.",
       "references": [
         "MITRE ATT&CK T1557 Adversary-in-the-Middle",
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "NSA, Network Infrastructure Security Guide"
       ],
       "status": "open"
@@ -2516,7 +2516,7 @@
       "remediation": "'ip arp inspection vlan <ids>' on VLANs whose hosts get their addresses through DHCP snooping; trust only uplinks ('ip arp inspection trust'); use ARP ACLs for statically addressed hosts.",
       "references": [
         "MITRE ATT&CK T1557.002 Adversary-in-the-Middle: ARP Cache Poisoning",
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "NSA, Network Infrastructure Security Guide"
       ],
       "status": "open"
@@ -2536,7 +2536,7 @@
       "remediation": "'logging host <syslog-server>' with 'logging trap informational' and a stable 'logging source-interface'.",
       "references": [
         "CIS Cisco IOS Benchmark",
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "NSA, Network Infrastructure Security Guide"
       ],
       "status": "open"
@@ -2567,7 +2567,7 @@
       "risk": "Without an 'access-class', every host that can route to any interface of the device may attempt to log in or exploit the management services. A management ACL shrinks that audience to a few administrator addresses.",
       "remediation": "Define 'ip access-list standard VTY-MGMT' permitting only the admin host(s) and a final 'deny any log', then apply 'access-class VTY-MGMT in' on every VTY line.",
       "references": [
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "CIS Cisco IOS Benchmark",
         "NSA, Network Infrastructure Security Guide"
       ],
@@ -2589,7 +2589,7 @@
       "references": [
         "MITRE ATT&CK T1021.004 Remote Services: SSH",
         "CIS Cisco IOS Benchmark",
-        "Cisco, Guide to Harden Cisco IOS Devices"
+        "Cisco, Harden IOS Devices"
       ],
       "status": "open"
     },
@@ -2614,7 +2614,7 @@
       "risk": "A line without 'login' gives an unauthenticated exec session to anyone with physical access, a serial console server or a modem on the AUX port. Out-of-band paths bypass every network-based control.",
       "remediation": "Console: 'line con 0' / 'login local' / 'exec-timeout 5 0' / 'logging synchronous'. AUX: disable it ('line aux 0' / 'no exec' / 'transport input none') unless a modem is genuinely required.",
       "references": [
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "CIS Cisco IOS Benchmark"
       ],
       "status": "open"
@@ -2693,7 +2693,7 @@
       "risk": "A port left in dynamic auto/desirable mode will turn itself into an 802.1Q trunk if the device on the other end asks it to. An attacker's host (or a rogue switch) then receives every VLAN the trunk carries.",
       "remediation": "Set 'switchport mode access' on every end-user port and 'switchport mode trunk' + 'switchport nonegotiate' on uplinks.",
       "references": [
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "CIS Cisco IOS Benchmark",
         "NSA, Network Infrastructure Security Guide"
       ],
@@ -2775,7 +2775,7 @@
       "references": [
         "MITRE ATT&CK T1200 Hardware Additions",
         "MITRE ATT&CK T1557 Adversary-in-the-Middle",
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "CIS Cisco IOS Benchmark"
       ],
       "status": "open"
@@ -2854,7 +2854,7 @@
       "risk": "A switch (or a host running a bridging tool) plugged into an edge port can send BPDUs, win the root-bridge election and pull traffic through itself, or trigger repeated reconvergence and an outage.",
       "remediation": "'spanning-tree portfast' + 'spanning-tree bpduguard enable' per port, or 'spanning-tree portfast default' + 'spanning-tree portfast bpduguard default' globally.",
       "references": [
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "CIS Cisco IOS Benchmark",
         "NSA, Network Infrastructure Security Guide"
       ],
@@ -3014,7 +3014,7 @@
       "risk": "VLAN 1 cannot be deleted and carries control-plane protocols (CDP, VTP, DTP, STP). Placing users there removes any segmentation and exposes those protocols to them.",
       "remediation": "Assign end-user ports to purpose-built VLANs ('switchport access vlan 10') and keep VLAN 1 empty.",
       "references": [
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "CIS Cisco IOS Benchmark",
         "NSA, Network Infrastructure Security Guide"
       ],
@@ -3035,7 +3035,7 @@
       "remediation": "'ip dhcp snooping' and 'ip dhcp snooping vlan <ids>'; mark only the uplink toward the real DHCP server with 'ip dhcp snooping trust'; rate-limit client ports with 'ip dhcp snooping limit rate 15'.",
       "references": [
         "MITRE ATT&CK T1557 Adversary-in-the-Middle",
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "NSA, Network Infrastructure Security Guide"
       ],
       "status": "open"
@@ -3055,7 +3055,7 @@
       "remediation": "'ip arp inspection vlan <ids>' on VLANs whose hosts get their addresses through DHCP snooping; trust only uplinks ('ip arp inspection trust'); use ARP ACLs for statically addressed hosts.",
       "references": [
         "MITRE ATT&CK T1557.002 Adversary-in-the-Middle: ARP Cache Poisoning",
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "NSA, Network Infrastructure Security Guide"
       ],
       "status": "open"
@@ -3075,7 +3075,7 @@
       "remediation": "'logging host <syslog-server>' with 'logging trap informational' and a stable 'logging source-interface'.",
       "references": [
         "CIS Cisco IOS Benchmark",
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "NSA, Network Infrastructure Security Guide"
       ],
       "status": "open"
@@ -3106,7 +3106,7 @@
       "risk": "Without an 'access-class', every host that can route to any interface of the device may attempt to log in or exploit the management services. A management ACL shrinks that audience to a few administrator addresses.",
       "remediation": "Define 'ip access-list standard VTY-MGMT' permitting only the admin host(s) and a final 'deny any log', then apply 'access-class VTY-MGMT in' on every VTY line.",
       "references": [
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "CIS Cisco IOS Benchmark",
         "NSA, Network Infrastructure Security Guide"
       ],
@@ -3128,7 +3128,7 @@
       "references": [
         "MITRE ATT&CK T1021.004 Remote Services: SSH",
         "CIS Cisco IOS Benchmark",
-        "Cisco, Guide to Harden Cisco IOS Devices"
+        "Cisco, Harden IOS Devices"
       ],
       "status": "open"
     },
@@ -3154,7 +3154,7 @@
       "risk": "'login' without a line password makes IOS reject every attempt ('Password required, but none set'). The line is unusable, and the usual quick fix - adding one shared password - is weaker than per-user authentication.",
       "remediation": "Switch the line to 'login local' and create per-user accounts with 'username ... secret ...'.",
       "references": [
-        "Cisco, Guide to Harden Cisco IOS Devices"
+        "Cisco, Harden IOS Devices"
       ],
       "status": "open"
     },
@@ -3178,7 +3178,7 @@
       "remediation": "'service password-encryption', and store credentials with 'secret' so they are hashed in the first place.",
       "references": [
         "CIS Cisco IOS Benchmark",
-        "Cisco, Guide to Harden Cisco IOS Devices"
+        "Cisco, Harden IOS Devices"
       ],
       "status": "open"
     },
@@ -3214,7 +3214,7 @@
       "remediation": "'no ip proxy-arp' on every routed interface or subinterface.",
       "references": [
         "CIS Cisco IOS Benchmark",
-        "Cisco, Guide to Harden Cisco IOS Devices"
+        "Cisco, Harden IOS Devices"
       ],
       "status": "open"
     },
@@ -3275,7 +3275,7 @@
       "remediation": "Configure 'banner login' (or 'banner motd') with an authorised-use notice that reveals no device details.",
       "references": [
         "CIS Cisco IOS Benchmark",
-        "Cisco, Guide to Harden Cisco IOS Devices"
+        "Cisco, Harden IOS Devices"
       ],
       "status": "open"
     },
@@ -3350,7 +3350,7 @@
       "remediation": "'no ip source-route'.",
       "references": [
         "CIS Cisco IOS Benchmark",
-        "Cisco, Guide to Harden Cisco IOS Devices"
+        "Cisco, Harden IOS Devices"
       ],
       "status": "open"
     },
@@ -3399,7 +3399,7 @@
       "risk": "'login' without a line password makes IOS reject every attempt ('Password required, but none set'). The line is unusable, and the usual quick fix - adding one shared password - is weaker than per-user authentication.",
       "remediation": "Switch the line to 'login local' and create per-user accounts with 'username ... secret ...'.",
       "references": [
-        "Cisco, Guide to Harden Cisco IOS Devices"
+        "Cisco, Harden IOS Devices"
       ],
       "status": "open"
     },
@@ -3423,7 +3423,7 @@
       "remediation": "'service password-encryption', and store credentials with 'secret' so they are hashed in the first place.",
       "references": [
         "CIS Cisco IOS Benchmark",
-        "Cisco, Guide to Harden Cisco IOS Devices"
+        "Cisco, Harden IOS Devices"
       ],
       "status": "open"
     },
@@ -3454,7 +3454,7 @@
       "remediation": "'no ip proxy-arp' on every routed interface or subinterface.",
       "references": [
         "CIS Cisco IOS Benchmark",
-        "Cisco, Guide to Harden Cisco IOS Devices"
+        "Cisco, Harden IOS Devices"
       ],
       "status": "open"
     },
@@ -3515,7 +3515,7 @@
       "remediation": "Configure 'banner login' (or 'banner motd') with an authorised-use notice that reveals no device details.",
       "references": [
         "CIS Cisco IOS Benchmark",
-        "Cisco, Guide to Harden Cisco IOS Devices"
+        "Cisco, Harden IOS Devices"
       ],
       "status": "open"
     },
@@ -3585,7 +3585,7 @@
       "remediation": "'no ip source-route'.",
       "references": [
         "CIS Cisco IOS Benchmark",
-        "Cisco, Guide to Harden Cisco IOS Devices"
+        "Cisco, Harden IOS Devices"
       ],
       "status": "open"
     },
@@ -3634,7 +3634,7 @@
       "risk": "'login' without a line password makes IOS reject every attempt ('Password required, but none set'). The line is unusable, and the usual quick fix - adding one shared password - is weaker than per-user authentication.",
       "remediation": "Switch the line to 'login local' and create per-user accounts with 'username ... secret ...'.",
       "references": [
-        "Cisco, Guide to Harden Cisco IOS Devices"
+        "Cisco, Harden IOS Devices"
       ],
       "status": "open"
     },
@@ -3658,7 +3658,7 @@
       "remediation": "'service password-encryption', and store credentials with 'secret' so they are hashed in the first place.",
       "references": [
         "CIS Cisco IOS Benchmark",
-        "Cisco, Guide to Harden Cisco IOS Devices"
+        "Cisco, Harden IOS Devices"
       ],
       "status": "open"
     },
@@ -3689,7 +3689,7 @@
       "remediation": "'no ip proxy-arp' on every routed interface or subinterface.",
       "references": [
         "CIS Cisco IOS Benchmark",
-        "Cisco, Guide to Harden Cisco IOS Devices"
+        "Cisco, Harden IOS Devices"
       ],
       "status": "open"
     },
@@ -3750,7 +3750,7 @@
       "remediation": "Configure 'banner login' (or 'banner motd') with an authorised-use notice that reveals no device details.",
       "references": [
         "CIS Cisco IOS Benchmark",
-        "Cisco, Guide to Harden Cisco IOS Devices"
+        "Cisco, Harden IOS Devices"
       ],
       "status": "open"
     },
@@ -3820,7 +3820,7 @@
       "remediation": "'no ip source-route'.",
       "references": [
         "CIS Cisco IOS Benchmark",
-        "Cisco, Guide to Harden Cisco IOS Devices"
+        "Cisco, Harden IOS Devices"
       ],
       "status": "open"
     },
@@ -3869,7 +3869,7 @@
       "risk": "'login' without a line password makes IOS reject every attempt ('Password required, but none set'). The line is unusable, and the usual quick fix - adding one shared password - is weaker than per-user authentication.",
       "remediation": "Switch the line to 'login local' and create per-user accounts with 'username ... secret ...'.",
       "references": [
-        "Cisco, Guide to Harden Cisco IOS Devices"
+        "Cisco, Harden IOS Devices"
       ],
       "status": "open"
     },
@@ -3893,7 +3893,7 @@
       "remediation": "'service password-encryption', and store credentials with 'secret' so they are hashed in the first place.",
       "references": [
         "CIS Cisco IOS Benchmark",
-        "Cisco, Guide to Harden Cisco IOS Devices"
+        "Cisco, Harden IOS Devices"
       ],
       "status": "open"
     },
@@ -3924,7 +3924,7 @@
       "remediation": "'no ip proxy-arp' on every routed interface or subinterface.",
       "references": [
         "CIS Cisco IOS Benchmark",
-        "Cisco, Guide to Harden Cisco IOS Devices"
+        "Cisco, Harden IOS Devices"
       ],
       "status": "open"
     },
@@ -3985,7 +3985,7 @@
       "remediation": "Configure 'banner login' (or 'banner motd') with an authorised-use notice that reveals no device details.",
       "references": [
         "CIS Cisco IOS Benchmark",
-        "Cisco, Guide to Harden Cisco IOS Devices"
+        "Cisco, Harden IOS Devices"
       ],
       "status": "open"
     },
@@ -4055,7 +4055,7 @@
       "remediation": "'no ip source-route'.",
       "references": [
         "CIS Cisco IOS Benchmark",
-        "Cisco, Guide to Harden Cisco IOS Devices"
+        "Cisco, Harden IOS Devices"
       ],
       "status": "open"
     },
@@ -4110,7 +4110,7 @@
       "risk": "'login' without a line password makes IOS reject every attempt ('Password required, but none set'). The line is unusable, and the usual quick fix - adding one shared password - is weaker than per-user authentication.",
       "remediation": "Switch the line to 'login local' and create per-user accounts with 'username ... secret ...'.",
       "references": [
-        "Cisco, Guide to Harden Cisco IOS Devices"
+        "Cisco, Harden IOS Devices"
       ],
       "status": "open"
     },
@@ -4134,7 +4134,7 @@
       "remediation": "'service password-encryption', and store credentials with 'secret' so they are hashed in the first place.",
       "references": [
         "CIS Cisco IOS Benchmark",
-        "Cisco, Guide to Harden Cisco IOS Devices"
+        "Cisco, Harden IOS Devices"
       ],
       "status": "open"
     },
@@ -4152,7 +4152,7 @@
       "risk": "In VTP server or client mode, a switch advertising a higher revision number overwrites the VLAN database of every switch in the domain - by accident or on purpose - deleting VLANs and causing an outage.",
       "remediation": "'vtp mode transparent' (or 'vtp mode off' where supported) and manage VLANs per switch.",
       "references": [
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "CIS Cisco IOS Benchmark"
       ],
       "status": "open"
@@ -4214,7 +4214,7 @@
       "remediation": "Configure 'banner login' (or 'banner motd') with an authorised-use notice that reveals no device details.",
       "references": [
         "CIS Cisco IOS Benchmark",
-        "Cisco, Guide to Harden Cisco IOS Devices"
+        "Cisco, Harden IOS Devices"
       ],
       "status": "open"
     },
@@ -4368,7 +4368,7 @@
       "risk": "'login' without a line password makes IOS reject every attempt ('Password required, but none set'). The line is unusable, and the usual quick fix - adding one shared password - is weaker than per-user authentication.",
       "remediation": "Switch the line to 'login local' and create per-user accounts with 'username ... secret ...'.",
       "references": [
-        "Cisco, Guide to Harden Cisco IOS Devices"
+        "Cisco, Harden IOS Devices"
       ],
       "status": "open"
     },
@@ -4392,7 +4392,7 @@
       "remediation": "'service password-encryption', and store credentials with 'secret' so they are hashed in the first place.",
       "references": [
         "CIS Cisco IOS Benchmark",
-        "Cisco, Guide to Harden Cisco IOS Devices"
+        "Cisco, Harden IOS Devices"
       ],
       "status": "open"
     },
@@ -4410,7 +4410,7 @@
       "risk": "In VTP server or client mode, a switch advertising a higher revision number overwrites the VLAN database of every switch in the domain - by accident or on purpose - deleting VLANs and causing an outage.",
       "remediation": "'vtp mode transparent' (or 'vtp mode off' where supported) and manage VLANs per switch.",
       "references": [
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "CIS Cisco IOS Benchmark"
       ],
       "status": "open"
@@ -4472,7 +4472,7 @@
       "remediation": "Configure 'banner login' (or 'banner motd') with an authorised-use notice that reveals no device details.",
       "references": [
         "CIS Cisco IOS Benchmark",
-        "Cisco, Guide to Harden Cisco IOS Devices"
+        "Cisco, Harden IOS Devices"
       ],
       "status": "open"
     },
@@ -4626,7 +4626,7 @@
       "risk": "'login' without a line password makes IOS reject every attempt ('Password required, but none set'). The line is unusable, and the usual quick fix - adding one shared password - is weaker than per-user authentication.",
       "remediation": "Switch the line to 'login local' and create per-user accounts with 'username ... secret ...'.",
       "references": [
-        "Cisco, Guide to Harden Cisco IOS Devices"
+        "Cisco, Harden IOS Devices"
       ],
       "status": "open"
     },
@@ -4650,7 +4650,7 @@
       "remediation": "'service password-encryption', and store credentials with 'secret' so they are hashed in the first place.",
       "references": [
         "CIS Cisco IOS Benchmark",
-        "Cisco, Guide to Harden Cisco IOS Devices"
+        "Cisco, Harden IOS Devices"
       ],
       "status": "open"
     },
@@ -4668,7 +4668,7 @@
       "risk": "In VTP server or client mode, a switch advertising a higher revision number overwrites the VLAN database of every switch in the domain - by accident or on purpose - deleting VLANs and causing an outage.",
       "remediation": "'vtp mode transparent' (or 'vtp mode off' where supported) and manage VLANs per switch.",
       "references": [
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "CIS Cisco IOS Benchmark"
       ],
       "status": "open"
@@ -4730,7 +4730,7 @@
       "remediation": "Configure 'banner login' (or 'banner motd') with an authorised-use notice that reveals no device details.",
       "references": [
         "CIS Cisco IOS Benchmark",
-        "Cisco, Guide to Harden Cisco IOS Devices"
+        "Cisco, Harden IOS Devices"
       ],
       "status": "open"
     },

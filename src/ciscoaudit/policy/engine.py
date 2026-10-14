@@ -37,6 +37,20 @@ ICMP_ECHO, ICMP_ECHO_REPLY = 8, 0
 DELIVERED, DENIED, DROPPED, REFUSED = "delivered", "denied", "dropped", "refused"
 
 
+class UnsupportedConfig(ValueError):
+    """The configuration uses something the simulator cannot evaluate; a guess could turn a deny into a silent permit."""
+
+
+def _require_evaluable(router: str, name: str, acl) -> None:
+    """Refuse to simulate an ACL with entries the model cannot judge (unparsed entries, TCP flag matches, fragments,
+    time ranges, DSCP/precedence...). Skipping them would make a ``deny`` that the device enforces invisible."""
+    for ace in acl.entries:
+        if ace.error or ace.flags or ace.options:
+            why = ace.error or "TCP flags, fragments, time-range and DSCP/precedence matches are not modelled"
+            raise UnsupportedConfig(f"{router}: ACL {name} line {ace.line.no} '{ace.text}': {why}; "
+                                    "the simulator will not guess (see docs/limitations.md)")
+
+
 @dataclass(frozen=True)
 class Hop:
     """One thing that happened to the packet."""
@@ -391,6 +405,7 @@ class Simulator:
         if acl is None:
             ctx.hops.append(Hop(r.name, "acl", "info", f"{where}: ACL {name} is not defined, IOS permits everything"))
             return True
+        _require_evaluable(r.name, name, acl)
         verdict = acl.evaluate(pkt)
         if verdict.ace is not None:
             entry = f"'{verdict.ace.text}' (line {verdict.ace.line.no})"
@@ -428,6 +443,7 @@ class Simulator:
             iface = r.interfaces.get(pat.interface)
             if acl is None or iface is None or iface.ip is None:
                 continue
+            _require_evaluable(r.name, pat.acl, acl)
             if acl.evaluate(pkt).action == "permit":
                 ctx.hops.append(Hop(r.name, "nat", "info", f"PAT: {src} -> {iface.ip.ip} (ACL {pat.acl}, interface {pat.interface})"))
                 leg.pat_sessions[int(iface.ip.ip)] = pkt.src

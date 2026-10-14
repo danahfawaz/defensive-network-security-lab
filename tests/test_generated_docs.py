@@ -115,7 +115,7 @@ class ReadmeNumbers(unittest.TestCase):
 
     def test_audit_table(self):
         text = (ROOT / "README.md").read_text(encoding="utf-8")
-        for label, path, waivers in (("Original university lab (7 devices)", "configs/original-lab", False),
+        for label, path, waivers in (("Original university lab (7 devices) ¹", "configs/original-lab", False),
                                      ("Redesigned network, **baseline** configuration", "configs/baseline", False),
                                      ("Redesigned network, **hardened** configuration", "configs/hardened", True)):
             sm = self.audit_summary(path, waivers)

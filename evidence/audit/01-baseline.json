@@ -338,7 +338,7 @@
       "remediation": "Allow only SSH on the VTY lines: 'line vty 0 15' / 'transport input ssh'.",
       "references": [
         "MITRE ATT&CK T1040 Network Sniffing",
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "CIS Cisco IOS Benchmark",
         "NSA, Network Infrastructure Security Guide"
       ],
@@ -365,7 +365,7 @@
       "references": [
         "MITRE ATT&CK T1040 Network Sniffing",
         "CIS Cisco IOS Benchmark",
-        "Cisco, Guide to Harden Cisco IOS Devices"
+        "Cisco, Harden IOS Devices"
       ],
       "status": "open"
     },
@@ -441,7 +441,7 @@
       "remediation": "Allow only SSH on the VTY lines: 'line vty 0 15' / 'transport input ssh'.",
       "references": [
         "MITRE ATT&CK T1040 Network Sniffing",
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "CIS Cisco IOS Benchmark",
         "NSA, Network Infrastructure Security Guide"
       ],
@@ -519,7 +519,7 @@
       "remediation": "Allow only SSH on the VTY lines: 'line vty 0 15' / 'transport input ssh'.",
       "references": [
         "MITRE ATT&CK T1040 Network Sniffing",
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "CIS Cisco IOS Benchmark",
         "NSA, Network Infrastructure Security Guide"
       ],
@@ -546,7 +546,7 @@
       "risk": "An unrestricted permit turns an ACL into a blocklist: everything not explicitly denied above it is allowed, including new services, spoofed sources and lateral movement. As the first matching entry it disables the ACL.",
       "remediation": "Replace it with the specific flows that are needed and finish with an explicit 'deny ip any any log'.",
       "references": [
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "NSA, Network Infrastructure Security Guide"
       ],
       "status": "open"
@@ -572,7 +572,7 @@
       "risk": "A line without 'login' gives an unauthenticated exec session to anyone with physical access, a serial console server or a modem on the AUX port. Out-of-band paths bypass every network-based control.",
       "remediation": "Console: 'line con 0' / 'login local' / 'exec-timeout 5 0' / 'logging synchronous'. AUX: disable it ('line aux 0' / 'no exec' / 'transport input none') unless a modem is genuinely required.",
       "references": [
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "CIS Cisco IOS Benchmark"
       ],
       "status": "open"
@@ -604,7 +604,7 @@
       "risk": "A single password shared by every administrator leaves no per-person audit trail, cannot be revoked for one person without changing it for all, and is easy to guess, share or leak.",
       "remediation": "Use 'login local' with one 'username ... secret ...' per administrator (or AAA with TACACS+/RADIUS).",
       "references": [
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "NSA, Network Infrastructure Security Guide"
       ],
       "status": "open"
@@ -629,7 +629,7 @@
       "remediation": "'service password-encryption', and store credentials with 'secret' so they are hashed in the first place.",
       "references": [
         "CIS Cisco IOS Benchmark",
-        "Cisco, Guide to Harden Cisco IOS Devices"
+        "Cisco, Harden IOS Devices"
       ],
       "status": "open"
     },
@@ -648,7 +648,7 @@
       "remediation": "'logging host <syslog-server>' with 'logging trap informational' and a stable 'logging source-interface'.",
       "references": [
         "CIS Cisco IOS Benchmark",
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "NSA, Network Infrastructure Security Guide"
       ],
       "status": "open"
@@ -674,7 +674,7 @@
       "risk": "Without an 'access-class', every host that can route to any interface of the device may attempt to log in or exploit the management services. A management ACL shrinks that audience to a few administrator addresses.",
       "remediation": "Define 'ip access-list standard VTY-MGMT' permitting only the admin host(s) and a final 'deny any log', then apply 'access-class VTY-MGMT in' on every VTY line.",
       "references": [
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "CIS Cisco IOS Benchmark",
         "NSA, Network Infrastructure Security Guide"
       ],
@@ -702,7 +702,7 @@
       "remediation": "'line aux 0' / 'no exec' / 'transport input none' / 'transport output none'.",
       "references": [
         "CIS Cisco IOS Benchmark",
-        "Cisco, Guide to Harden Cisco IOS Devices"
+        "Cisco, Harden IOS Devices"
       ],
       "status": "open"
     },
@@ -722,7 +722,7 @@
       "references": [
         "MITRE ATT&CK T1021.004 Remote Services: SSH",
         "CIS Cisco IOS Benchmark",
-        "Cisco, Guide to Harden Cisco IOS Devices"
+        "Cisco, Harden IOS Devices"
       ],
       "status": "open"
     },
@@ -764,7 +764,7 @@
       "risk": "A single password shared by every administrator leaves no per-person audit trail, cannot be revoked for one person without changing it for all, and is easy to guess, share or leak.",
       "remediation": "Use 'login local' with one 'username ... secret ...' per administrator (or AAA with TACACS+/RADIUS).",
       "references": [
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "NSA, Network Infrastructure Security Guide"
       ],
       "status": "open"
@@ -789,7 +789,7 @@
       "remediation": "'service password-encryption', and store credentials with 'secret' so they are hashed in the first place.",
       "references": [
         "CIS Cisco IOS Benchmark",
-        "Cisco, Guide to Harden Cisco IOS Devices"
+        "Cisco, Harden IOS Devices"
       ],
       "status": "open"
     },
@@ -836,7 +836,7 @@
       "risk": "A port left in dynamic auto/desirable mode will turn itself into an 802.1Q trunk if the device on the other end asks it to. An attacker's host (or a rogue switch) then receives every VLAN the trunk carries.",
       "remediation": "Set 'switchport mode access' on every end-user port and 'switchport mode trunk' + 'switchport nonegotiate' on uplinks.",
       "references": [
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "CIS Cisco IOS Benchmark",
         "NSA, Network Infrastructure Security Guide"
       ],
@@ -863,7 +863,7 @@
       "risk": "Native-VLAN frames cross a trunk untagged. A host in the native VLAN can double-tag frames so that the first switch strips the outer tag and the second delivers the packet into another VLAN (VLAN hopping).",
       "remediation": "Use an unused VLAN as native VLAN on every trunk: 'switchport trunk native vlan 999' (no ports or SVI in it).",
       "references": [
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "CIS Cisco IOS Benchmark",
         "NSA, Network Infrastructure Security Guide"
       ],
@@ -944,7 +944,7 @@
       "references": [
         "MITRE ATT&CK T1200 Hardware Additions",
         "MITRE ATT&CK T1557 Adversary-in-the-Middle",
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "CIS Cisco IOS Benchmark"
       ],
       "status": "open"
@@ -1022,7 +1022,7 @@
       "risk": "A switch (or a host running a bridging tool) plugged into an edge port can send BPDUs, win the root-bridge election and pull traffic through itself, or trigger repeated reconvergence and an outage.",
       "remediation": "'spanning-tree portfast' + 'spanning-tree bpduguard enable' per port, or 'spanning-tree portfast default' + 'spanning-tree portfast bpduguard default' globally.",
       "references": [
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "CIS Cisco IOS Benchmark",
         "NSA, Network Infrastructure Security Guide"
       ],
@@ -1120,7 +1120,7 @@
       "risk": "VLAN 1 cannot be deleted and carries control-plane protocols (CDP, VTP, DTP, STP). Placing users there removes any segmentation and exposes those protocols to them.",
       "remediation": "Assign end-user ports to purpose-built VLANs ('switchport access vlan 10') and keep VLAN 1 empty.",
       "references": [
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "CIS Cisco IOS Benchmark",
         "NSA, Network Infrastructure Security Guide"
       ],
@@ -1141,7 +1141,7 @@
       "remediation": "'ip dhcp snooping' and 'ip dhcp snooping vlan <ids>'; mark only the uplink toward the real DHCP server with 'ip dhcp snooping trust'; rate-limit client ports with 'ip dhcp snooping limit rate 15'.",
       "references": [
         "MITRE ATT&CK T1557 Adversary-in-the-Middle",
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "NSA, Network Infrastructure Security Guide"
       ],
       "status": "open"
@@ -1161,7 +1161,7 @@
       "remediation": "'ip arp inspection vlan <ids>' on VLANs whose hosts get their addresses through DHCP snooping; trust only uplinks ('ip arp inspection trust'); use ARP ACLs for statically addressed hosts.",
       "references": [
         "MITRE ATT&CK T1557.002 Adversary-in-the-Middle: ARP Cache Poisoning",
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "NSA, Network Infrastructure Security Guide"
       ],
       "status": "open"
@@ -1181,7 +1181,7 @@
       "remediation": "'logging host <syslog-server>' with 'logging trap informational' and a stable 'logging source-interface'.",
       "references": [
         "CIS Cisco IOS Benchmark",
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "NSA, Network Infrastructure Security Guide"
       ],
       "status": "open"
@@ -1212,7 +1212,7 @@
       "risk": "Without an 'access-class', every host that can route to any interface of the device may attempt to log in or exploit the management services. A management ACL shrinks that audience to a few administrator addresses.",
       "remediation": "Define 'ip access-list standard VTY-MGMT' permitting only the admin host(s) and a final 'deny any log', then apply 'access-class VTY-MGMT in' on every VTY line.",
       "references": [
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "CIS Cisco IOS Benchmark",
         "NSA, Network Infrastructure Security Guide"
       ],
@@ -1234,7 +1234,7 @@
       "references": [
         "MITRE ATT&CK T1021.004 Remote Services: SSH",
         "CIS Cisco IOS Benchmark",
-        "Cisco, Guide to Harden Cisco IOS Devices"
+        "Cisco, Harden IOS Devices"
       ],
       "status": "open"
     },
@@ -1276,7 +1276,7 @@
       "risk": "A single password shared by every administrator leaves no per-person audit trail, cannot be revoked for one person without changing it for all, and is easy to guess, share or leak.",
       "remediation": "Use 'login local' with one 'username ... secret ...' per administrator (or AAA with TACACS+/RADIUS).",
       "references": [
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "NSA, Network Infrastructure Security Guide"
       ],
       "status": "open"
@@ -1301,7 +1301,7 @@
       "remediation": "'service password-encryption', and store credentials with 'secret' so they are hashed in the first place.",
       "references": [
         "CIS Cisco IOS Benchmark",
-        "Cisco, Guide to Harden Cisco IOS Devices"
+        "Cisco, Harden IOS Devices"
       ],
       "status": "open"
     },
@@ -1352,7 +1352,7 @@
       "risk": "A port left in dynamic auto/desirable mode will turn itself into an 802.1Q trunk if the device on the other end asks it to. An attacker's host (or a rogue switch) then receives every VLAN the trunk carries.",
       "remediation": "Set 'switchport mode access' on every end-user port and 'switchport mode trunk' + 'switchport nonegotiate' on uplinks.",
       "references": [
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "CIS Cisco IOS Benchmark",
         "NSA, Network Infrastructure Security Guide"
       ],
@@ -1422,7 +1422,7 @@
       "references": [
         "MITRE ATT&CK T1200 Hardware Additions",
         "MITRE ATT&CK T1557 Adversary-in-the-Middle",
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "CIS Cisco IOS Benchmark"
       ],
       "status": "open"
@@ -1489,7 +1489,7 @@
       "risk": "A switch (or a host running a bridging tool) plugged into an edge port can send BPDUs, win the root-bridge election and pull traffic through itself, or trigger repeated reconvergence and an outage.",
       "remediation": "'spanning-tree portfast' + 'spanning-tree bpduguard enable' per port, or 'spanning-tree portfast default' + 'spanning-tree portfast bpduguard default' globally.",
       "references": [
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "CIS Cisco IOS Benchmark",
         "NSA, Network Infrastructure Security Guide"
       ],
@@ -1595,7 +1595,7 @@
       "risk": "VLAN 1 cannot be deleted and carries control-plane protocols (CDP, VTP, DTP, STP). Placing users there removes any segmentation and exposes those protocols to them.",
       "remediation": "Assign end-user ports to purpose-built VLANs ('switchport access vlan 10') and keep VLAN 1 empty.",
       "references": [
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "CIS Cisco IOS Benchmark",
         "NSA, Network Infrastructure Security Guide"
       ],
@@ -1616,7 +1616,7 @@
       "remediation": "'ip dhcp snooping' and 'ip dhcp snooping vlan <ids>'; mark only the uplink toward the real DHCP server with 'ip dhcp snooping trust'; rate-limit client ports with 'ip dhcp snooping limit rate 15'.",
       "references": [
         "MITRE ATT&CK T1557 Adversary-in-the-Middle",
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "NSA, Network Infrastructure Security Guide"
       ],
       "status": "open"
@@ -1636,7 +1636,7 @@
       "remediation": "'ip arp inspection vlan <ids>' on VLANs whose hosts get their addresses through DHCP snooping; trust only uplinks ('ip arp inspection trust'); use ARP ACLs for statically addressed hosts.",
       "references": [
         "MITRE ATT&CK T1557.002 Adversary-in-the-Middle: ARP Cache Poisoning",
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "NSA, Network Infrastructure Security Guide"
       ],
       "status": "open"
@@ -1656,7 +1656,7 @@
       "remediation": "'logging host <syslog-server>' with 'logging trap informational' and a stable 'logging source-interface'.",
       "references": [
         "CIS Cisco IOS Benchmark",
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "NSA, Network Infrastructure Security Guide"
       ],
       "status": "open"
@@ -1687,7 +1687,7 @@
       "risk": "Without an 'access-class', every host that can route to any interface of the device may attempt to log in or exploit the management services. A management ACL shrinks that audience to a few administrator addresses.",
       "remediation": "Define 'ip access-list standard VTY-MGMT' permitting only the admin host(s) and a final 'deny any log', then apply 'access-class VTY-MGMT in' on every VTY line.",
       "references": [
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "CIS Cisco IOS Benchmark",
         "NSA, Network Infrastructure Security Guide"
       ],
@@ -1709,7 +1709,7 @@
       "references": [
         "MITRE ATT&CK T1021.004 Remote Services: SSH",
         "CIS Cisco IOS Benchmark",
-        "Cisco, Guide to Harden Cisco IOS Devices"
+        "Cisco, Harden IOS Devices"
       ],
       "status": "open"
     },
@@ -1734,7 +1734,7 @@
       "risk": "Packets dropped by the implicit deny at the end of an ACL are never logged, so scans and policy violations stay invisible to monitoring.",
       "remediation": "End every interface ACL with 'deny ip any any log' (mind log rate limits on busy interfaces).",
       "references": [
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "NSA, Network Infrastructure Security Guide"
       ],
       "status": "open"
@@ -1786,7 +1786,7 @@
       "remediation": "'no ip proxy-arp' on every routed interface or subinterface.",
       "references": [
         "CIS Cisco IOS Benchmark",
-        "Cisco, Guide to Harden Cisco IOS Devices"
+        "Cisco, Harden IOS Devices"
       ],
       "status": "open"
     },
@@ -1847,7 +1847,7 @@
       "remediation": "Configure 'banner login' (or 'banner motd') with an authorised-use notice that reveals no device details.",
       "references": [
         "CIS Cisco IOS Benchmark",
-        "Cisco, Guide to Harden Cisco IOS Devices"
+        "Cisco, Harden IOS Devices"
       ],
       "status": "open"
     },
@@ -1922,7 +1922,7 @@
       "remediation": "'no ip source-route'.",
       "references": [
         "CIS Cisco IOS Benchmark",
-        "Cisco, Guide to Harden Cisco IOS Devices"
+        "Cisco, Harden IOS Devices"
       ],
       "status": "open"
     },
@@ -1947,7 +1947,7 @@
       "risk": "A static trunk without 'switchport nonegotiate' keeps advertising DTP, which leaks the link's role and invites negotiation attempts.",
       "remediation": "Add 'switchport nonegotiate' to every static trunk.",
       "references": [
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "CIS Cisco IOS Benchmark"
       ],
       "status": "open"
@@ -1973,7 +1973,7 @@
       "risk": "A trunk that allows all VLANs widens broadcast domains and extends the reach of VLAN-hopping and spanning-tree attacks to VLANs that do not belong on that link.",
       "remediation": "Prune each trunk: 'switchport trunk allowed vlan 10,20,99'.",
       "references": [
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "CIS Cisco IOS Benchmark"
       ],
       "status": "open"
@@ -1992,7 +1992,7 @@
       "risk": "In VTP server or client mode, a switch advertising a higher revision number overwrites the VLAN database of every switch in the domain - by accident or on purpose - deleting VLANs and causing an outage.",
       "remediation": "'vtp mode transparent' (or 'vtp mode off' where supported) and manage VLANs per switch.",
       "references": [
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "CIS Cisco IOS Benchmark"
       ],
       "status": "open"
@@ -2054,7 +2054,7 @@
       "remediation": "Configure 'banner login' (or 'banner motd') with an authorised-use notice that reveals no device details.",
       "references": [
         "CIS Cisco IOS Benchmark",
-        "Cisco, Guide to Harden Cisco IOS Devices"
+        "Cisco, Harden IOS Devices"
       ],
       "status": "open"
     },
@@ -2171,7 +2171,7 @@
       "risk": "In VTP server or client mode, a switch advertising a higher revision number overwrites the VLAN database of every switch in the domain - by accident or on purpose - deleting VLANs and causing an outage.",
       "remediation": "'vtp mode transparent' (or 'vtp mode off' where supported) and manage VLANs per switch.",
       "references": [
-        "Cisco, Guide to Harden Cisco IOS Devices",
+        "Cisco, Harden IOS Devices",
         "CIS Cisco IOS Benchmark"
       ],
       "status": "open"
@@ -2233,7 +2233,7 @@
       "remediation": "Configure 'banner login' (or 'banner motd') with an authorised-use notice that reveals no device details.",
       "references": [
         "CIS Cisco IOS Benchmark",
-        "Cisco, Guide to Harden Cisco IOS Devices"
+        "Cisco, Harden IOS Devices"
       ],
       "status": "open"
     },

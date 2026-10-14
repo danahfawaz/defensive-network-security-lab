@@ -59,5 +59,26 @@ class RedactTests(unittest.TestCase):
         self.assertEqual(redact(once), once)
 
 
+class MoreCredentialForms(unittest.TestCase):
+    CASES = {
+        "radius-server host 10.1.1.1 auth-port 1812 acct-port 1813 key 7 070C285F4D06": "radius-server host 10.1.1.1 auth-port 1812 acct-port 1813 key 7 <redacted>",
+        "server-private 10.2.2.2 key 0 SPkey": "server-private 10.2.2.2 key 0 <redacted>",
+        "snmp-server user bob grp v3 auth md5 AuthPass1 priv aes 128 PrivPass1": "snmp-server user bob grp v3 auth md5 <redacted> priv aes 128 <redacted>",
+        "standby 1 authentication text HsrpPass": "standby 1 authentication text <redacted>",
+        "standby 1 authentication md5 key-string 0 Hs2": "standby 1 authentication md5 key-string 0 <redacted>",
+        "standby 1 authentication md5 key-chain CH1": "standby 1 authentication md5 key-chain CH1",
+        "vrrp 2 authentication text VrrpPass": "vrrp 2 authentication text <redacted>",
+        "pre-shared-key address 1.1.1.1 key PSKkey": "pre-shared-key address 1.1.1.1 key <redacted>",
+        "pre-shared-key local 0 LocalKey": "pre-shared-key local 0 <redacted>",
+        "wpa-psk ascii 0 WpaKey123": "wpa-psk ascii 0 <redacted>",
+        "key config-key password-encryption MasterKey": "key config-key password-encryption <redacted>",
+    }
+
+    def test_additional_credential_forms_are_masked(self):
+        for text, expected in self.CASES.items():
+            with self.subTest(text=text):
+                self.assertEqual(redact(text), expected)
+
+
 if __name__ == "__main__":
     unittest.main()

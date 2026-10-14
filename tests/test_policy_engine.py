@@ -9,7 +9,7 @@ from __future__ import annotations
 
 import unittest
 
-from ciscoaudit.policy.engine import Simulator, format_trace
+from ciscoaudit.policy.engine import Simulator, UnsupportedConfig, format_trace
 from ciscoaudit.policy.flow import parse_flow
 from ciscoaudit.policy.network import load_network
 from ciscoaudit.policy.topology import load_topology
@@ -185,6 +185,20 @@ class DamagedConfigurations(unittest.TestCase):
         self.assertTrue(result.forward.delivered, "the request now reaches the application server")
         # ...but the server's own ACL still refuses to answer a guest: replies are filtered separately
         self.assertEqual((result.phase, result.blocked_by), ("reply", "IN-SERVERS"))
+
+    def test_an_acl_entry_the_model_cannot_evaluate_is_refused_not_skipped(self):
+        # a TCP flag match: 'deny tcp ... syn' would be read as a plain deny, a silent change of meaning
+        self.ws.edit("hardened", "FW-EDGE", " permit tcp 10.10.10.0 0.0.0.255 host 10.10.20.10 eq 443\n",
+                     " permit tcp 10.10.10.0 0.0.0.255 host 10.10.20.10 eq 443 syn\n")
+        with self.assertRaises(UnsupportedConfig) as ctx:
+            run("PC0 -> SRV-APP tcp/443", sim=self.sim())
+        self.assertIn("IN-USERS", str(ctx.exception))
+
+    def test_an_unparsable_acl_entry_is_refused_not_skipped(self):
+        self.ws.edit("hardened", "FW-EDGE", " permit tcp 10.10.10.0 0.0.0.255 host 10.10.20.10 eq 443\n",
+                     " permit tcp 10.10.10.0 0.0.0.255 host 10.10.20.10 eq 443 frobnicate\n")
+        with self.assertRaises(UnsupportedConfig):
+            run("PC0 -> SRV-APP tcp/443", sim=self.sim())
 
     def test_removing_static_nat_breaks_the_published_service(self):
         self.ws.edit("hardened", "FW-EDGE", "ip nat inside source static 172.16.50.10 203.0.113.9\n", "")

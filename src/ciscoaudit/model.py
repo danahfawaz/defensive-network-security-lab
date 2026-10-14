@@ -114,9 +114,18 @@ _SECRET_RES = [
     re.compile(r"(?P<pre>\bntp\s+authentication-key\s+\d+\s+md5\s+" + _TYPE + r")(?P<val>\S+)", re.IGNORECASE),
     re.compile(r"(?P<pre>\b(?<!ntp )authentication-key\s+" + _TYPE + r")(?P<val>\S+)", re.IGNORECASE),
     re.compile(r"(?P<pre>\bkey-string\s+" + _TYPE + r")(?P<val>\S+)", re.IGNORECASE),
-    re.compile(r"(?P<pre>\b(?:tacacs|radius)-server\s+(?:host\s+\S+\s+)?key\s+" + _TYPE + r")(?P<val>\S+)", re.IGNORECASE),
+    # radius-server host H auth-port 1812 acct-port 1813 key K ; server-private H key K ; any 'key' later on such a line
+    re.compile(r"(?P<pre>\b(?:(?:tacacs|radius)-server|server-private)\b.*?\bkey\s+" + _TYPE + r")(?P<val>\S+)", re.IGNORECASE),
+    re.compile(r"(?P<pre>\bpre-shared-key\b.*?\bkey\s+" + _TYPE + r")(?P<val>\S+)", re.IGNORECASE),
+    # SNMPv3 users: snmp-server user U G v3 auth md5 X priv aes 128 Y
+    re.compile(r"(?P<pre>\bsnmp-server\s+user\b.*?\bauth\s+\S+\s+" + _TYPE + r")(?P<val>\S+)", re.IGNORECASE),
+    re.compile(r"(?P<pre>\bsnmp-server\s+user\b.*?\bpriv\s+(?:(?:aes|3des|des)\s+(?:(?:128|192|256)\s+)?)?" + _TYPE + r")(?P<val>\S+)", re.IGNORECASE),
+    # first-hop redundancy authentication: standby 1 authentication text K / md5 key-string K
+    re.compile(r"(?P<pre>\b(?:standby|vrrp)\s+\d+\s+authentication\s+(?!md5\s+key-chain\b)(?:text\s+|md5\s+(?:key-string\s+)?)?" + _TYPE + r")(?P<val>\S+)", re.IGNORECASE),
+    re.compile(r"(?P<pre>\bwpa-psk\s+(?:ascii|hex)\s+" + _TYPE + r")(?P<val>\S+)", re.IGNORECASE),
+    re.compile(r"(?P<pre>\bkey\s+config-key\s+password-encryption\s+)(?P<val>\S+)", re.IGNORECASE),
     re.compile(r"(?P<pre>\bcrypto\s+isakmp\s+key\s+" + _TYPE + r")(?P<val>\S+)", re.IGNORECASE),
-    re.compile(r"(?P<pre>\bpre-shared-key\s+(?:local\s+|remote\s+)?" + _TYPE + r")(?P<val>\S+)", re.IGNORECASE),
+    re.compile(r"(?P<pre>\bpre-shared-key\s+(?:local\s+|remote\s+)?" + _TYPE + r")(?!address\b)(?P<val>\S+)", re.IGNORECASE),
     re.compile(
         r"(?P<pre>\bsnmp-server\s+host\s+\S+\s+(?:(?:informs|traps)\s+)?(?:version\s+\S+\s+)?)(?P<val>\S+)",
         re.IGNORECASE,

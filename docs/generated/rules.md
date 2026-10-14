@@ -65,7 +65,7 @@
 
 **Remediation.** Replace it with the specific flows that are needed and finish with an explicit 'deny ip any any log'.
 
-**References.** Cisco, Guide to Harden Cisco IOS Devices; NSA, Network Infrastructure Security Guide
+**References.** Cisco, Harden IOS Devices; NSA, Network Infrastructure Security Guide
 
 ## ACL-002
 
@@ -75,7 +75,7 @@
 
 **Remediation.** End every interface ACL with 'deny ip any any log' (mind log rate limits on busy interfaces).
 
-**References.** Cisco, Guide to Harden Cisco IOS Devices; NSA, Network Infrastructure Security Guide
+**References.** Cisco, Harden IOS Devices; NSA, Network Infrastructure Security Guide
 
 ## ACL-003
 
@@ -95,7 +95,7 @@
 
 **Remediation.** Define the ACL (or correct the name) and verify with 'show ip interface' and 'show access-lists'.
 
-**References.** Cisco, Guide to Harden Cisco IOS Devices
+**References.** Cisco, Harden IOS Devices
 
 ## ACL-005
 
@@ -105,7 +105,7 @@
 
 **Remediation.** Apply the ACL where it is meant to act, or delete it.
 
-**References.** Cisco, Guide to Harden Cisco IOS Devices
+**References.** Cisco, Harden IOS Devices
 
 ## ACL-006
 
@@ -115,7 +115,7 @@
 
 **Remediation.** Reorder so the specific entry comes first, or remove the redundant one.
 
-**References.** Cisco, Guide to Harden Cisco IOS Devices
+**References.** Cisco, Harden IOS Devices
 
 ## ACL-007
 
@@ -125,7 +125,7 @@
 
 **Remediation.** Define zone policy ACLs and apply them with 'ip access-group <name> in' on the interface closest to the source.
 
-**References.** NSA, Network Infrastructure Security Guide; Cisco, Guide to Harden Cisco IOS Devices
+**References.** NSA, Network Infrastructure Security Guide; Cisco, Harden IOS Devices
 
 ## ACL-008
 
@@ -143,7 +143,7 @@
 
 **Remediation.** Require authentication on every VTY line: create per-user accounts ('username <name> privilege 15 secret <strong-secret>') and use 'login local' under 'line vty 0 15', or point 'login authentication' at an AAA method list.
 
-**References.** MITRE ATT&CK T1078 Valid Accounts; Cisco, Guide to Harden Cisco IOS Devices; CIS Cisco IOS Benchmark
+**References.** MITRE ATT&CK T1078 Valid Accounts; Cisco, Harden IOS Devices; CIS Cisco IOS Benchmark
 
 ## AUTH-002
 
@@ -153,7 +153,7 @@
 
 **Remediation.** Console: 'line con 0' / 'login local' / 'exec-timeout 5 0' / 'logging synchronous'. AUX: disable it ('line aux 0' / 'no exec' / 'transport input none') unless a modem is genuinely required.
 
-**References.** Cisco, Guide to Harden Cisco IOS Devices; CIS Cisco IOS Benchmark
+**References.** Cisco, Harden IOS Devices; CIS Cisco IOS Benchmark
 
 ## AUTH-003
 
@@ -163,7 +163,7 @@
 
 **Remediation.** Use 'login local' with one 'username ... secret ...' per administrator (or AAA with TACACS+/RADIUS).
 
-**References.** Cisco, Guide to Harden Cisco IOS Devices; NSA, Network Infrastructure Security Guide
+**References.** Cisco, Harden IOS Devices; NSA, Network Infrastructure Security Guide
 
 ## AUTH-004
 
@@ -173,7 +173,7 @@
 
 **Remediation.** Switch the line to 'login local' and create per-user accounts with 'username ... secret ...'.
 
-**References.** Cisco, Guide to Harden Cisco IOS Devices
+**References.** Cisco, Harden IOS Devices
 
 ## CRED-001
 
@@ -183,7 +183,7 @@
 
 **Remediation.** Set a strong, unique secret: 'enable secret <value>' (stored as a hash). Do not use 'enable password'.
 
-**References.** CIS Cisco IOS Benchmark; Cisco, Guide to Harden Cisco IOS Devices; NSA, Cisco Password Types: Best Practices
+**References.** CIS Cisco IOS Benchmark; Cisco, Harden IOS Devices; NSA, Cisco Password Types: Best Practices
 
 ## CRED-002
 
@@ -223,7 +223,7 @@
 
 **Remediation.** 'service password-encryption', and store credentials with 'secret' so they are hashed in the first place.
 
-**References.** CIS Cisco IOS Benchmark; Cisco, Guide to Harden Cisco IOS Devices
+**References.** CIS Cisco IOS Benchmark; Cisco, Harden IOS Devices
 
 ## INT-001
 
@@ -233,7 +233,7 @@
 
 **Remediation.** 'no ip proxy-arp' on every routed interface or subinterface.
 
-**References.** CIS Cisco IOS Benchmark; Cisco, Guide to Harden Cisco IOS Devices
+**References.** CIS Cisco IOS Benchmark; Cisco, Harden IOS Devices
 
 ## INT-002
 
@@ -253,7 +253,7 @@
 
 **Remediation.** Set 'switchport mode access' on every end-user port and 'switchport mode trunk' + 'switchport nonegotiate' on uplinks.
 
-**References.** Cisco, Guide to Harden Cisco IOS Devices; CIS Cisco IOS Benchmark; NSA, Network Infrastructure Security Guide
+**References.** Cisco, Harden IOS Devices; CIS Cisco IOS Benchmark; NSA, Network Infrastructure Security Guide
 
 ## L2-002
 
@@ -263,7 +263,7 @@
 
 **Remediation.** Add 'switchport nonegotiate' to every static trunk.
 
-**References.** Cisco, Guide to Harden Cisco IOS Devices; CIS Cisco IOS Benchmark
+**References.** Cisco, Harden IOS Devices; CIS Cisco IOS Benchmark
 
 ## L2-003
 
@@ -273,7 +273,7 @@
 
 **Remediation.** Use an unused VLAN as native VLAN on every trunk: 'switchport trunk native vlan 999' (no ports or SVI in it).
 
-**References.** Cisco, Guide to Harden Cisco IOS Devices; CIS Cisco IOS Benchmark; NSA, Network Infrastructure Security Guide
+**References.** Cisco, Harden IOS Devices; CIS Cisco IOS Benchmark; NSA, Network Infrastructure Security Guide
 
 ## L2-004
 
@@ -283,7 +283,7 @@
 
 **Remediation.** Prune each trunk: 'switchport trunk allowed vlan 10,20,99'.
 
-**References.** Cisco, Guide to Harden Cisco IOS Devices; CIS Cisco IOS Benchmark
+**References.** Cisco, Harden IOS Devices; CIS Cisco IOS Benchmark
 
 ## L2-005
 
@@ -293,7 +293,7 @@
 
 **Remediation.** On access ports: 'switchport mode access', 'switchport port-security', 'switchport port-security maximum 2', 'switchport port-security mac-address sticky', 'switchport port-security violation restrict' (or shutdown).
 
-**References.** MITRE ATT&CK T1200 Hardware Additions; MITRE ATT&CK T1557 Adversary-in-the-Middle; Cisco, Guide to Harden Cisco IOS Devices; CIS Cisco IOS Benchmark
+**References.** MITRE ATT&CK T1200 Hardware Additions; MITRE ATT&CK T1557 Adversary-in-the-Middle; Cisco, Harden IOS Devices; CIS Cisco IOS Benchmark
 
 ## L2-006
 
@@ -303,7 +303,7 @@
 
 **Remediation.** 'spanning-tree portfast' + 'spanning-tree bpduguard enable' per port, or 'spanning-tree portfast default' + 'spanning-tree portfast bpduguard default' globally.
 
-**References.** Cisco, Guide to Harden Cisco IOS Devices; CIS Cisco IOS Benchmark; NSA, Network Infrastructure Security Guide
+**References.** Cisco, Harden IOS Devices; CIS Cisco IOS Benchmark; NSA, Network Infrastructure Security Guide
 
 ## L2-007
 
@@ -323,7 +323,7 @@
 
 **Remediation.** Assign end-user ports to purpose-built VLANs ('switchport access vlan 10') and keep VLAN 1 empty.
 
-**References.** Cisco, Guide to Harden Cisco IOS Devices; CIS Cisco IOS Benchmark; NSA, Network Infrastructure Security Guide
+**References.** Cisco, Harden IOS Devices; CIS Cisco IOS Benchmark; NSA, Network Infrastructure Security Guide
 
 ## L2-009
 
@@ -333,7 +333,7 @@
 
 **Remediation.** Move the management SVI to a dedicated management VLAN ('interface Vlan99') and shut down 'interface Vlan1'.
 
-**References.** Cisco, Guide to Harden Cisco IOS Devices; NSA, Network Infrastructure Security Guide
+**References.** Cisco, Harden IOS Devices; NSA, Network Infrastructure Security Guide
 
 ## L2-010
 
@@ -343,7 +343,7 @@
 
 **Remediation.** 'vtp mode transparent' (or 'vtp mode off' where supported) and manage VLANs per switch.
 
-**References.** Cisco, Guide to Harden Cisco IOS Devices; CIS Cisco IOS Benchmark
+**References.** Cisco, Harden IOS Devices; CIS Cisco IOS Benchmark
 
 ## L2-011
 
@@ -353,7 +353,7 @@
 
 **Remediation.** 'ip dhcp snooping' and 'ip dhcp snooping vlan <ids>'; mark only the uplink toward the real DHCP server with 'ip dhcp snooping trust'; rate-limit client ports with 'ip dhcp snooping limit rate 15'.
 
-**References.** MITRE ATT&CK T1557 Adversary-in-the-Middle; Cisco, Guide to Harden Cisco IOS Devices; NSA, Network Infrastructure Security Guide
+**References.** MITRE ATT&CK T1557 Adversary-in-the-Middle; Cisco, Harden IOS Devices; NSA, Network Infrastructure Security Guide
 
 ## L2-012
 
@@ -363,7 +363,7 @@
 
 **Remediation.** 'ip arp inspection vlan <ids>' on VLANs whose hosts get their addresses through DHCP snooping; trust only uplinks ('ip arp inspection trust'); use ARP ACLs for statically addressed hosts.
 
-**References.** MITRE ATT&CK T1557.002 Adversary-in-the-Middle: ARP Cache Poisoning; Cisco, Guide to Harden Cisco IOS Devices; NSA, Network Infrastructure Security Guide
+**References.** MITRE ATT&CK T1557.002 Adversary-in-the-Middle: ARP Cache Poisoning; Cisco, Harden IOS Devices; NSA, Network Infrastructure Security Guide
 
 ## LOG-001
 
@@ -373,7 +373,7 @@
 
 **Remediation.** 'logging host <syslog-server>' with 'logging trap informational' and a stable 'logging source-interface'.
 
-**References.** CIS Cisco IOS Benchmark; Cisco, Guide to Harden Cisco IOS Devices; NSA, Network Infrastructure Security Guide
+**References.** CIS Cisco IOS Benchmark; Cisco, Harden IOS Devices; NSA, Network Infrastructure Security Guide
 
 ## LOG-002
 
@@ -403,7 +403,7 @@
 
 **Remediation.** Allow only SSH on the VTY lines: 'line vty 0 15' / 'transport input ssh'.
 
-**References.** MITRE ATT&CK T1040 Network Sniffing; Cisco, Guide to Harden Cisco IOS Devices; CIS Cisco IOS Benchmark; NSA, Network Infrastructure Security Guide
+**References.** MITRE ATT&CK T1040 Network Sniffing; Cisco, Harden IOS Devices; CIS Cisco IOS Benchmark; NSA, Network Infrastructure Security Guide
 
 ## MGMT-002
 
@@ -413,7 +413,7 @@
 
 **Remediation.** Define 'ip access-list standard VTY-MGMT' permitting only the admin host(s) and a final 'deny any log', then apply 'access-class VTY-MGMT in' on every VTY line.
 
-**References.** Cisco, Guide to Harden Cisco IOS Devices; CIS Cisco IOS Benchmark; NSA, Network Infrastructure Security Guide
+**References.** Cisco, Harden IOS Devices; CIS Cisco IOS Benchmark; NSA, Network Infrastructure Security Guide
 
 ## MGMT-003
 
@@ -423,7 +423,7 @@
 
 **Remediation.** Set 'exec-timeout 5 0' (five minutes or less) under 'line con 0', 'line vty 0 15' and 'line aux 0'.
 
-**References.** CIS Cisco IOS Benchmark; Cisco, Guide to Harden Cisco IOS Devices
+**References.** CIS Cisco IOS Benchmark; Cisco, Harden IOS Devices
 
 ## MGMT-004
 
@@ -433,7 +433,7 @@
 
 **Remediation.** Configure 'banner login' (or 'banner motd') with an authorised-use notice that reveals no device details.
 
-**References.** CIS Cisco IOS Benchmark; Cisco, Guide to Harden Cisco IOS Devices
+**References.** CIS Cisco IOS Benchmark; Cisco, Harden IOS Devices
 
 ## MGMT-005
 
@@ -443,7 +443,7 @@
 
 **Remediation.** 'no ip http server' (and 'no ip http secure-server' unless the HTTPS UI is actually needed and restricted).
 
-**References.** MITRE ATT&CK T1040 Network Sniffing; CIS Cisco IOS Benchmark; Cisco, Guide to Harden Cisco IOS Devices
+**References.** MITRE ATT&CK T1040 Network Sniffing; CIS Cisco IOS Benchmark; Cisco, Harden IOS Devices
 
 ## MGMT-006
 
@@ -453,7 +453,7 @@
 
 **Remediation.** 'line aux 0' / 'no exec' / 'transport input none' / 'transport output none'.
 
-**References.** CIS Cisco IOS Benchmark; Cisco, Guide to Harden Cisco IOS Devices
+**References.** CIS Cisco IOS Benchmark; Cisco, Harden IOS Devices
 
 ## MGMT-007
 
@@ -463,7 +463,7 @@
 
 **Remediation.** Remove the community; use SNMPv3 with authentication and encryption ('snmp-server group ... v3 priv').
 
-**References.** MITRE ATT&CK T1602.001 Data from Configuration Repository: SNMP (MIB Dump); Cisco, Guide to Harden Cisco IOS Devices; CIS Cisco IOS Benchmark
+**References.** MITRE ATT&CK T1602.001 Data from Configuration Repository: SNMP (MIB Dump); Cisco, Harden IOS Devices; CIS Cisco IOS Benchmark
 
 ## MGMT-008
 
@@ -493,7 +493,7 @@
 
 **Remediation.** Set a domain name, generate an RSA key of at least 2048 bits ('crypto key generate rsa modulus 2048') and enforce 'ip ssh version 2'; add 'ip ssh time-out 60' and 'ip ssh authentication-retries 3'.
 
-**References.** MITRE ATT&CK T1021.004 Remote Services: SSH; CIS Cisco IOS Benchmark; Cisco, Guide to Harden Cisco IOS Devices
+**References.** MITRE ATT&CK T1021.004 Remote Services: SSH; CIS Cisco IOS Benchmark; Cisco, Harden IOS Devices
 
 ## RTE-001
 
@@ -503,7 +503,7 @@
 
 **Remediation.** RIPv2: 'key chain' + 'ip rip authentication mode md5' + 'ip rip authentication key-chain'. OSPF: 'area <n> authentication message-digest' (or per-interface) with 'ip ospf message-digest-key'. Also make user-facing interfaces passive.
 
-**References.** MITRE ATT&CK T1557 Adversary-in-the-Middle; Cisco, Guide to Harden Cisco IOS Devices; CIS Cisco IOS Benchmark; NSA, Network Infrastructure Security Guide
+**References.** MITRE ATT&CK T1557 Adversary-in-the-Middle; Cisco, Harden IOS Devices; CIS Cisco IOS Benchmark; NSA, Network Infrastructure Security Guide
 
 ## RTE-002
 
@@ -513,7 +513,7 @@
 
 **Remediation.** 'router rip' / 'version 2' / 'no auto-summary' with authentication, or migrate to OSPF.
 
-**References.** Cisco, Guide to Harden Cisco IOS Devices; NSA, Network Infrastructure Security Guide
+**References.** Cisco, Harden IOS Devices; NSA, Network Infrastructure Security Guide
 
 ## RTE-003
 
@@ -523,7 +523,7 @@
 
 **Remediation.** Use 'passive-interface default' under the routing process, then 'no passive-interface <link>' only on interfaces that face routers.
 
-**References.** Cisco, Guide to Harden Cisco IOS Devices; NSA, Network Infrastructure Security Guide; CIS Cisco IOS Benchmark
+**References.** Cisco, Harden IOS Devices; NSA, Network Infrastructure Security Guide; CIS Cisco IOS Benchmark
 
 ## RTE-004
 
@@ -533,7 +533,7 @@
 
 **Remediation.** Use MD5 (or HMAC-SHA with key chains where supported): 'ip ospf authentication message-digest'.
 
-**References.** Cisco, Guide to Harden Cisco IOS Devices; NSA, Network Infrastructure Security Guide
+**References.** Cisco, Harden IOS Devices; NSA, Network Infrastructure Security Guide
 
 ## SVC-001
 
@@ -553,7 +553,7 @@
 
 **Remediation.** 'no ip source-route'.
 
-**References.** CIS Cisco IOS Benchmark; Cisco, Guide to Harden Cisco IOS Devices
+**References.** CIS Cisco IOS Benchmark; Cisco, Harden IOS Devices
 
 ## SVC-003
 
@@ -563,7 +563,7 @@
 
 **Remediation.** Disable each one explicitly, e.g. 'no service tcp-small-servers', 'no service udp-small-servers', 'no ip bootp server'.
 
-**References.** CIS Cisco IOS Benchmark; Cisco, Guide to Harden Cisco IOS Devices
+**References.** CIS Cisco IOS Benchmark; Cisco, Harden IOS Devices
 
 ## SVC-004
 

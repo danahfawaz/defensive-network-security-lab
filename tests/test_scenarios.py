@@ -225,7 +225,7 @@ class Reports(unittest.TestCase):
         self.assertIn("ssh -l admin 10.10.99.1", plan)
         self.assertIn("Web Browser", plan)
         self.assertIn("Verified by simulation only", plan)
-        self.assertIn("cannot forge its source address", plan)
+        self.assertIn("no stock PC tool is known to forge a source address (not verified)", plan)
         rows = {r["id"]: r for r in vr.pt_plan_rows(self.validation, self.topology)}
         self.assertFalse(rows["S-01"]["testable"])
         self.assertFalse(rows["K-01"]["testable"])

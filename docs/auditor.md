@@ -1,6 +1,6 @@
 # The Cisco configuration security auditor (`ciscoaudit`)
 
-A command-line tool that reads exported Cisco IOS configurations, reports insecure settings with the risk and the fix, and can show what a remediation changed. Python 3.11+, standard library plus PyYAML (used only for waivers and scenario files). Source: `src/ciscoaudit/`.
+A command-line tool that reads exported Cisco IOS configurations, reports insecure settings with the risk and the fix, and can show what a remediation changed. Python 3.11+, standard library plus PyYAML (waivers, topology, scenario and policy files). Source: `src/ciscoaudit/`.
 
 ```bash
 pip install pyyaml                               # no other dependency
@@ -18,8 +18,8 @@ Formats: `text`, `json` (the stable machine-readable form; `compare` consumes it
 ```
  .cfg text ──► parser ──► DeviceConfig ──► rules (52) ──► findings ──► redaction ──► reports
                  │            │                │                │
-   global lines, │  helpers:  │   each rule is │  waivers add   │  secrets never reach
-   interfaces,   │  state(),  │  a function    │  status +      │  evidence or output
+   global lines, │  helpers:  │   each rule is │  waivers add   │  secrets are masked
+   interfaces,   │  state(),  │  a function    │  status +      │  before any output
    line blocks,  │  ACL model │  returning     │  reason        │
    ACL entries   │            │  Hit objects   │                │
 ```
@@ -28,7 +28,7 @@ Formats: `text`, `json` (the stable machine-readable form; `compare` consumes it
 * **ACL model** (`acl.py`): parses standard, extended and named ACL entries into addresses, wildcard masks, protocols, ports and flags and evaluates packets against them; the policy simulator evaluates packets with this same class, so the auditor and the simulator share one definition of what an entry means.
 * **Rules** (`rules/*.py`): each rule is a function decorated with `@rule(...)` carrying its identifier, severity, category, risk text, remediation text and references. The function yields `Hit` objects (what was found, the evidence lines). Adding a rule is adding one function and its tests.
 * **Findings** (`model.py`, `audit.py`): a `Hit` becomes a finding with device, file, object, evidence, risk, remediation, references and status (`open` or `accepted-risk`).
-* **Redaction** (`model.py`): secrets are redacted when the evidence line is created, not only when a report is written, so passwords, secrets and community strings cannot reach any output format; `tests/test_redact.py` and `tests/test_reports.py` check this with known test secrets.
+* **Redaction** (`model.py`): secrets are redacted when the evidence line is created, not only when a report is written, so no output format has to remember to do it. The patterns cover the credential forms listed in `tests/test_redact.py` (enable/line/user passwords and secrets, OSPF/NTP/key-chain keys, TACACS+/RADIUS keys, IPsec pre-shared keys, SNMP communities and v3 users, HSRP/VRRP authentication, Wi-Fi keys). A credential in a command form that is not covered would not be masked, so treat reports as sensitive until you have looked at them.
 * **Type 7 and MD5 handling** (`type7.py`, `md5crypt.py`): a type 7 password is decoded **only inside the process** to judge its strength (e.g. "is this `cisco`?") and is never printed. For `$1$` (type 5) hashes the salt and the hash are checked against a short list of well-known passwords; this is how a hashed default password is still caught.
 
 ## Rules
