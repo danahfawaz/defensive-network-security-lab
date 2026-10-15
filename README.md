@@ -145,6 +145,20 @@ The committed configurations hold **placeholder hashes** instead of passwords. `
 
 Router ACLs are stateless, traffic inside one VLAN is not filtered, the DMZ switch is managed in-band, and there is no AAA server; a production network would add a stateful firewall, TACACS+/RADIUS and an IPS. The full list, with the scenarios that pin each one down, is in [docs/limitations.md](docs/limitations.md).
 
+## Packet Tracer Validation Evidence
+### Enterprise Network Topology
+![Enterprise Network Topology](screenshots/01-enterprise-network-topology.png)
+
+### Port Security Violation Detection
+![Port Security Violation Detection](screenshots/02-port-security-violation.png)
+
+### DHCP Snooping Protection
+![DHCP Snooping Protection](screenshots/03-dhcp-snooping-protection.png)
+
+### Centralized Syslog Monitoring
+![Centralized Syslog Monitoring](screenshots/04-centralized-syslog-monitoring.png)
+
+
 ## License
 
 Released under the MIT License.
