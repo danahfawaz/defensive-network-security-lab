@@ -145,6 +145,8 @@ The committed configurations hold **placeholder hashes** instead of passwords. `
 
 Router ACLs are stateless, traffic inside one VLAN is not filtered, the DMZ switch is managed in-band, and there is no AAA server; a production network would add a stateful firewall, TACACS+/RADIUS and an IPS. The full list, with the scenarios that pin each one down, is in [docs/limitations.md](docs/limitations.md).
 
-## Licence
+## License
 
-Released under the [MIT License](LICENSE). The configurations of the original university lab are kept only as the "Day 0" state for the audit comparison (default names, no secrets).
+Released under the MIT License.
+
+A baseline configuration snapshot is retained solely for before-and-after security comparison and audit validation.
