@@ -2,9 +2,9 @@
 
 # Threat coverage
 
-Scenario identifiers per threat of [threat-model.md](../threat-model.md). *Simulated* scenarios are judged by the policy simulator or the auditor from the configuration text; *pending* ones (`X-nn`) need Packet Tracer and have not been run.
+Scenario identifiers per threat of [threat-model.md](../threat-model.md). *Simulated* scenarios are judged by the policy simulator or the auditor from the configuration text; the manual checks (`X-nn`) were observed by hand in Packet Tracer ([results](../packet-tracer-validation.md)).
 
-| Threat | Description | Simulated | Simulated scenarios | Pending (Packet Tracer) |
+| Threat | Description | Simulated | Simulated scenarios | Manual checks (Packet Tracer) |
 |---|---|---|---|---|
 | T01 | Guest users reach internal systems | 11 | B-01, B-02, B-03, B-04, B-05, B-06, B-19, S-09, M-11, L-07, L-08 | X-01 |
 | T02 | Lateral movement from a compromised workstation | 13 | B-07, B-08, B-09, B-10, B-11, B-12, B-13, B-15, B-16, M-08, M-09, M-10, K-05 | - |

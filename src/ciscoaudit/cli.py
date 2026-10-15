@@ -223,6 +223,10 @@ def _cmd_validate(args: argparse.Namespace) -> int:
     if args.pt_plan:
         _emit(vr.pt_plan_markdown(run, topology), args.pt_plan)
     if args.pt_results_template:
+        target = Path(args.pt_results_template)
+        if target.is_file() and any(r.get("packet_tracer_result", "not-run").strip() not in ("", "not-run")
+                                    for r in __import__("csv").DictReader(target.open(newline="", encoding="utf-8"))):
+            raise ValueError(f"{target} already holds recorded Packet Tracer results; refusing to overwrite it with an empty sheet")
         _emit(vr.pt_results_template(run, topology), args.pt_results_template)
     broken_design = [s for s, ok in run.design_ok.items() if not ok]
     if broken_design:
@@ -287,6 +291,9 @@ def _cmd_pt_compare(args: argparse.Namespace) -> int:
     lines = [f"recorded Packet Tracer results: {recorded}   agree with the simulator: {len(result['agree'])}   "
              f"disagree: {len(result['disagree'])}   not supported in Packet Tracer: {len(result['not_supported'])}   "
              f"not run yet: {len(result['not_run'])}"]
+    done = [m for m in result["manual"] if m["result"] == "succeeded"]
+    lines.append(f"manual Packet Tracer checks (X-nn): {len(result['manual'])}   observed: {len(done)}   "
+                 f"not run yet: {len(result['manual']) - len(done)}")
     lines += [f"  DISAGREE {d['id']}: simulator {d['simulator']}, Packet Tracer {d['packet_tracer']}" for d in result["disagree"]]
     lines += [f"  unknown scenario id in the CSV: {u}" for u in result["unknown_ids"]]
     _emit("\n".join(lines) + "\n", args.output)

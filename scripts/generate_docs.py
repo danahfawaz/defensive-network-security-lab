@@ -118,11 +118,14 @@ def dot(t: dict) -> str:
 
 
 def pt_verify() -> str:
-    """Every line of the committed configurations that the author has not executed in Packet Tracer."""
-    text = NOTICE + "# Lines not yet verified in Packet Tracer\n\n"
+    """Every line of the committed configurations whose handling by Packet Tracer was unknown when it was written."""
+    text = NOTICE + "# Configuration lines marked [PT-VERIFY]\n\n"
     text += ("Each entry is a `! [PT-VERIFY]` comment in a committed configuration; the configuration it describes follows the marker. They are "
-             "standard IOS, but nothing here claims Packet Tracer 9.0 accepts or enforces them. Paste the configuration, watch for "
-             "`% Invalid input` or silent no-ops, and record what you see in `evidence/packet-tracer/`.\n\n")
+             "standard IOS lines whose handling by Packet Tracer was not known when the configurations were written. The manual Packet "
+             "Tracer run ([results](../packet-tracer-validation.md)) exercised several of them (SSH, NTP, syslog, DHCP snooping, Dynamic ARP "
+             "Inspection, static NAT with the provider-routed block); "
+             "[export-comparison](../../evidence/packet-tracer/export-comparison.md) lists which lines the Packet Tracer running "
+             "configuration contains. Lines that were not individually tested are not claimed to have been.\n\n")
     rows = []
     for state in ("hardened", "baseline", "internet-sim"):
         for path in sorted((ROOT / "configs" / state).glob("*.cfg")):
@@ -147,14 +150,15 @@ def threat_coverage() -> str:
             names[cells[0]] = cells[1]
     text = NOTICE + "# Threat coverage\n\n"
     text += ("Scenario identifiers per threat of [threat-model.md](../threat-model.md). *Simulated* scenarios are judged by the policy "
-             "simulator or the auditor from the configuration text; *pending* ones (`X-nn`) need Packet Tracer and have not been run.\n\n")
+             "simulator or the auditor from the configuration text; the manual checks (`X-nn`) were observed by hand in Packet Tracer "
+             "([results](../packet-tracer-validation.md)).\n\n")
     rows = []
     for tid in sorted(names):
         hits = [sc for sc in scenarios if tid in sc.get("threats", [])]
         sim = [sc["id"] for sc in hits if sc["category"] != "manual"]
         pending = [sc["id"] for sc in hits if sc["category"] == "manual"]
         rows.append([tid, names[tid], len(sim), ", ".join(sim) or "-", ", ".join(pending) or "-"])
-    text += table(["Threat", "Description", "Simulated", "Simulated scenarios", "Pending (Packet Tracer)"], rows)
+    text += table(["Threat", "Description", "Simulated", "Simulated scenarios", "Manual checks (Packet Tracer)"], rows)
     return text
 
 

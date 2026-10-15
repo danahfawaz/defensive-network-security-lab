@@ -4,13 +4,17 @@
       "pass": 95,
       "fail": 0,
       "info": 20,
-      "pending": 9
+      "observed": 0,
+      "pending": 0,
+      "na": 9
     },
     "hardened": {
       "pass": 115,
       "fail": 0,
       "info": 0,
-      "pending": 9
+      "observed": 9,
+      "pending": 0,
+      "na": 0
     }
   },
   "design_checks_ok": {
@@ -5792,7 +5796,7 @@
       "at": null,
       "phase": null,
       "limitation": null,
-      "note": "Intended configuration; Packet Tracer support for this feature is not yet verified (docs/pt-verify.md).",
+      "note": "Judged from the configuration text; the behaviour was observed in Packet Tracer (X-08).",
       "results": {
         "baseline": {
           "status": "pass",
@@ -5838,7 +5842,7 @@
       "at": null,
       "phase": null,
       "limitation": null,
-      "note": "Intended configuration; Packet Tracer support for this feature is not yet verified (docs/pt-verify.md).",
+      "note": "Judged from the configuration text; the configuration and status were observed in Packet Tracer (X-09).",
       "results": {
         "baseline": {
           "status": "pass",
@@ -6296,9 +6300,9 @@
       "note": null,
       "results": {
         "baseline": {
-          "status": "pending",
-          "actual": "pending",
-          "detail": "needs a Packet Tracer run (see the test plan)",
+          "status": "na",
+          "actual": "n/a",
+          "detail": "the Packet Tracer checks were run on the hardened configuration only",
           "blocked_by": null,
           "at": null,
           "phase": "-",
@@ -6306,9 +6310,9 @@
           "reply_trace": null
         },
         "hardened": {
-          "status": "pending",
-          "actual": "pending",
-          "detail": "needs a Packet Tracer run (see the test plan)",
+          "status": "observed",
+          "actual": "observed",
+          "detail": "PC2 received 10.10.30.100/24, gateway 10.10.30.1, DNS 172.16.50.20.",
           "blocked_by": null,
           "at": null,
           "phase": "-",
@@ -6336,9 +6340,9 @@
       "note": null,
       "results": {
         "baseline": {
-          "status": "pending",
-          "actual": "pending",
-          "detail": "needs a Packet Tracer run (see the test plan)",
+          "status": "na",
+          "actual": "n/a",
+          "detail": "the Packet Tracer checks were run on the hardened configuration only",
           "blocked_by": null,
           "at": null,
           "phase": "-",
@@ -6346,9 +6350,9 @@
           "reply_trace": null
         },
         "hardened": {
-          "status": "pending",
-          "actual": "pending",
-          "detail": "needs a Packet Tracer run (see the test plan)",
+          "status": "observed",
+          "actual": "observed",
+          "detail": "SSH from PC3 to FW-EDGE succeeded; Telnet was blocked; SSH version 2 enabled.",
           "blocked_by": null,
           "at": null,
           "phase": "-",
@@ -6377,9 +6381,9 @@
       "note": null,
       "results": {
         "baseline": {
-          "status": "pending",
-          "actual": "pending",
-          "detail": "needs a Packet Tracer run (see the test plan)",
+          "status": "na",
+          "actual": "n/a",
+          "detail": "the Packet Tracer checks were run on the hardened configuration only",
           "blocked_by": null,
           "at": null,
           "phase": "-",
@@ -6387,9 +6391,9 @@
           "reply_trace": null
         },
         "hardened": {
-          "status": "pending",
-          "actual": "pending",
-          "detail": "needs a Packet Tracer run (see the test plan)",
+          "status": "observed",
+          "actual": "observed",
+          "detail": "A second MAC address on SW-ACCESS Fa0/1 raised PORT_SECURITY-2-PSECURE_VIOLATION and the port entered err-disabled.",
           "blocked_by": null,
           "at": null,
           "phase": "-",
@@ -6415,9 +6419,9 @@
       "note": null,
       "results": {
         "baseline": {
-          "status": "pending",
-          "actual": "pending",
-          "detail": "needs a Packet Tracer run (see the test plan)",
+          "status": "na",
+          "actual": "n/a",
+          "detail": "the Packet Tracer checks were run on the hardened configuration only",
           "blocked_by": null,
           "at": null,
           "phase": "-",
@@ -6425,9 +6429,9 @@
           "reply_trace": null
         },
         "hardened": {
-          "status": "pending",
-          "actual": "pending",
-          "detail": "needs a Packet Tracer run (see the test plan)",
+          "status": "observed",
+          "actual": "observed",
+          "detail": "Internal host reached the external web server; Internet host reached the DMZ web server through static NAT; show ip nat translations listed static and dynamic entries.",
           "blocked_by": null,
           "at": null,
           "phase": "-",
@@ -6438,7 +6442,7 @@
     },
     {
       "id": "X-05",
-      "title": "ACL counters show the blocked attempts",
+      "title": "The outside ACL blocks the Internet attacker's attempts",
       "category": "manual",
       "kind": "manual",
       "threats": [
@@ -6455,9 +6459,9 @@
       "note": null,
       "results": {
         "baseline": {
-          "status": "pending",
-          "actual": "pending",
-          "detail": "needs a Packet Tracer run (see the test plan)",
+          "status": "na",
+          "actual": "n/a",
+          "detail": "the Packet Tracer checks were run on the hardened configuration only",
           "blocked_by": null,
           "at": null,
           "phase": "-",
@@ -6465,9 +6469,9 @@
           "reply_trace": null
         },
         "hardened": {
-          "status": "pending",
-          "actual": "pending",
-          "detail": "needs a Packet Tracer run (see the test plan)",
+          "status": "observed",
+          "actual": "observed",
+          "detail": "From PC5 all eight attempts were blocked: Telnet/HTTP/ICMP to 203.0.113.2; SSH/ICMP/TCP 3389 to 203.0.113.9; SNMP UDP 161 to 203.0.113.10; ICMP to 10.10.10.10. The ACL output did not display deny hit counters (the exported configuration holds no explicit deny entries; see export-comparison.md).",
           "blocked_by": null,
           "at": null,
           "phase": "-",
@@ -6495,9 +6499,9 @@
       "note": null,
       "results": {
         "baseline": {
-          "status": "pending",
-          "actual": "pending",
-          "detail": "needs a Packet Tracer run (see the test plan)",
+          "status": "na",
+          "actual": "n/a",
+          "detail": "the Packet Tracer checks were run on the hardened configuration only",
           "blocked_by": null,
           "at": null,
           "phase": "-",
@@ -6505,9 +6509,9 @@
           "reply_trace": null
         },
         "hardened": {
-          "status": "pending",
-          "actual": "pending",
-          "detail": "needs a Packet Tracer run (see the test plan)",
+          "status": "observed",
+          "actual": "observed",
+          "detail": "SRV-LOG received a syslog event from SW-ACCESS; FW-EDGE and SW-ACCESS: clock is synchronized, stratum 2, reference 10.10.99.20.",
           "blocked_by": null,
           "at": null,
           "phase": "-",
@@ -6535,9 +6539,9 @@
       "note": null,
       "results": {
         "baseline": {
-          "status": "pending",
-          "actual": "pending",
-          "detail": "needs a Packet Tracer run (see the test plan)",
+          "status": "na",
+          "actual": "n/a",
+          "detail": "the Packet Tracer checks were run on the hardened configuration only",
           "blocked_by": null,
           "at": null,
           "phase": "-",
@@ -6545,9 +6549,9 @@
           "reply_trace": null
         },
         "hardened": {
-          "status": "pending",
-          "actual": "pending",
-          "detail": "needs a Packet Tracer run (see the test plan)",
+          "status": "observed",
+          "actual": "observed",
+          "detail": "show running-config retrieved on FW-EDGE, SW-ACCESS and SW-DMZ; password hashes replaced by XXXX in exported/; see export-audit.md and export-comparison.md.",
           "blocked_by": null,
           "at": null,
           "phase": "-",
@@ -6575,9 +6579,9 @@
       "note": null,
       "results": {
         "baseline": {
-          "status": "pending",
-          "actual": "pending",
-          "detail": "needs a Packet Tracer run (see the test plan)",
+          "status": "na",
+          "actual": "n/a",
+          "detail": "the Packet Tracer checks were run on the hardened configuration only",
           "blocked_by": null,
           "at": null,
           "phase": "-",
@@ -6585,9 +6589,9 @@
           "reply_trace": null
         },
         "hardened": {
-          "status": "pending",
-          "actual": "pending",
-          "detail": "needs a Packet Tracer run (see the test plan)",
+          "status": "observed",
+          "actual": "observed",
+          "detail": "Rogue DHCP server on VLAN 30 (Fa0/10) did not change the lease of PC2; show ip dhcp snooping: enabled on VLAN 30, Fa0/10 untrusted, Fa0/3 trusted, Fa0/4 untrusted with rate limit.",
           "blocked_by": null,
           "at": null,
           "phase": "-",
@@ -6598,7 +6602,7 @@
     },
     {
       "id": "X-09",
-      "title": "ARP inspection behaviour",
+      "title": "Dynamic ARP Inspection is enabled on the guest VLAN",
       "category": "manual",
       "kind": "manual",
       "threats": [
@@ -6615,9 +6619,9 @@
       "note": null,
       "results": {
         "baseline": {
-          "status": "pending",
-          "actual": "pending",
-          "detail": "needs a Packet Tracer run (see the test plan)",
+          "status": "na",
+          "actual": "n/a",
+          "detail": "the Packet Tracer checks were run on the hardened configuration only",
           "blocked_by": null,
           "at": null,
           "phase": "-",
@@ -6625,9 +6629,9 @@
           "reply_trace": null
         },
         "hardened": {
-          "status": "pending",
-          "actual": "pending",
-          "detail": "needs a Packet Tracer run (see the test plan)",
+          "status": "observed",
+          "actual": "observed",
+          "detail": "show ip arp inspection: Dynamic ARP Inspection enabled and active on VLAN 30. No live ARP-spoofing attack was run.",
           "blocked_by": null,
           "at": null,
           "phase": "-",
@@ -6637,5 +6641,5 @@
       }
     }
   ],
-  "note": "computed offline from the configuration files; not Packet Tracer results"
+  "note": "flow, audit and hygiene results are computed offline from the configuration files; manual checks (status 'observed') are read from evidence/packet-tracer/results.csv"
 }

@@ -4,7 +4,8 @@ A scenario file (``scenarios/scenarios.yaml``) lists test cases of three kinds:
 
 ``flow``     a packet exchange judged by the policy simulator (:mod:`ciscoaudit.policy.engine`);
 ``audit``    an assertion about the configuration, answered by the auditor's own rules;
-``manual``   a check that only Packet Tracer can answer - listed so it is not forgotten, reported as *pending*.
+``manual``   a check that only Packet Tracer can answer.  Its result is read from ``evidence/packet-tracer/results.csv``:
+             ``succeeded`` is reported as *observed* (in Packet Tracer), anything else as *pending*.
 
 Every scenario states what the **hardened** configuration must do (``expect``) and, where it is informative, what the
 **baseline** configuration does (``baseline``).  Asserting the baseline result as well is what turns "before and after"
@@ -75,8 +76,8 @@ class Scenario:
 @dataclass
 class Outcome:
     state: str
-    status: str  # pass | fail | info | pending
-    actual: str  # delivered | blocked | clean | finding | pending
+    status: str  # pass | fail | info | observed | pending | na
+    actual: str  # delivered | blocked | clean | finding | observed | pending
     detail: str = ""
     blocked_by: str | None = None
     at: str | None = None
@@ -219,9 +220,25 @@ def _check_names(flow: FlowSpec, topology: Topology, where: str) -> None:
 # --------------------------------------------------------------------------------------------------------------------
 
 
+PT_RESULTS = Path("evidence") / "packet-tracer" / "results.csv"
+
+
+def load_pt_results(topology: Topology) -> dict[str, tuple[str, str]]:
+    """Results recorded from Packet Tracer: ``{scenario id: (result, notes)}``; empty if the sheet does not exist."""
+    import csv
+
+    path = topology.root / PT_RESULTS
+    if not path.is_file():
+        return {}
+    with path.open(newline="", encoding="utf-8") as fh:
+        return {row["id"].strip(): ((row.get("packet_tracer_result") or "not-run").strip().lower(), (row.get("notes") or "").strip())
+                for row in csv.DictReader(fh) if (row.get("id") or "").strip()}
+
+
 class _Runner:
-    def __init__(self, topology: Topology) -> None:
+    def __init__(self, topology: Topology, pt_results: dict[str, tuple[str, str]] | None = None) -> None:
         self.topology = topology
+        self.pt_results = pt_results if pt_results is not None else load_pt_results(topology)
         self._networks: dict[str, Network] = {}
         self._sims: dict[str, Simulator] = {}
         self._audits: dict[str, Any] = {}
@@ -240,6 +257,11 @@ class _Runner:
     # -- one scenario in one state -----------------------------------------------------------------------------------
     def run(self, sc: Scenario, state: str) -> Outcome:
         if sc.kind == "manual":
+            if state != "hardened":
+                return Outcome(state, "na", "n/a", "the Packet Tracer checks were run on the hardened configuration only")
+            result, notes = self.pt_results.get(sc.id, ("not-run", ""))
+            if result == "succeeded":
+                return Outcome(state, "observed", "observed", notes or "observed in Packet Tracer")
             return Outcome(state, "pending", "pending", "needs a Packet Tracer run (see the test plan)")
         expected = sc.expected(state)
         if sc.kind == "flow":
@@ -293,10 +315,11 @@ class _Runner:
         return out
 
 
-def run_scenarios(topology: Topology, scenarios: list[Scenario], states: tuple[str, ...] = STATES) -> ValidationRun:
+def run_scenarios(topology: Topology, scenarios: list[Scenario], states: tuple[str, ...] = STATES,
+                  pt_results: dict[str, tuple[str, str]] | None = None) -> ValidationRun:
     from .design import check_design
 
-    runner = _Runner(topology)
+    runner = _Runner(topology, pt_results)
     results = [ScenarioResult(sc, {state: runner.run(sc, state) for state in states}) for sc in scenarios]
     design = {state: not any(i.severity == "error" for i in check_design(topology, state)) for state in states}
     return ValidationRun(results, tuple(states), design)

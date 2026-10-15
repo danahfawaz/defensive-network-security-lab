@@ -60,4 +60,4 @@ ATT&CK references were checked against attack.mitre.org on 2026-10-13. Only tech
 
 * **Simulation:** `ciscoaudit validate` runs 124 scenarios against the configuration files; `ciscoaudit matrix` probes 3 146 sender/destination/service combinations per state against the written policy. Both are computed from the configuration text and are **not** Packet Tracer results. See [validation](validation.md).
 * **Auditing:** the 52 auditor rules cover T03, T08, T09, T10 and T12 directly from the configuration text.
-* **Packet Tracer:** the generated [test plan](pt-test-plan.md) lists what to do in Packet Tracer for each scenario. Until it has been executed, the Packet Tracer column of every result is *pending*.
+* **Packet Tracer:** nine hands-on checks (X-01 to X-09) were performed in Packet Tracer 9.0.1 and passed; they cover T01, T03, T04, T08, T09, T10 and T12 ([results](packet-tracer-validation.md)). The generated [test plan](pt-test-plan.md) lists the other traffic tests.

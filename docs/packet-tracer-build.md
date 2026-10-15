@@ -1,6 +1,6 @@
 # Building the lab in Packet Tracer
 
-This is the procedure to turn the committed files into a running Packet Tracer (PT) network and to produce the evidence that is still marked *pending* in the README. It was written without being able to run Packet Tracer, so **every PT menu name below is from general PT knowledge and should be checked against your version (9.0)**. Where a step may behave differently, it is flagged.
+This is the procedure to turn the committed files into a running Packet Tracer (PT) network. It was used to perform the nine manual checks recorded in [packet-tracer-validation](packet-tracer-validation.md). Menu names can differ between PT versions (the run used 9.0.1), so check them against yours. Where a step may behave differently, it is flagged.
 
 Time needed: about 90 minutes for the first build.
 
@@ -106,6 +106,8 @@ PYTHONPATH=src python -m ciscoaudit validate --state hardened \
     --pt-plan docs/pt-test-plan.md --pt-results-template evidence/packet-tracer/results.csv
 ```
 
+(The command refuses to overwrite a sheet that already holds recorded results; write the empty template to another file name if you want a fresh one.)
+
 Open [pt-test-plan.md](pt-test-plan.md); for each row do what the *How to test in Packet Tracer* column says and enter the result in `evidence/packet-tracer/results.csv` (`succeeded`, `blocked`, `not-supported` or `not-run`). Some tests cannot be performed in Packet Tracer (spoofed sources, hand-crafted ACK segments); the plan marks them *simulation only*.
 
 Take screenshots only of what you actually saw, and save them as `docs/screenshots/NN-<what-it-shows>.png`. Do not crop out error messages.
@@ -116,7 +118,7 @@ Then compare PT with the prediction:
 PYTHONPATH=src python -m ciscoaudit pt-compare evidence/packet-tracer/results.csv
 ```
 
-A disagreement is a finding, not a failure of the project: it means the simulator's model or the Packet Tracer behaviour differs, and `docs/limitations.md` should say which.
+A disagreement is a finding about the model: it means the simulator's assumptions or the Packet Tracer behaviour differ, and `docs/limitations.md` should say which.
 
 ## 7. Export and re-audit the configurations from Packet Tracer
 
@@ -128,7 +130,7 @@ PYTHONPATH=src python -m ciscoaudit audit evidence/packet-tracer/exported --waiv
 diff -u <(grep -v '^!' configs/hardened/FW-EDGE.cfg) <(grep -v '^!' evidence/packet-tracer/exported/FW-EDGE.cfg)
 ```
 
-Lines that are in the committed configuration but missing from the export are commands Packet Tracer silently dropped or rewrote. That is real evidence about Packet Tracer support, positive or negative. (Export files must be named after the device, `FW-EDGE.cfg`.)
+Lines that are in the committed configuration but missing from the export are commands that Packet Tracer did not keep in its running configuration or printed differently. `scripts/make_evidence.py` produces this comparison (`evidence/packet-tracer/export-comparison.md`) from the exports in `evidence/packet-tracer/exported/`. (Export files must be named after the device, `FW-EDGE.cfg`.)
 
 ## 8. Before/after demonstration (optional, strong in an interview)
 

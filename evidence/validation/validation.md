@@ -1,6 +1,6 @@
 # Security validation (simulation)
 
-> These results are computed offline from the configuration files in `configs/` and the lab design in `topology/topology.yaml`. They say what the configurations do. They are **not** Packet Tracer results: no scenario listed here has been run in Packet Tracer unless a row in `evidence/packet-tracer/` says so.
+> Flow, audit and hygiene results are computed offline from the configuration files in `configs/` and the lab design in `topology/topology.yaml`; they say what the configurations do and are **not** Packet Tracer results. The manual checks (X-nn) are the exception: their result is what was observed in Packet Tracer, read from `evidence/packet-tracer/results.csv`.
 
 ## Summary
 
@@ -9,7 +9,9 @@
 | Scenarios that passed | 95 | 115 |
 | Scenarios that failed | 0 | 0 |
 | Informational (no expectation asserted) | 20 | 0 |
-| Pending (need Packet Tracer) | 9 | 9 |
+| Manual checks observed in Packet Tracer | 0 | 9 |
+| Manual checks awaiting a Packet Tracer run | 0 | 0 |
+| Manual checks not applicable (Packet Tracer run on the hardened network only) | 9 | 0 |
 | Design checks (config matches topology) | OK | OK |
 
 ## Business traffic that must work
@@ -166,15 +168,15 @@
 
 | ID | Scenario | Baseline | Hardened | Why (hardened) |
 |---|---|---|---|---|
-| X-01 | The guest PC obtains an address, gateway and DNS server by DHCP | pending | pending | see docs/pt-test-plan.md |
-| X-02 | SSH login to the firewall works and Telnet is refused | pending | pending | see docs/pt-test-plan.md |
-| X-03 | Port security shuts the port when a second device appears | pending | pending | see docs/pt-test-plan.md |
-| X-04 | NAT translations appear for browsing and for the published servers | pending | pending | see docs/pt-test-plan.md |
-| X-05 | ACL counters show the blocked attempts | pending | pending | see docs/pt-test-plan.md |
-| X-06 | Syslog and NTP reach the log server | pending | pending | see docs/pt-test-plan.md |
-| X-07 | Re-audit the configurations exported from Packet Tracer | pending | pending | see docs/pt-test-plan.md |
-| X-08 | Rogue DHCP server on the guest VLAN is ignored (DHCP snooping) | pending | pending | see docs/pt-test-plan.md |
-| X-09 | ARP inspection behaviour | pending | pending | see docs/pt-test-plan.md |
+| X-01 | The guest PC obtains an address, gateway and DNS server by DHCP | n/a (hardened only) | observed in Packet Tracer | PC2 received 10.10.30.100/24, gateway 10.10.30.1, DNS 172.16.50.20. |
+| X-02 | SSH login to the firewall works and Telnet is refused | n/a (hardened only) | observed in Packet Tracer | SSH from PC3 to FW-EDGE succeeded; Telnet was blocked; SSH version 2 enabled. |
+| X-03 | Port security shuts the port when a second device appears | n/a (hardened only) | observed in Packet Tracer | A second MAC address on SW-ACCESS Fa0/1 raised PORT_SECURITY-2-PSECURE_VIOLATION and the port entered err-disabled. |
+| X-04 | NAT translations appear for browsing and for the published servers | n/a (hardened only) | observed in Packet Tracer | Internal host reached the external web server; Internet host reached the DMZ web server through static NAT; show ip nat translations listed static and dynamic entries. |
+| X-05 | The outside ACL blocks the Internet attacker's attempts | n/a (hardened only) | observed in Packet Tracer | From PC5 all eight attempts were blocked: Telnet/HTTP/ICMP to 203.0.113.2; SSH/ICMP/TCP 3389 to 203.0.113.9; SNMP UDP 161 to 203.0.113.10; ICMP to 10.10.10.10. The ACL output did not display deny hit counters (the exported configuration holds no explicit deny entries; see export-comparison.md). |
+| X-06 | Syslog and NTP reach the log server | n/a (hardened only) | observed in Packet Tracer | SRV-LOG received a syslog event from SW-ACCESS; FW-EDGE and SW-ACCESS: clock is synchronized, stratum 2, reference 10.10.99.20. |
+| X-07 | Re-audit the configurations exported from Packet Tracer | n/a (hardened only) | observed in Packet Tracer | show running-config retrieved on FW-EDGE, SW-ACCESS and SW-DMZ; password hashes replaced by XXXX in exported/; see export-audit.md and export-comparison.md. |
+| X-08 | Rogue DHCP server on the guest VLAN is ignored (DHCP snooping) | n/a (hardened only) | observed in Packet Tracer | Rogue DHCP server on VLAN 30 (Fa0/10) did not change the lease of PC2; show ip dhcp snooping: enabled on VLAN 30, Fa0/10 untrusted, Fa0/3 trusted, Fa0/4 untrusted with rate limit. |
+| X-09 | Dynamic ARP Inspection is enabled on the guest VLAN | n/a (hardened only) | observed in Packet Tracer | show ip arp inspection: Dynamic ARP Inspection enabled and active on VLAN 30. No live ARP-spoofing attack was run. |
 
 ## How to read this
 

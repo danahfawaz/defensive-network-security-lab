@@ -1,15 +1,16 @@
 # Validation: how the design is tested, and what the tests prove
 
-> **Read this first.** Everything marked *simulated* below is computed by the project's own tools from the configuration files. None of it was produced by Packet Tracer. Packet Tracer results are *pending* until you run the [test plan](pt-test-plan.md).
+> **Read this first.** There are three kinds of evidence, kept apart: **automated configuration auditing** (`ciscoaudit audit`), **policy simulation** (`validate`, `matrix`) and **manual Packet Tracer validation** (checks X-01 to X-09). The first two are computed by the project's own tools from the configuration files; they are not Packet Tracer output. The third was observed by hand in Packet Tracer 9.0.1 on 2026-10-15; see [packet-tracer-validation](packet-tracer-validation.md).
 
-## Four layers
+## Five layers
 
 | Layer | Tool | Question answered | Result today |
 |---|---|---|---|
 | 1. Design consistency | `ciscoaudit design-check` | Do the configurations implement `topology.yaml` (addresses, VLANs, ports, trunks, NAT)? | OK for baseline and hardened (14 checks each) |
 | 2. Configuration audit | `ciscoaudit audit` | Which insecure settings are present? | Hardened: **0 open**, 5 accepted risks. Baseline: 65 open (3 critical, 7 high) |
-| 3. Policy scenarios | `ciscoaudit validate` | Does each named attack fail and each business flow work? | Hardened: **115 passed, 0 failed**, 9 pending (Packet Tracer). Baseline: 95 asserted pass, 20 informational, 9 pending |
+| 3. Policy scenarios | `ciscoaudit validate` | Does each named attack fail and each business flow work? | Hardened: **115 passed, 0 failed**, 9 manual checks observed in Packet Tracer. Baseline: 95 asserted pass, 20 informational (the Packet Tracer checks cover the hardened network only) |
 | 4. Exhaustive matrix | `ciscoaudit matrix` | Is *anything else* permitted that the written policy does not list? | Hardened: **0 unexpected permits, 0 unexpected blocks** in 3 146 probes. Baseline: 1 447 probes cross zones against 87 hardened |
+| 5. Manual Packet Tracer validation | checks X-01 to X-09, by hand | Do DHCP, SSH, port security, NAT, the outside ACL, syslog/NTP, DHCP snooping and DAI behave as designed on running devices? | **9 of 9 passed** ([results](packet-tracer-validation.md)) |
 
 The committed outputs are in `evidence/` (see its README). Reproduce everything with `make all` and `make evidence`.
 
@@ -26,7 +27,7 @@ The committed outputs are in `evidence/` (see its README). Reproduce everything 
 | layer2 | 8 | Layer-2 controls, judged by auditor rules on the configuration text. |
 | hygiene | 7 | Audit properties: no default credentials, SSH-only, timeouts, logging, ACL hygiene. |
 | limitation | 8 | Documented weaknesses, asserted so they cannot change silently (e.g. a crafted ACK passes the stateless ACL). |
-| manual | 9 | Need Packet Tracer (DHCP lease, SSH login, port-security shutdown, NAT table, DHCP snooping, DAI, ...); reported as *pending*. |
+| manual | 9 | Checked by hand in Packet Tracer (DHCP lease, SSH login, port-security shutdown, NAT table, outside ACL, syslog/NTP, DHCP snooping, DAI); the result is read from `evidence/packet-tracer/results.csv` and reported as *observed in Packet Tracer*. |
 
 Each flow scenario is judged by the policy simulator and states the expected outcome for the hardened configuration; many also state the baseline outcome, so the before/after contrast is itself asserted. For a blocked flow the scenario also states `by` (ACL, route, vty or no-service) and `at` (device), so a test fails if a flow is blocked **for the wrong reason**.
 
@@ -60,12 +61,13 @@ Tests of the tests (`tests/test_scenarios.py`, `tests/test_matrix.py`, `tests/te
 
 | It shows | It does not show |
 |---|---|
-| The configuration text, as written, implements the policy: allowed flows work, listed attacks fail, nothing unlisted passes (under the simulator's model) | That Packet Tracer accepts every line or enforces it identically |
+| The configuration text, as written, implements the policy: allowed flows work, listed attacks fail, nothing unlisted passes (under the simulator's model) | Behaviour on running devices; that is what the Packet Tracer checks add |
+| In Packet Tracer: DHCP, SSH-only management, port security, NAT/PAT, the default-deny outside ACL, syslog/NTP, DHCP snooping and DAI work as designed (9 of 9 checks) | Each configuration line individually, or every traffic scenario one by one; those remain simulation results |
 | The auditor finds the weaknesses it has rules for, and the baseline → hardened comparison is computed | That the rules are complete; a clean audit means "none of these 52 checks fired" |
 | Limitations are asserted, so they are visible | Anything about stateful behaviour, host firewalls, applications or DoS |
 
-## Closing the gap with Packet Tracer
+## Comparing Packet Tracer with the simulator
 
-1. Build the lab ([build guide](packet-tracer-build.md)) and run the [test plan](pt-test-plan.md). Record results in `evidence/packet-tracer/results.csv`.
-2. `python -m ciscoaudit pt-compare evidence/packet-tracer/results.csv` reports, per scenario, agreement, disagreement, *not supported in Packet Tracer* or *not run*.
-3. Every disagreement is a finding about either the simulator or Packet Tracer; write it into [limitations](limitations.md).
+1. Build the lab ([build guide](packet-tracer-build.md)) and run the checks of the [test plan](pt-test-plan.md). Results go into `evidence/packet-tracer/results.csv`.
+2. `python -m ciscoaudit pt-compare evidence/packet-tracer/results.csv` reports the manual checks that were observed and, for any traffic scenario that is run, agreement, disagreement, *not supported in Packet Tracer* or *not run*.
+3. A disagreement is a finding about either the simulator or Packet Tracer; write it into [limitations](limitations.md).

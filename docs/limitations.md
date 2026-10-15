@@ -8,11 +8,12 @@ This page lists what the project does **not** do or prove. It exists so that nob
 |---|---|
 | The auditor finds the insecure settings it has rules for | **Verified** by 300+ unit tests, including tests against deliberately broken configurations |
 | The hardened configuration files implement the written policy | **Verified by simulation**: 115 scenarios and the 3 146-probe matrix are computed from the configuration text |
-| Packet Tracer 9.0 accepts every command in the hardened configurations | **Not verified.** 20 groups of lines are marked `[PT-VERIFY]` ([list](generated/pt-verify.md)); the rest were written from standard IOS syntax and the original lab's exported configurations |
-| Packet Tracer enforces the ACLs, NAT, port security, DHCP snooping, DAI as the simulator assumes | **Not verified.** The 9 `X-nn` scenarios and the whole [test plan](pt-test-plan.md) are *pending* |
-| Screenshots | None are committed. They are added only after the test plan has been run in Packet Tracer |
+| The hardened configurations work in Packet Tracer 9.0.1 | **Observed**: the nine manual checks X-01 to X-09 passed on 2026-10-15 ([results](packet-tracer-validation.md)) |
+| Packet Tracer holds every line of the hardened configurations | **Not all of them.** Packet Tracer reported `% Invalid input` for some pasted commands. Its running configuration does not contain the ACL entries that use the `log` keyword (the anti-spoofing denies and the explicit final denies), `no ip redirects`, `no ip unreachables`, `no service pad` and a few logging and SSH tuning lines; the permit entries, `login block-for`, the `Null0` route, NAT, port security, DHCP snooping, DAI, SSH, syslog and NTP are present. Per line: [export-comparison](../evidence/packet-tracer/export-comparison.md), [pt-verify](generated/pt-verify.md) |
+| Every traffic scenario was run one by one in Packet Tracer | **No.** The flows exercised by X-02, X-04 and X-05 matched the simulator; the other traffic scenarios and the spoofing scenarios (which need a forged source address, not available with stock Packet Tracer PCs) are simulation results |
+| Screenshots | None are included; results are recorded as text in `evidence/packet-tracer/results.csv` and as the exported running configurations |
 
-The simulator models **what the configuration says**, not what Packet Tracer does. A disagreement between the two is a result worth recording (`ciscoaudit pt-compare`), not an error to hide.
+The simulator models **what the configuration says**, not what Packet Tracer does. Where the two differ, the difference is recorded (`ciscoaudit pt-compare`, [export-comparison](../evidence/packet-tracer/export-comparison.md)) rather than hidden.
 
 ## 2. Network design
 
@@ -58,4 +59,4 @@ Same-subnet traffic is treated as switched and never filtered. If a destination 
 ## 6. Reproducibility
 
 * The evidence in `evidence/` was produced by the commands in the README with the date pinned (`--today`) so that waiver expiry gives identical output. Regenerate with `make evidence`.
-* The committed audit of the **hardened** configurations is an audit of the *intended* configuration files, not of a device exported from Packet Tracer. Step 7 of the [build guide](packet-tracer-build.md) produces the latter.
+* The committed audit of the **hardened** configurations is an audit of the *intended* configuration files. The running configurations exported from Packet Tracer were audited separately: [`evidence/packet-tracer/export-audit.md`](../evidence/packet-tracer/export-audit.md).

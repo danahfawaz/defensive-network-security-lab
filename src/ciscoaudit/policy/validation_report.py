@@ -10,11 +10,13 @@ from .scenarios import CATEGORIES, Outcome, Scenario, ScenarioResult, Validation
 from .topology import Topology
 
 _STATE_TITLE = {"baseline": "Baseline", "hardened": "Hardened"}
-_MARK = {"pass": "PASS", "fail": "FAIL", "info": "info", "pending": "pending"}
+_MARK = {"pass": "PASS", "fail": "FAIL", "info": "info", "observed": "PT-PASS", "pending": "pending", "na": "n/a"}
+_STATUSES = ("pass", "fail", "info", "observed", "pending", "na")
 _DISCLAIMER = (
-    "These results are computed offline from the configuration files in `configs/` and the lab design in "
-    "`topology/topology.yaml`. They say what the configurations do. They are **not** Packet Tracer results: no scenario "
-    "listed here has been run in Packet Tracer unless a row in `evidence/packet-tracer/` says so."
+    "Flow, audit and hygiene results are computed offline from the configuration files in `configs/` and the lab design in "
+    "`topology/topology.yaml`; they say what the configurations do and are **not** Packet Tracer results. The manual checks "
+    "(X-nn) are the exception: their result is what was observed in Packet Tracer, read from "
+    "`evidence/packet-tracer/results.csv`."
 )
 
 
@@ -24,8 +26,8 @@ def _cell(text: str) -> str:
 
 def _short(outcome: Outcome) -> str:
     """The result of one scenario in a few words."""
-    if outcome.status == "pending":
-        return "pending"
+    if outcome.status in ("pending", "observed", "na"):
+        return {"observed": "observed in Packet Tracer", "pending": "pending", "na": "n/a (hardened only)"}[outcome.status]
     if outcome.actual == "blocked":
         by = f"{outcome.blocked_by} @ {outcome.at}" if outcome.blocked_by else "blocked"
         return f"blocked ({by}{', ' + outcome.phase if outcome.phase == 'reply' else ''})"
@@ -40,10 +42,10 @@ def _short(outcome: Outcome) -> str:
 def to_text(run: ValidationRun, *, verbose: bool = False) -> str:
     lines = []
     for state in run.states:
-        counts = {k: run.count(state, k) for k in ("pass", "fail", "info", "pending")}
+        counts = {k: run.count(state, k) for k in _STATUSES}
         design = "design checks OK" if run.design_ok.get(state, True) else "DESIGN CHECKS FAIL"
         lines.append(f"{state}: {counts['pass']} passed, {counts['fail']} failed, {counts['info']} informational, "
-                     f"{counts['pending']} pending (manual)   [{design}]")
+                     f"{counts['observed']} manual checks observed in Packet Tracer, {counts['pending']} awaiting a Packet Tracer run   [{design}]")
     lines.append("")
     width = max(len(r.scenario.id) for r in run.results)
     for r in run.results:
@@ -89,9 +91,10 @@ def to_json(run: ValidationRun) -> str:
             for state, o in r.outcomes.items()
         }
         results.append(entry)
-    summary = {state: {k: run.count(state, k) for k in ("pass", "fail", "info", "pending")} for state in run.states}
+    summary = {state: {k: run.count(state, k) for k in _STATUSES} for state in run.states}
     return json.dumps({"summary": summary, "design_checks_ok": run.design_ok, "scenarios": results,
-                       "note": "computed offline from the configuration files; not Packet Tracer results"}, indent=2) + "\n"
+                       "note": "flow, audit and hygiene results are computed offline from the configuration files; "
+                               "manual checks (status 'observed') are read from evidence/packet-tracer/results.csv"}, indent=2) + "\n"
 
 
 def to_csv(run: ValidationRun) -> str:
@@ -121,7 +124,9 @@ def _summary_table(run: ValidationRun) -> list[str]:
     sep = "|---|" + "---:|" * len(run.states)
     rows = [head, sep]
     for label, key in (("Scenarios that passed", "pass"), ("Scenarios that failed", "fail"),
-                       ("Informational (no expectation asserted)", "info"), ("Pending (need Packet Tracer)", "pending")):
+                       ("Informational (no expectation asserted)", "info"),
+                       ("Manual checks observed in Packet Tracer", "observed"), ("Manual checks awaiting a Packet Tracer run", "pending"),
+                       ("Manual checks not applicable (Packet Tracer run on the hardened network only)", "na")):
         rows.append(f"| {label} | " + " | ".join(str(run.count(s, key)) for s in run.states) + " |")
     rows.append("| Design checks (config matches topology) | " + " | ".join("OK" if run.design_ok.get(s, True) else "FAIL" for s in run.states) + " |")
     return rows
@@ -171,12 +176,14 @@ def to_markdown(run: ValidationRun, *, title: str = "Security validation report"
 
 
 def _mark_result(o: Outcome) -> str:
-    return f"{_short(o)}" if o.status in ("pending", "info") else f"{_short(o)} - {_MARK[o.status]}"
+    return f"{_short(o)}" if o.status in ("pending", "info", "observed", "na") else f"{_short(o)} - {_MARK[o.status]}"
 
 
 def _why(o: Outcome) -> str:
     if o.status == "pending":
         return "see docs/pt-test-plan.md"
+    if o.status == "observed":
+        return o.detail
     if o.status == "fail":
         return o.detail
     return o.detail
@@ -233,7 +240,8 @@ def pt_plan_rows(run: ValidationRun, topology: Topology) -> list[dict]:
         sc = r.scenario
         if sc.kind == "manual":
             rows.append({"id": sc.id, "title": sc.title, "how": " ".join(f"({i}) {s}" for i, s in enumerate(sc.steps, 1)),
-                         "predicted": "see steps", "note": "manual check", "testable": True})
+                         "predicted": "see steps", "note": "manual check", "testable": True,
+                         "recorded": "observed in Packet Tracer" if r.outcomes["hardened"].status == "observed" else "pending"})
             continue
         if sc.kind == "audit":
             continue
@@ -270,9 +278,9 @@ def pt_plan_markdown(run: ValidationRun, topology: Topology) -> str:
     ]
     for r in testable:
         lines.append(f"| {r['id']} | {_cell(r['title'])} | {_cell(r['how'])} | {r['predicted']} | {_cell(r['note'])} |")
-    lines += ["", f"## 2. Manual checks ({len(manual)})", "", "| ID | Check | Steps |", "|---|---|---|"]
+    lines += ["", f"## 2. Manual checks ({len(manual)})", "", "| ID | Check | Steps | Result recorded |", "|---|---|---|---|"]
     for r in manual:
-        lines.append(f"| {r['id']} | {_cell(r['title'])} | {_cell(r['how'])} |")
+        lines.append(f"| {r['id']} | {_cell(r['title'])} | {_cell(r['how'])} | {r['recorded']} |")
     lines += [
         "", f"## 3. Verified by simulation only ({len(sim_only)})", "",
         "These flows need a forged source address or a hand-built ACK segment, which no stock Packet Tracer PC tool is known "
@@ -306,11 +314,13 @@ def pt_compare(run: ValidationRun, results_csv: str) -> dict:
     """Compare the simulator's hardened predictions with results recorded from Packet Tracer."""
     predicted = {r.scenario.id: r.outcomes["hardened"].actual for r in run.results if r.scenario.kind == "flow"}
     rows = list(csv.DictReader(io.StringIO(results_csv)))
-    agree, disagree, not_run, unsupported, unknown = [], [], [], [], []
+    agree, disagree, not_run, unsupported, unknown, manual = [], [], [], [], [], []
     for row in rows:
         sid, got = row.get("id", "").strip(), (row.get("packet_tracer_result") or "not-run").strip().lower()
         if sid not in predicted:
-            if not sid.startswith("X-"):
+            if sid.startswith("X-"):
+                manual.append({"id": sid, "result": got})
+            else:
                 unknown.append(sid)
             continue
         want = "succeeded" if predicted[sid] == "delivered" else "blocked"
@@ -322,4 +332,5 @@ def pt_compare(run: ValidationRun, results_csv: str) -> dict:
             agree.append(sid)
         else:
             disagree.append({"id": sid, "simulator": want, "packet_tracer": got})
-    return {"agree": agree, "disagree": disagree, "not_run": not_run, "not_supported": unsupported, "unknown_ids": unknown}
+    return {"agree": agree, "disagree": disagree, "not_run": not_run, "not_supported": unsupported, "unknown_ids": unknown,
+            "manual": manual}

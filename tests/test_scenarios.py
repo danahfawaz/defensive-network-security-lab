@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import contextlib
 import csv
 import io
 import json
@@ -49,7 +50,9 @@ class CommittedScenarios(unittest.TestCase):
         self.assertEqual([(r.scenario.id, o.detail) for r, o in self.validation.failures], [])
         self.assertEqual(self.validation.count("hardened", "fail"), 0)
         self.assertEqual(self.validation.count("hardened", "info"), 0, "every scenario states what the hardened network must do")
-        self.assertEqual(self.validation.count("hardened", "pending"), sum(1 for s in self.scenarios if s.kind == "manual"))
+        manual = sum(1 for s in self.scenarios if s.kind == "manual")
+        self.assertEqual(self.validation.count("hardened", "observed") + self.validation.count("hardened", "pending"), manual)
+        self.assertEqual(self.validation.count("baseline", "na"), manual, "the Packet Tracer checks cover the hardened network only")
 
     def test_baseline_results_are_asserted_not_assumed(self):
         asserted = [s for s in self.scenarios if s.kind != "manual" and s.baseline]
@@ -191,7 +194,8 @@ class Reports(unittest.TestCase):
     def test_json_is_complete_and_honest_about_its_origin(self):
         data = json.loads(vr.to_json(self.validation))
         self.assertEqual(data["summary"]["hardened"]["fail"], 0)
-        self.assertIn("not Packet Tracer results", data["note"])
+        self.assertIn("computed offline", data["note"])
+        self.assertIn("results.csv", data["note"])
         flow = next(s for s in data["scenarios"] if s["id"] == "B-22")
         self.assertEqual(flow["results"]["hardened"]["blocked_by"], "IN-OUTSIDE")
         self.assertTrue(flow["results"]["hardened"]["request_trace"])
@@ -313,6 +317,56 @@ class Commands(unittest.TestCase):
     def test_scenario_file_is_valid_yaml_with_the_documented_header(self):
         data = yaml.safe_load(SCENARIOS.read_text())
         self.assertEqual(data["schema"], 1)
+
+
+class ManualChecksReadTheResultsSheet(unittest.TestCase):
+    """The nine manual checks are *observed* only where results.csv says ``succeeded``; nothing is assumed."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.topology = load_topology(TOPOLOGY)
+        cls.scenarios = sc.load_scenarios(SCENARIOS, cls.topology)
+        cls.manual = [s.id for s in cls.scenarios if s.kind == "manual"]
+
+    def status(self, pt_results):
+        run = sc.run_scenarios(self.topology, self.scenarios, ("hardened",), pt_results=pt_results)
+        return {r.scenario.id: r.outcomes["hardened"].status for r in run.results if r.scenario.kind == "manual"}
+
+    def test_without_results_every_manual_check_is_pending(self):
+        self.assertEqual(set(self.status({}).values()), {"pending"})
+
+    def test_succeeded_is_observed_and_anything_else_is_not(self):
+        results = {self.manual[0]: ("succeeded", "ok"), self.manual[1]: ("blocked", ""), self.manual[2]: ("not-supported", "")}
+        status = self.status(results)
+        self.assertEqual(status[self.manual[0]], "observed")
+        self.assertEqual(status[self.manual[1]], "pending")
+        self.assertEqual(status[self.manual[2]], "pending")
+        self.assertEqual(sum(1 for s in status.values() if s == "observed"), 1)
+
+    def test_the_committed_sheet_is_read_by_default(self):
+        recorded = sc.load_pt_results(self.topology)
+        expected = {i for i in self.manual if recorded.get(i, ("",))[0] == "succeeded"}
+        run = sc.run_scenarios(self.topology, self.scenarios, ("hardened",))
+        self.assertEqual({r.scenario.id for r in run.results if r.outcomes["hardened"].status == "observed"}, expected)
+
+    def test_pt_compare_reports_the_manual_checks(self):
+        run = sc.run_scenarios(self.topology, self.scenarios, ("hardened",), pt_results={})
+        sheet = "id,simulator_predicts,packet_tracer_result,date,notes,screenshot\nX-01,manual,succeeded,,,\nX-02,manual,not-run,,,\n"
+        result = vr.pt_compare(run, sheet)
+        self.assertEqual([m["id"] for m in result["manual"]], ["X-01", "X-02"])
+        self.assertEqual(result["unknown_ids"], [])
+
+    def test_the_empty_template_never_overwrites_recorded_results(self):
+        import tempfile
+        with tempfile.TemporaryDirectory() as tmp:
+            sheet = Path(tmp, "results.csv")
+            sheet.write_text("id,simulator_predicts,packet_tracer_result,date,notes,screenshot\nX-01,manual,succeeded,,,\n", encoding="utf-8")
+            before = sheet.read_text(encoding="utf-8")
+            with contextlib.redirect_stdout(io.StringIO()), contextlib.redirect_stderr(io.StringIO()):
+                code = cli.main(["validate", "--topology", str(TOPOLOGY), "--scenarios", str(SCENARIOS), "--state", "hardened",
+                                 "--pt-results-template", str(sheet)])
+            self.assertNotEqual(code, 0)
+            self.assertEqual(sheet.read_text(encoding="utf-8"), before)
 
 
 if __name__ == "__main__":

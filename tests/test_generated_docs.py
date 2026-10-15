@@ -96,8 +96,10 @@ class QuotedNumbers(unittest.TestCase):
         data = json.loads(out.getvalue())
         self.assertIn(f"{len(data['scenarios'])} scenarios", self.text)
         hard, base = data["summary"]["hardened"], data["summary"]["baseline"]
-        self.assertIn(f"{hard['pass']} passed, {hard['fail']} failed**, {hard['pending']} pending", self.text)
-        self.assertIn(f"{base['pass']} asserted pass, {base['info']} informational, {base['pending']} pending", self.text)
+        self.assertIn(f"{hard['pass']} passed, {hard['fail']} failed**", self.text)
+        self.assertIn(f"{hard['observed']} manual checks observed in Packet Tracer", self.text)
+        self.assertEqual(hard["pending"], 0, "wording about pending Packet Tracer checks was removed from the docs")
+        self.assertIn(f"{base['pass']} asserted pass, {base['info']} informational", self.text)
 
 
 class ReadmeNumbers(unittest.TestCase):
@@ -149,11 +151,41 @@ class Evidence(unittest.TestCase):
             self.assertTrue(path.exists(), f"{path} missing - run make evidence")
             self.assertEqual(path.read_text(encoding="utf-8"), text, f"evidence/{name} is stale - run make evidence")
 
-    def test_packet_tracer_folder_is_never_written_by_the_generator(self):
+    def test_generator_never_writes_what_was_observed_in_packet_tracer(self):
+        """results.csv and the exported running configurations are supplied by hand; only reports derived from them are generated."""
         spec = importlib.util.spec_from_file_location("make_evidence2", ROOT / "scripts" / "make_evidence.py")
         module = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(module)
-        self.assertFalse([n for n in module.build(with_tests=False) if n.startswith("packet-tracer")])
+        written = {n for n in module.build(with_tests=False) if n.startswith("packet-tracer")}
+        self.assertEqual(written, {"packet-tracer/export-audit.md", "packet-tracer/export-comparison.md"})
+
+
+class PacketTracerExports(unittest.TestCase):
+    """The running configurations exported from Packet Tracer are public: they must carry no password material."""
+
+    devices = ("FW-EDGE", "SW-ACCESS", "SW-DMZ")
+
+    def test_exports_exist_for_every_audited_device(self):
+        for dev in self.devices:
+            self.assertTrue((ROOT / "evidence/packet-tracer/exported" / f"{dev}.cfg").is_file(), dev)
+
+    def test_exports_hold_redacted_secrets_only(self):
+        import re
+        for dev in self.devices:
+            text = (ROOT / "evidence/packet-tracer/exported" / f"{dev}.cfg").read_text(encoding="utf-8")
+            self.assertNotIn("$1$", text, dev)
+            self.assertNotIn("\r", text, dev)
+            secrets = re.findall(r"^.*\b(?:secret|password) \d? ?(\S+)$", text, flags=re.M)
+            self.assertTrue(secrets, dev)
+            for value in secrets:
+                self.assertIn(value, ("XXXX", "password-encryption"), f"{dev}: unredacted value on a secret/password line")
+
+    def test_every_recorded_result_has_a_date(self):
+        import csv
+        with (ROOT / "evidence/packet-tracer/results.csv").open(newline="", encoding="utf-8") as fh:
+            for row in csv.DictReader(fh):
+                if row["packet_tracer_result"] not in ("", "not-run"):
+                    self.assertTrue(row["date"], row["id"])
 
 
 class PacketTracerPlan(unittest.TestCase):

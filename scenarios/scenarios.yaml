@@ -9,7 +9,7 @@
 # A scenario is one of three kinds:
 #   flow    "<sender> -> <destination> <proto>/<port> [sport=N] [spoof=IP] [ack] [oneway]"  judged by the policy simulator
 #   audit   rules of the configuration auditor that must report nothing (expect: clean) or something (expect: finding)
-#   manual  needs Packet Tracer; reported as "pending" until the lab is built and tested (see docs/pt-test-plan.md)
+#   manual  checked by hand in Packet Tracer; the result is read from evidence/packet-tracer/results.csv (see docs/pt-test-plan.md)
 #
 # For a flow that must be blocked, `by` names what stops it (an ACL name, route, vty or no-service), `at` the device.
 #
@@ -270,10 +270,10 @@ scenarios:
      kind: audit, check: {rules: [L2-010], device: "SW-*"}, expect: clean, baseline: finding}
   - {id: L-07, title: "DHCP snooping protects the guest VLAN against rogue DHCP servers", category: layer2, threats: [T01, T08],
      kind: audit, check: {rules: [L2-011], device: SW-ACCESS}, expect: clean, baseline: finding,
-     note: "Intended configuration; Packet Tracer support for this feature is not yet verified (docs/pt-verify.md)."}
+     note: "Judged from the configuration text; the behaviour was observed in Packet Tracer (X-08)."}
   - {id: L-08, title: "Dynamic ARP Inspection protects the guest VLAN against ARP spoofing", category: layer2, threats: [T01, T08],
      kind: audit, check: {rules: [L2-012], device: SW-ACCESS}, expect: clean, baseline: finding,
-     note: "Intended configuration; Packet Tracer support for this feature is not yet verified (docs/pt-verify.md)."}
+     note: "Judged from the configuration text; the configuration and status were observed in Packet Tracer (X-09)."}
   - {id: L-09, title: "DHCP snooping and ARP inspection are not applied to the statically addressed DMZ switch (accepted risk)", category: limitation, threats: [T08],
      kind: audit, check: {rules: [L2-011, L2-012], device: SW-DMZ}, expect: finding, limitation: dmz-no-snooping,
      note: "Recorded as an accepted risk with a reason in waivers/hardened.yaml."}
@@ -297,7 +297,7 @@ scenarios:
      note: "Recorded as an accepted risk with a reason in waivers/hardened.yaml."}
 
   # ==================================================================================================================
-  # Checks only Packet Tracer can answer (pending until you run them; see docs/pt-test-plan.md)
+  # Checks only Packet Tracer can answer (performed by hand; results in evidence/packet-tracer/results.csv; see docs/pt-test-plan.md)
   # ==================================================================================================================
   - id: X-01
     title: The guest PC obtains an address, gateway and DNS server by DHCP
@@ -335,13 +335,13 @@ scenarios:
       - "Open http://198.51.100.80 on PC0, then run 'show ip nat translations' on the firewall."
       - "Open http://203.0.113.9 on PC4 and run the command again; the static entries must be listed."
   - id: X-05
-    title: ACL counters show the blocked attempts
+    title: The outside ACL blocks the Internet attacker's attempts
     category: manual
     threats: [T04]
     kind: manual
     steps:
-      - "Run the blocked scenarios B-20 to B-25 from PC5 (ping, browser, Telnet)."
-      - "Run 'show access-lists IN-OUTSIDE' on the firewall and record the hit counters of the deny entries."
+      - "From PC5 try: Telnet, HTTP and ping to 203.0.113.2; SSH, ping and TCP/3389 to 203.0.113.9; SNMP (UDP/161) to 203.0.113.10; ping to 10.10.10.10. All must fail."
+      - "Run 'show access-lists IN-OUTSIDE' on the firewall and record what it displays (hit counters appear only for entries that exist in the running configuration)."
   - id: X-06
     title: Syslog and NTP reach the log server
     category: manual
@@ -350,7 +350,7 @@ scenarios:
     steps:
       - "Enable the Syslog and NTP services on SRV-LOG."
       - "Change a setting on a device (for example shut and re-enable an unused interface) and check that SRV-LOG receives the message."
-      - "Run 'show ntp status' on FW-EDGE and SW-ACCESS and record whether Packet Tracer supports it."
+      - "Run 'show ntp status' on FW-EDGE and SW-ACCESS and record the output."
   - id: X-07
     title: Re-audit the configurations exported from Packet Tracer
     category: manual
@@ -359,7 +359,7 @@ scenarios:
     steps:
       - "On each device run 'show running-config' and save the output to a text file named <hostname>.cfg."
       - "Run 'ciscoaudit audit <folder> --waivers waivers/hardened.yaml' and compare with the committed audit of the intended configurations."
-      - "Every line Packet Tracer rejected while pasting (docs/pt-verify.md) will show up as a difference."
+      - "Lines of the intended configuration that the running configuration does not contain are listed in evidence/packet-tracer/export-comparison.md."
   - id: X-08
     title: Rogue DHCP server on the guest VLAN is ignored (DHCP snooping)
     category: manual
@@ -368,12 +368,12 @@ scenarios:
     steps:
       - "Connect a server with a DHCP service to an unused switch port in VLAN 30."
       - "Release and renew the lease on PC2 and record which server answered."
-      - "Record whether Packet Tracer supports 'ip dhcp snooping' at all."
+      - "Run 'show ip dhcp snooping' on SW-ACCESS and record the VLAN, the trusted ports and the rate limits."
   - id: X-09
-    title: ARP inspection behaviour
+    title: Dynamic ARP Inspection is enabled on the guest VLAN
     category: manual
     threats: [T08]
     kind: manual
     steps:
-      - "Check whether 'ip arp inspection vlan 30' is accepted by the 2960 image in Packet Tracer."
-      - "If it is, record what 'show ip arp inspection' prints; if not, mark the control as not testable in Packet Tracer."
+      - "Run 'show ip arp inspection' on SW-ACCESS and record whether Dynamic ARP Inspection is enabled and active on VLAN 30."
+      - "This check covers the configuration and operational status; it does not run an ARP-spoofing attack."
