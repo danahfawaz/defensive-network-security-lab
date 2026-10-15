@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "ciscoaudit"
 version = "0.1.0"
-description = "Cisco IOS configuration security auditor and offline ACL policy validator for the Enterprise Network Security & Configuration Auditing Lab"
+description = "Cisco IOS configuration security auditor and offline ACL policy validator for the Defensive Network Security Lab"
 readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "MIT" }

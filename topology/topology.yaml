@@ -8,7 +8,7 @@
 # Interface names use the short IOS forms (Fa0/0, Eth0/1/0, Gi0/1).
 
 schema: 1
-name: Enterprise Network Security & Configuration Auditing Lab
+name: Defensive Network Security Lab
 
 # --- Devices that run IOS ---------------------------------------------------------------------------------------------
 # pt_label is the name of the device in the original Packet Tracer file; configs/original-lab/<pt_label>.cfg holds its
