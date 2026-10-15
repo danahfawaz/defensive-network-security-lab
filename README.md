@@ -147,16 +147,16 @@ Router ACLs are stateless, traffic inside one VLAN is not filtered, the DMZ swit
 
 ## Packet Tracer Validation Evidence
 ### Enterprise Network Topology
-![Enterprise Network Topology](screenshots/01-enterprise-network-topology.png)
+![Enterprise Network Topology](screenshots/enterprise-network-topology.png)
 
 ### Port Security Violation Detection
-![Port Security Violation Detection](screenshots/02-port-security-violation.png)
+![Port Security Violation Detection](screenshots/port-security-violation.png)
 
 ### DHCP Snooping Protection
-![DHCP Snooping Protection](screenshots/03-dhcp-snooping-protection.png)
+![DHCP Snooping Protection](screenshots/dhcp-snooping-protection.png)
 
 ### Centralized Syslog Monitoring
-![Centralized Syslog Monitoring](screenshots/04-centralized-syslog-monitoring.png)
+![Centralized Syslog Monitoring](screenshots/centralized-syslog-monitoring.png)
 
 
 ## License
